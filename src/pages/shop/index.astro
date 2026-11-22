@@ -1,0 +1,1577 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { getAllProducts, getCategories, getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const paidProducts = getAllProducts(config.catalog.showDraftsInDev)
+  .filter((p) => p.type === 'paid')
+  .sort((a, b) => b.number - a.number);
+const categories = getCategories();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+
+const shopSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${siteUrl}/shop/#collection`,
+  name: 'Shop All Printable Kinusaiga Patterns | Kinosaiga Pattern',
+  description: 'Browse our complete collection of 110+ printable Kinusaiga fabric art patterns. Instant digital PDF and PNG downloads for no-sew Japanese textile art.',
+  url: `${siteUrl}/shop`,
+  datePublished: '2026-11-05T00:00:00Z',
+  dateModified: '2026-11-09T18:00:00Z',
+  inLanguage: 'en',
+  author: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#author`,
+    name: 'Kinosaiga Pattern Studio',
+    url: `${siteUrl}/about`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: 'Kinosaiga Pattern',
+    url: siteUrl,
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: paidProducts.length,
+    itemListElement: paidProducts.slice(0, 30).map((p, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      item: {
+        '@type': 'Product',
+        name: p.title,
+        url: `${siteUrl}/products/${p.slug}`,
+        image: `${siteUrl}${p.images[0]?.variants[0]?.src || '/favicon.png'}`,
+        description: p.summary,
+        offers: {
+          '@type': 'Offer',
+          price: p.price !== null ? p.price.toString() : '1.99',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+        },
+      },
+    })),
+  },
+};
+
+const shopFaqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${siteUrl}/shop/#faq`,
+  name: 'Kinusaiga Patterns Frequently Asked Questions & Buying Guide',
+  url: `${siteUrl}/shop`,
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What Are Kinusaiga Pattern Templates & How Do They Work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Kinusaiga pattern templates are printable vector outlines engineered for no-sew Japanese fabric art, allowing crafters to transfer numbered contours onto high-density foam boards, incise 2–3mm grooves, and tuck fabric edges smoothly with a stylus.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How Do You Choose the Best Kinusaiga Pattern for Beginners?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Beginners should select patterns with larger individual pieces and gentle curves—such as bold animal silhouettes, single flower blossoms, or simple objects—before advancing to multi-piece landscapes or fine architectural motifs.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What File Formats and Scaled Sizes Are Included with Each Purchase?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Every pattern download includes PDF and PNG files pre-scaled across 8 or 10 standard frame dimensions (listed on each pattern page), calibrated to print at 100% actual size without distortion on standard home printers.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which Materials and Tools Do You Need to Complete a Pattern?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'You only need 4 basic household crafting supplies to complete any Kinusaiga project: a sheet of 1/2-inch high-density XPS foam board, woven fabric scraps (quilting cotton or linen), a precision craft knife, and a blunt tucking stylus.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title="Shop All Printable Kinusaiga Patterns | Kinosaiga Pattern"
+  description="Browse our complete collection of 110+ printable Kinusaiga fabric art patterns. Instant digital PDF and PNG downloads for no-sew Japanese textile art."
+  schema={[shopSchema, shopFaqSchema]}
+>
+  <!-- Upgraded Shop Hero Section -->
+  <section class="shop-hero">
+    <div class="container shop-hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Authentic Japanese Fabric Art Collection</span>
+      </div>
+
+      <h1 class="shop-title">
+        Shop All <span class="highlight">Kinusaiga Patterns</span>
+      </h1>
+    </div>
+  </section>
+
+  <div class="container shop-container">
+    <!-- Upgraded Modern Filter Card -->
+    <div class="filter-card">
+      <div class="filter-controls-row">
+        <!-- Search Input with Embedded Icon & Clear Button -->
+        <div class="search-wrap">
+          <svg class="search-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            id="filter-search"
+            placeholder="Search"
+            class="search-field"
+            autocomplete="off"
+            aria-label="Search"
+          />
+          <button type="button" id="clear-search-btn" class="clear-btn" aria-label="Clear search" style="display: none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Filter Selects -->
+        <div class="selects-wrap">
+          <div class="custom-select-box">
+            <svg class="select-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="21 8 21 21 3 21 3 8"></polyline>
+              <line x1="10" y1="12" x2="14" y2="12"></line>
+            </svg>
+            <select id="filter-sort" class="styled-select" aria-label="Sort patterns">
+              <option value="id-desc" selected>Newest First</option>
+              <option value="id-asc">Catalog Order</option>
+              <option value="name">Name (A–Z)</option>
+              <option value="price-asc">Price (Low to High)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Category Chips Bar -->
+      <div class="category-chips-bar" aria-label="Category Filters">
+        <button type="button" class="chip-btn active" data-cat="all">
+          All <span class="chip-count">{paidProducts.length}</span>
+        </button>
+        {categories.map((c) => (
+          <button type="button" class="chip-btn" data-cat={c.slug}>
+            {c.name.replace(' Patterns', '').replace(' Pattern', '')}
+            <span class="chip-count">{c.count}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Active Filters & Counter Meta Bar -->
+    <div class="results-bar">
+      <div class="counter-wrap">
+        <span class="live-dot"></span>
+        <span id="results-count">Showing <strong>{paidProducts.length}</strong> patterns</span>
+      </div>
+
+      <div id="active-tags-wrap" class="active-tags" style="display: none;">
+        <span class="tag-chip" id="tag-category" style="display: none;">
+          Category: <strong id="tag-category-text"></strong>
+          <button type="button" id="remove-tag-cat" class="tag-x" aria-label="Remove category filter">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </span>
+        <span class="tag-chip" id="tag-search" style="display: none;">
+          Search: "<strong id="tag-search-text"></strong>"
+          <button type="button" id="remove-tag-search" class="tag-x" aria-label="Remove search filter">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </span>
+        <button type="button" id="reset-all-tags" class="reset-link">Reset all</button>
+      </div>
+    </div>
+
+    <!-- Anchor for Smooth Pagination Scrolling -->
+    <div id="catalog-top-anchor" style="scroll-margin-top: 110px;"></div>
+
+    <!-- Product Grid Section with Proper Heading Hierarchy -->
+    <section class="catalog-section" aria-label="Kinusaiga Pattern Catalog">
+      <h2 class="sr-only">Available Kinusaiga Pattern Templates</h2>
+
+      <div class="product-grid" id="product-grid">
+        {paidProducts.map((prod, idx) => (
+          <div
+            class:list={['product-item', { 'initial-hidden': idx >= 60 }]}
+            data-id={prod.id.toLowerCase()}
+            data-name={prod.title.toLowerCase()}
+            data-niche={prod.niche.toLowerCase()}
+            data-category={prod.categorySlug}
+            data-type={prod.type}
+            data-number={prod.number}
+            data-price={prod.price !== null ? prod.price : 0}
+          >
+            <ProductCard product={prod} />
+          </div>
+        ))}
+      </div>
+
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <div class="empty-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <h3 class="empty-title">No matching patterns found</h3>
+        <p>Try searching for a different keyword or reset your category filters to view all designs.</p>
+        <button id="reset-filters" class="btn btn-green">Reset Filters</button>
+      </div>
+
+      <!-- Bottom Pagination & Per-Page Controls Bar -->
+      <div class="pagination-bar pagination-bar-bottom" id="pagination-bottom" aria-label="Bottom Catalog Pagination">
+        <div class="pagination-info">
+          <span id="page-summary-bottom" class="page-summary">Page 1 of {Math.ceil(paidProducts.length / 60)}</span>
+        </div>
+
+        <div class="pagination-nav" id="pagination-nav-bottom"></div>
+
+        <div class="per-page-control">
+          <label for="per-page-select-bottom" class="per-page-label">Show:</label>
+          <div class="custom-select-box per-page-box">
+            <select id="per-page-select-bottom" class="styled-select per-page-select" aria-label="Products per page (bottom)">
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="60" selected>60</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust & Feature Badges Moved Directly Under Pagination Navigation -->
+      <div class="feature-strip feature-strip-bottom" aria-label="Customer Trust & Guarantees">
+        <div class="feature-item">
+          <svg class="feat-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Instant Download (PDF & PNG)</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feat-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+          </svg>
+          <span>8–10 Proportional Frame Sizes</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feat-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6" cy="6" r="3"></circle>
+            <circle cx="6" cy="18" r="3"></circle>
+            <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+            <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+            <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+          </svg>
+          <span>100% No-Sew Technique</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feat-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>14-Day Refund Policy</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Moved Answer-First Definition & E-E-A-T Byline Section to Page Bottom -->
+    <div class="shop-bottom-definition-wrap">
+      <div class="shop-answer-first" aria-label="Pattern Collection Definition">
+        <p class="lead-answer">
+          <strong>Kinusaiga patterns are printable full-scale Japanese fabric art templates</strong> formatted for no-sew textile tucking onto high-density foam boards. Our collection provides nearly 300 paid digital PDF and PNG designs pre-scaled across 8 or 10 frame sizes with clear cutting outlines for craft creation.
+        </p>
+      </div>
+
+      <!-- Visible Machine-Readable Byline for E-E-A-T and Citability -->
+      <div class="shop-byline-bar" aria-label="Catalog Provenance">
+        <span class="byline-author">Curated by <a href="/about" rel="author">Kinosaiga Pattern Studio</a></span>
+        <span class="byline-sep">•</span>
+        <span class="byline-date">Published <time datetime="2026-11-05">Nov 5, 2026</time></span>
+        <span class="byline-sep">•</span>
+        <span class="byline-updated">Updated <time datetime="2026-11-09">Nov 9, 2026</time></span>
+      </div>
+    </div>
+
+    <!-- Craft Collection Standards Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 4.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.6rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Japanese Textile Craft Collection
+      </div>
+      <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Japanese_crafts" style="margin: 0; color: #1e293b; line-height: 1.65;">
+        <p>
+          "Kinusaiga art represents a unique fusion of mosaic geometry and tactile silk craft, allowing crafters worldwide to assemble intricate wall art without needle or thread."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.6rem; font-size: 0.85rem; color: #64748b;">
+          — Curated according to Japanese craft heritage documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and preserved in the <a href="https://americanart.si.edu/art/craft" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Smithsonian American Art Museum Craft Archive</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <!-- Educational & Buying Guide Section with Question-Style Headings and Answer-First Structure -->
+    <section class="shop-info-section" aria-label="Kinusaiga Patterns Buying & Crafting Guide">
+      <div class="shop-info-block">
+        <h2 class="info-question">What Are Kinusaiga Pattern Templates & How Do They Work?</h2>
+        <p class="lead-answer">
+          <strong>Kinusaiga pattern templates are printable vector outlines engineered for no-sew Japanese fabric art</strong>, allowing crafters to transfer numbered contours onto high-density foam boards, incise 2–3mm grooves, and tuck fabric edges smoothly with a stylus.
+        </p>
+        <p>
+          Unlike traditional patchwork, embroidery, or needlepoint, Kinusaiga requires no sewing needles, sewing machines, or messy adhesives. The foam groove provides gentle mechanical friction that holds fabric margins firmly in place, creating a dimensional, tactile mosaic effect.
+        </p>
+      </div>
+
+      <div class="shop-info-block">
+        <h2 class="info-question">How Do You Choose the Best Kinusaiga Pattern for Beginners?</h2>
+        <p class="lead-answer">
+          <strong>Beginners should select patterns with larger individual pieces and gentle curves</strong>—such as bold animal silhouettes, single flower blossoms, or simple objects—before advancing to multi-piece landscapes or fine architectural motifs.
+        </p>
+        <p>
+          Our shop categorizes patterns by subject (animals, nature, flowers, ordinary objects) and provides 8 or 10 pre-scaled sizes per download (listed on each product page), so you can start on smaller 5×5 or 8×8 inch frames for manageable craft results.
+        </p>
+      </div>
+
+      <div class="shop-info-block">
+        <h2 class="info-question">What File Formats and Scaled Sizes Are Included with Each Purchase?</h2>
+        <p class="lead-answer">
+          <strong>Every pattern download includes PDF and PNG files pre-scaled across 8 or 10 standard frame dimensions</strong>, calibrated to print at 100% actual size without distortion on standard home printers.
+        </p>
+        <p>
+          You receive instant digital download links directly via Payhip after checkout, accompanied by no-background outline versions ready for your craft workspace.
+        </p>
+      </div>
+
+      <div class="shop-info-block">
+        <h2 class="info-question">Which Materials and Tools Do You Need to Complete a Pattern?</h2>
+        <p class="lead-answer">
+          <strong>You only need 4 basic household crafting supplies to complete any Kinusaiga project</strong>: a sheet of 1/2-inch high-density XPS foam board, woven fabric scraps (quilting cotton or linen), a precision craft knife, and a blunt tucking stylus.
+        </p>
+        <p>
+          For comprehensive instructions on tools and blade angles, explore our free step-by-step <a href="/learn/materials-and-tools">Materials & Tools Guide</a> and <a href="/learn/how-to-make-kinusaiga">Kinusaiga Tutorial</a>.
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .shop-hero {
+    background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 2.75rem 0 2rem;
+    text-align: center;
+    position: relative;
+    width: 100%;
+  }
+  .shop-hero-inner {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    color: #1d4ed8;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    margin-bottom: 0.85rem;
+  }
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+  }
+  .shop-title {
+    font-size: clamp(2.1rem, 4vw, 2.9rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.15;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .shop-title .highlight {
+    color: var(--cta-green);
+    position: relative;
+    display: inline-block;
+  }
+  .shop-answer-first {
+    max-width: 840px;
+    margin: 0 auto 1.25rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  .shop-answer-first .lead-answer {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #334155;
+    margin: 0;
+  }
+  .shop-answer-first .lead-answer strong {
+    color: #1e40af;
+    font-weight: 700;
+  }
+  .shop-byline-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 auto 1.75rem;
+    flex-wrap: wrap;
+  }
+  .shop-byline-bar a {
+    color: var(--cta-green);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .shop-byline-bar .byline-sep {
+    color: #cbd5e1;
+  }
+  .shop-subtitle {
+    font-size: 1.15rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0 auto 2rem;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .feature-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.25rem 2.2rem;
+    margin: 2rem 0 1.5rem;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04), 0 2px 4px -1px rgba(15, 23, 42, 0.02);
+  }
+  .feature-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+  }
+  .feat-icon {
+    color: var(--cta-green);
+    flex-shrink: 0;
+  }
+
+  /* Main Shop Layout */
+  .shop-container {
+    padding-top: 1.75rem;
+    padding-bottom: 5rem;
+  }
+
+  /* Modern Filter Card */
+  .filter-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    margin-bottom: 1.5rem;
+  }
+  .filter-controls-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-wrap {
+    flex: 1 1 auto;
+    min-width: 240px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .search-svg {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    pointer-events: none;
+  }
+  .search-field {
+    width: 100%;
+    padding: 0.78rem 2.4rem 0.78rem 2.85rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    color: #0f172a;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+  .search-field:focus {
+    background: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+  .clear-btn {
+    position: absolute;
+    right: 0.8rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    border: none;
+    color: #64748b;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .clear-btn:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+  }
+
+  .selects-wrap {
+    display: flex;
+    gap: 0.75rem;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+  }
+  .custom-select-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .select-icon {
+    position: absolute;
+    left: 0.85rem;
+    color: #94a3b8;
+    pointer-events: none;
+  }
+  .styled-select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0.78rem 2.3rem 0.78rem 2.2rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #1e293b;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .styled-select:focus {
+    background-color: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  /* Quick Category Chips */
+  .category-chips-bar {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+  .category-chips-bar::-webkit-scrollbar {
+    height: 4px;
+  }
+  .category-chips-bar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  .chip-btn {
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.42rem 0.9rem;
+    border-radius: 9999px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .chip-btn:hover {
+    border-color: #cbd5e1;
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+  .chip-btn.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  }
+  .chip-count {
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.06);
+    color: inherit;
+  }
+  .chip-btn.active .chip-count {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  /* Results Bar */
+  .results-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 0 0.2rem;
+  }
+  .counter-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.92rem;
+    color: #64748b;
+  }
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3b82f6;
+    display: inline-block;
+  }
+  .active-tags {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #eff6ff;
+    border: 1px solid #a7f3d0;
+    color: #1e40af;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.22rem 0.6rem;
+    border-radius: 6px;
+  }
+  .tag-chip strong {
+    font-weight: 700;
+  }
+  .tag-x {
+    background: none;
+    border: none;
+    color: #2563eb;
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+  }
+  .reset-link {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0.2rem;
+  }
+
+  /* Grid & Empty State */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 4.5rem 1rem;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+  }
+  .empty-icon-wrap {
+    font-size: 2.8rem;
+    margin-bottom: 0.75rem;
+  }
+  .empty-state h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+  .empty-state p {
+    color: #64748b;
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 992px) {
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem 1.5rem;
+      padding: 1.15rem 1.4rem;
+      justify-items: start;
+    }
+    .feature-item {
+      white-space: normal;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .shop-hero {
+      padding: 2.25rem 0 1.75rem;
+    }
+    .filter-card {
+      padding: 1rem 0.9rem;
+      border-radius: 14px;
+    }
+    .filter-controls-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.65rem;
+    }
+    .search-wrap {
+      width: 100%;
+      min-width: 0;
+      flex: 0 0 auto;
+    }
+    .selects-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .custom-select-box {
+      width: 100%;
+    }
+    .styled-select {
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 0.65rem 1.8rem 0.65rem 2rem;
+    }
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .shop-hero {
+      padding: 1.75rem 0 1.25rem;
+    }
+    .shop-title {
+      font-size: clamp(1.6rem, 5.8vw, 2.1rem);
+      margin-bottom: 1.15rem;
+    }
+    .shop-subtitle {
+      font-size: clamp(0.72rem, 3.2vw, 0.92rem);
+      line-height: 1.35;
+      margin-bottom: 1.15rem;
+      white-space: nowrap;
+    }
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem 0.85rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      text-align: left;
+    }
+    .feature-item {
+      font-size: 0.82rem;
+      gap: 0.45rem;
+      white-space: normal;
+    }
+    .feat-icon {
+      width: 14px;
+      height: 14px;
+    }
+    .selects-wrap {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .shop-info-block {
+      padding: 1.35rem 1.15rem;
+    }
+    .info-question {
+      font-size: 1.18rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .feature-strip {
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+      padding: 0.8rem;
+    }
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Educational Guide Section */
+  .shop-info-section {
+    margin-top: 3.5rem;
+    margin-bottom: 2rem;
+    display: grid;
+    gap: 2rem;
+  }
+  .shop-info-block {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.75rem 2rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .info-question {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.85rem;
+    line-height: 1.35;
+  }
+  .shop-info-block p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 0.85rem;
+  }
+  .shop-info-block p:last-child {
+    margin-bottom: 0;
+  }
+  .shop-info-block a {
+    color: var(--cta-green);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+    color: var(--text-main) !important;
+    margin-bottom: 1rem !important;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Initial state to prevent flash of 600+ items */
+  .product-item.initial-hidden {
+    display: none;
+  }
+
+  /* Bottom Pagination Bar */
+  .pagination-bar-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.15rem 1.6rem;
+    margin: 3.5rem 0 2rem;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+
+  .pagination-info {
+    display: inline-flex;
+    align-items: center;
+    background: #f1f5f9;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    letter-spacing: 0.01em;
+  }
+  .pagination-info :global(strong) {
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  .pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  :global(.page-btn) {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    padding: 0 0.85rem !important;
+    border-radius: 10px !important;
+    border: 1.5px solid #e2e8f0 !important;
+    background: #ffffff !important;
+    color: #334155 !important;
+    font-size: 0.92rem !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    line-height: 1 !important;
+    outline: none !important;
+  }
+
+  :global(.page-btn:hover:not(:disabled):not(.active)) {
+    background: #eff6ff !important;
+    border-color: #3b82f6 !important;
+    color: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15) !important;
+  }
+
+  :global(.page-btn.active) {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%) !important;
+    border-color: #2563eb !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
+    cursor: default !important;
+    transform: translateY(-1px) !important;
+  }
+
+  :global(.page-btn:disabled) {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+    color: #94a3b8 !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  :global(.page-btn-prev), :global(.page-btn-next) {
+    padding: 0 1.05rem !important;
+    font-weight: 600 !important;
+    gap: 0.35rem !important;
+  }
+
+  :global(.page-btn-prev svg), :global(.page-btn-next svg) {
+    stroke-width: 2.4 !important;
+  }
+
+  :global(.page-ellipsis) {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 28px !important;
+    height: 42px !important;
+    color: #94a3b8 !important;
+    font-weight: 700 !important;
+    font-size: 1.15rem !important;
+    letter-spacing: 0.1em !important;
+    user-select: none !important;
+  }
+
+  .per-page-control {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .per-page-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
+  }
+  .per-page-box {
+    position: relative;
+  }
+  .per-page-box .per-page-select {
+    padding: 0.5rem 2.2rem 0.5rem 0.95rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: 10px;
+    border: 1.5px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #1e293b;
+    cursor: pointer;
+    min-width: 88px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .per-page-box .per-page-select:hover {
+    border-color: #3b82f6;
+  }
+  .per-page-box .per-page-select:focus {
+    border-color: var(--cta-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    .pagination-bar-bottom {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.15rem 1rem;
+    }
+    .pagination-info {
+      text-align: center;
+    }
+    .per-page-control {
+      width: 100%;
+      justify-content: center;
+    }
+    :global(.page-btn) {
+      min-width: 36px !important;
+      height: 36px !important;
+      font-size: 0.84rem !important;
+      padding: 0 0.55rem !important;
+      border-radius: 8px !important;
+    }
+    :global(.page-btn-prev), :global(.page-btn-next) {
+      padding: 0 0.75rem !important;
+    }
+    :global(.page-ellipsis) {
+      height: 36px !important;
+    }
+  }
+
+  /* Moved Answer-First & Citations Box at Page Bottom */
+  .shop-bottom-definition-wrap {
+    margin: 3.5rem 0 2rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+  .shop-bottom-definition-wrap .shop-answer-first {
+    max-width: 860px;
+    margin: 0 auto 1.25rem;
+    padding: 0;
+    text-align: center;
+  }
+  .shop-bottom-definition-wrap .shop-answer-first .lead-answer {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #334155;
+    margin: 0;
+  }
+  .shop-bottom-definition-wrap .shop-answer-first .lead-answer strong {
+    color: #1e40af;
+    font-weight: 700;
+  }
+  .shop-bottom-definition-wrap .shop-byline-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  .shop-bottom-definition-wrap .shop-byline-bar a {
+    color: var(--cta-green);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .pagination-bar {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+    }
+    .pagination-info {
+      text-align: center;
+    }
+    .per-page-control {
+      width: 100%;
+      justify-content: center;
+    }
+    .page-btn {
+      min-width: 35px;
+      height: 35px;
+      font-size: 0.84rem;
+      padding: 0 0.45rem;
+    }
+    .page-btn-prev, .page-btn-next {
+      padding: 0 0.65rem;
+    }
+  }
+</style>
+
+<script>
+  const searchInput = document.getElementById('filter-search') as HTMLInputElement;
+  const clearSearchBtn = document.getElementById('clear-search-btn') as HTMLButtonElement;
+  let currentCategory = 'all';
+  const sortSelect = document.getElementById('filter-sort') as HTMLSelectElement;
+  const grid = document.getElementById('product-grid') as HTMLElement;
+  const emptyState = document.getElementById('empty-state') as HTMLElement;
+  const resultsCount = document.getElementById('results-count') as HTMLElement;
+  const resetBtn = document.getElementById('reset-filters') as HTMLButtonElement;
+  const chipButtons = Array.from(document.querySelectorAll('.chip-btn')) as HTMLButtonElement[];
+
+  // Pagination Elements (Bottom only)
+  const paginationBottom = document.getElementById('pagination-bottom') as HTMLElement;
+  const pageNavBottom = document.getElementById('pagination-nav-bottom') as HTMLElement;
+  const pageSummaryBottom = document.getElementById('page-summary-bottom') as HTMLElement;
+  const perPageSelectBottom = document.getElementById('per-page-select-bottom') as HTMLSelectElement;
+
+  // Tags meta elements
+  const activeTagsWrap = document.getElementById('active-tags-wrap') as HTMLElement;
+  const tagCategory = document.getElementById('tag-category') as HTMLElement;
+  const tagCategoryText = document.getElementById('tag-category-text') as HTMLElement;
+  const removeTagCat = document.getElementById('remove-tag-cat') as HTMLButtonElement;
+  const tagSearch = document.getElementById('tag-search') as HTMLElement;
+  const tagSearchText = document.getElementById('tag-search-text') as HTMLElement;
+  const removeTagSearch = document.getElementById('remove-tag-search') as HTMLButtonElement;
+  const resetAllTags = document.getElementById('reset-all-tags') as HTMLButtonElement;
+
+  // Pagination & Filter State
+  const DEFAULT_PER_PAGE = 60;
+  const VALID_PER_PAGE_LIMITS = [10, 15, 20, 60, 100, 200];
+  let perPage = DEFAULT_PER_PAGE;
+  let currentPage = 1;
+  let totalPages = 1;
+  const allItems = Array.from(grid.querySelectorAll('.product-item')) as HTMLElement[];
+  let filteredItems: HTMLElement[] = [...allItems];
+
+  // Remove initial-hidden classes from SSR
+  allItems.forEach((item) => item.classList.remove('initial-hidden'));
+
+  // Handle URL query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('type') === 'free') {
+    window.location.replace('/free-patterns');
+  }
+  if (urlParams.has('q')) {
+    searchInput.value = urlParams.get('q') || '';
+  }
+  if (urlParams.has('category')) {
+    currentCategory = urlParams.get('category') || 'all';
+  }
+  if (urlParams.get('type') === 'new') {
+    sortSelect.value = 'id-desc';
+  }
+  if (urlParams.has('limit')) {
+    const lim = Number(urlParams.get('limit'));
+    if (VALID_PER_PAGE_LIMITS.includes(lim)) {
+      perPage = lim;
+    }
+  }
+  if (urlParams.has('page')) {
+    const p = Number(urlParams.get('page'));
+    if (p >= 1) {
+      currentPage = p;
+    }
+  }
+  if (perPageSelectBottom) perPageSelectBottom.value = String(perPage);
+
+  function syncChips(catSlug: string) {
+    chipButtons.forEach((chip) => {
+      const chipCat = chip.dataset.cat;
+      if (chipCat === catSlug) {
+        chip.classList.add('active');
+        chip.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      } else {
+        chip.classList.remove('active');
+      }
+    });
+  }
+
+  function renderPaginationButtons(container: HTMLElement) {
+    if (!container) return;
+    container.innerHTML = '';
+    if (totalPages <= 1) {
+      container.style.display = 'none';
+      return;
+    }
+    container.style.display = 'flex';
+
+    // Previous Button
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.className = 'page-btn page-btn-prev';
+    prevBtn.innerHTML = `
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -1px; margin-right: 2px;">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Prev
+    `;
+    prevBtn.disabled = currentPage <= 1;
+    prevBtn.setAttribute('aria-label', 'Previous page');
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) goToPage(currentPage - 1);
+    });
+    container.appendChild(prevBtn);
+
+    // Number Buttons calculation
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) {
+        pages.push('...');
+      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        if (i > 1 && i < totalPages) {
+          pages.push(i);
+        }
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push('...');
+      }
+      pages.push(totalPages);
+    }
+
+    pages.forEach((p) => {
+      if (p === '...') {
+        const span = document.createElement('span');
+        span.className = 'page-ellipsis';
+        span.textContent = '…';
+        span.setAttribute('aria-hidden', 'true');
+        container.appendChild(span);
+      } else {
+        const pageNum = p as number;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `page-btn page-btn-num ${pageNum === currentPage ? 'active' : ''}`;
+        btn.textContent = String(pageNum);
+        btn.setAttribute('aria-label', `Page ${pageNum}`);
+        if (pageNum === currentPage) {
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.addEventListener('click', () => goToPage(pageNum));
+        }
+        container.appendChild(btn);
+      }
+    });
+
+    // Next Button
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'page-btn page-btn-next';
+    nextBtn.innerHTML = `
+      Next
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -1px; margin-left: 2px;">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    `;
+    nextBtn.disabled = currentPage >= totalPages;
+    nextBtn.setAttribute('aria-label', 'Next page');
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < totalPages) goToPage(currentPage + 1);
+    });
+    container.appendChild(nextBtn);
+  }
+
+  function renderCurrentPage(smoothScroll = false) {
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * perPage;
+    const endIdx = startIdx + perPage;
+
+    // Hide all items first
+    allItems.forEach((item) => {
+      item.style.display = 'none';
+    });
+
+    // Show only the current page's slice from filteredItems
+    filteredItems.forEach((item, index) => {
+      if (index >= startIdx && index < endIdx) {
+        item.style.display = '';
+      }
+    });
+
+    // Empty state & results count handling
+    if (filteredItems.length === 0) {
+      grid.style.display = 'none';
+      emptyState.style.display = 'block';
+      if (paginationBottom) paginationBottom.style.display = 'none';
+      resultsCount.innerHTML = `Showing <strong>0</strong> patterns`;
+    } else {
+      grid.style.display = 'grid';
+      emptyState.style.display = 'none';
+      if (paginationBottom) paginationBottom.style.display = 'flex';
+
+      const fromNum = startIdx + 1;
+      const toNum = Math.min(endIdx, filteredItems.length);
+      resultsCount.innerHTML = `Showing <strong>${fromNum}–${toNum}</strong> of <strong>${filteredItems.length}</strong> patterns`;
+    }
+
+    // Update Bottom Page Summary
+    if (pageSummaryBottom) {
+      pageSummaryBottom.innerHTML = `Page <strong>${currentPage}</strong> of <strong>${totalPages}</strong>`;
+    }
+
+    // Render Navigation Buttons
+    if (pageNavBottom) renderPaginationButtons(pageNavBottom);
+
+    // Sync Per-Page Selector
+    if (perPageSelectBottom) perPageSelectBottom.value = String(perPage);
+
+    // Smooth scroll to catalog top anchor if requested
+    if (smoothScroll) {
+      const anchor = document.getElementById('catalog-top-anchor');
+      if (anchor) {
+        const top = anchor.getBoundingClientRect().top + window.scrollY - 85;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+
+    // Persist page & limit & category to URL without reloading
+    const newParams = new URLSearchParams(window.location.search);
+    if (currentPage > 1) {
+      newParams.set('page', String(currentPage));
+    } else {
+      newParams.delete('page');
+    }
+    if (perPage !== DEFAULT_PER_PAGE) {
+      newParams.set('limit', String(perPage));
+    } else {
+      newParams.delete('limit');
+    }
+    if (currentCategory !== 'all') {
+      newParams.set('category', currentCategory);
+    } else {
+      newParams.delete('category');
+    }
+    const newUrl = `${window.location.pathname}${newParams.toString() ? '?' + newParams.toString() : ''}`;
+    window.history.replaceState({}, '', newUrl);
+  }
+
+  function goToPage(pageNum: number) {
+    currentPage = pageNum;
+    renderCurrentPage(true);
+  }
+
+  function handlePerPageChange(newVal: string) {
+    const val = Number(newVal);
+    if (VALID_PER_PAGE_LIMITS.includes(val)) {
+      perPage = val;
+      currentPage = 1;
+      totalPages = Math.max(1, Math.ceil(filteredItems.length / perPage));
+      renderCurrentPage(true);
+    }
+  }
+
+  if (perPageSelectBottom) {
+    perPageSelectBottom.addEventListener('change', (e) => {
+      handlePerPageChange((e.target as HTMLSelectElement).value);
+    });
+  }
+
+  function filterAndSort(resetPage = true) {
+    const query = searchInput.value.toLowerCase().trim();
+    const cat = currentCategory;
+    const sort = sortSelect.value;
+
+    if (clearSearchBtn) {
+      clearSearchBtn.style.display = searchInput.value ? 'flex' : 'none';
+    }
+
+    // Match query & category
+    filteredItems = allItems.filter((item) => {
+      const id = item.dataset.id || '';
+      const name = item.dataset.name || '';
+      const niche = item.dataset.niche || '';
+      const itemCat = item.dataset.category || '';
+
+      const matchesQuery = !query || id.includes(query) || name.includes(query) || niche.includes(query);
+      const matchesCat = cat === 'all' || itemCat === cat;
+      return matchesQuery && matchesCat;
+    });
+
+    // Sort items
+    filteredItems.sort((a, b) => {
+      if (sort === 'id-asc') return Number(a.dataset.number) - Number(b.dataset.number);
+      if (sort === 'id-desc') return Number(b.dataset.number) - Number(a.dataset.number);
+      if (sort === 'name') return (a.dataset.name || '').localeCompare(b.dataset.name || '');
+      if (sort === 'price-asc') return Number(a.dataset.price) - Number(b.dataset.price);
+      return 0;
+    });
+
+    filteredItems.forEach((item) => grid.appendChild(item));
+
+    totalPages = Math.max(1, Math.ceil(filteredItems.length / perPage));
+
+    if (resetPage) {
+      currentPage = 1;
+    }
+
+    // Update Active Filter Tags
+    let hasActiveFilters = false;
+    if (cat !== 'all') {
+      hasActiveFilters = true;
+      tagCategory.style.display = 'inline-flex';
+      const activeChip = chipButtons.find((btn) => btn.dataset.cat === cat);
+      tagCategoryText.textContent = activeChip ? (activeChip.textContent || '').replace(/\s*\d+$/, '').trim() : cat;
+    } else {
+      tagCategory.style.display = 'none';
+    }
+
+    if (query) {
+      hasActiveFilters = true;
+      tagSearch.style.display = 'inline-flex';
+      tagSearchText.textContent = query;
+    } else {
+      tagSearch.style.display = 'none';
+    }
+
+    activeTagsWrap.style.display = hasActiveFilters ? 'flex' : 'none';
+
+    renderCurrentPage(false);
+  }
+
+  // Chip buttons click listener
+  chipButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetCat = btn.dataset.cat || 'all';
+      currentCategory = targetCat;
+      syncChips(targetCat);
+      filterAndSort(true);
+    });
+  });
+
+  // Search input listeners
+  searchInput.addEventListener('input', () => filterAndSort(true));
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchInput.focus();
+      filterAndSort(true);
+    });
+  }
+
+  // Sort listener
+  sortSelect.addEventListener('change', () => filterAndSort(true));
+
+  // Remove tag listeners
+  removeTagCat.addEventListener('click', () => {
+    currentCategory = 'all';
+    syncChips('all');
+    filterAndSort(true);
+  });
+  removeTagSearch.addEventListener('click', () => {
+    searchInput.value = '';
+    filterAndSort(true);
+  });
+
+  // Reset buttons
+  function resetAll() {
+    searchInput.value = '';
+    currentCategory = 'all';
+    sortSelect.value = 'id-desc';
+    perPage = DEFAULT_PER_PAGE;
+    currentPage = 1;
+    syncChips('all');
+    filterAndSort(true);
+  }
+
+  if (resetBtn) resetBtn.addEventListener('click', resetAll);
+  if (resetAllTags) resetAllTags.addEventListener('click', resetAll);
+
+  // Initial sync & filter without resetting page
+  syncChips(currentCategory);
+  filterAndSort(false);
+</script>

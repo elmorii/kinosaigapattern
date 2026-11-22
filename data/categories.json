@@ -1,0 +1,80 @@
+{
+  "$comment": "Category rules. A product's subject (niche) is matched against the keywords below (whole words, longest match wins). Edit freely; products can also set \"category\" in data/overrides/K##.json. Unmatched subjects go to 'Other Designs' and are listed in the import report.",
+  "fallback": "Other Designs",
+  "categories": [
+    {
+      "name": "Animal Patterns",
+      "keywords": [
+        "horse", "cat", "dog", "frog", "elephant", "lion", "fox", "rabbit", "highland cow", "dinosaur",
+        "turtle", "sea turtle", "fish", "trout", "octopus", "jellyfish",
+        "bird", "owl", "cardinal", "hummingbird", "eagle", "raven", "goose", "dove", "songbird",
+        "animal", "bear", "deer", "tiger", "giraffe", "panda", "squirrel", "hedgehog", "sheep", "pig", "goat", "koala", "monkey", "wolf", "raccoon", "llama", "snake", "capybara",
+        "parrot", "peacock", "flamingo", "robin", "swan", "duck", "hen", "chicken", "rooster", "penguin", "sparrow", "bluebird", "heron", "crane",
+        "whale", "dolphin", "shark", "seahorse", "starfish", "crab", "coral", "koi", "seal"
+      ]
+    },
+    {
+      "name": "Nature Patterns",
+      "keywords": [
+        "lotus flower", "palm tree", "sunflower", "wildflower", "flower", "leaf", "tree", "mushroom", "tulip", "rose",
+        "landscape", "ocean", "sunset", "sunrise", "lake", "mountain", "forest", "nature", "waterfall",
+        "cactus", "daisy", "lily", "orchid", "fern", "plant", "cherry blossom", "poppy", "lavender", "beach", "river", "island", "waves", "desert"
+      ]
+    },
+    {
+      "name": "Vegetable Patterns",
+      "keywords": [
+        "pumpkin", "vegetable", "carrot", "squash", "tomato", "potato", "onion", "garlic", "pepper", "corn", "cucumber", "broccoli", "avocado"
+      ]
+    },
+    {
+      "name": "Fruit Patterns",
+      "keywords": [
+        "strawberry", "fruit", "apple", "lemon", "orange", "cherry", "pear", "peach", "banana", "watermelon", "grape", "berry", "pineapple"
+      ]
+    },
+    {
+      "name": "Insect Pattern",
+      "keywords": [
+        "butterfly", "moth", "bee", "spider", "ladybug", "insect", "dragonfly", "caterpillar", "beetle", "snail", "bug", "ant", "scorpion"
+      ]
+    },
+    {
+      "name": "Love Patterns",
+      "keywords": [
+        "heart", "love", "valentine", "cupid", "romance"
+      ]
+    },
+    {
+      "name": "Art Patterns",
+      "keywords": [
+        "quilt", "mandala", "rainbow", "star", "moon", "geometric", "abstract", "patchwork", "pattern", "mosaic", "art"
+      ]
+    },
+    {
+      "name": "Season Patterns",
+      "keywords": [
+        "autumn", "winter", "thanksgiving", "turkey", "ghost", "halloween", "christmas", "spring", "summer", "season", "seasonal", "holiday", "snowman", "santa", "reindeer", "fall"
+      ]
+    },
+    {
+      "name": "Ordinary Object Patterns",
+      "keywords": [
+        "coffee and books", "coffee cup", "sewing machine", "book", "coffee", "boat", "cupcake", "umbrella",
+        "tea", "cake", "ice cream", "donut", "teapot", "vase", "guitar", "bicycle", "car", "train", "object", "clock", "key"
+      ]
+    },
+    {
+      "name": "Fantasy Patterns",
+      "keywords": [
+        "dragon", "unicorn", "viking", "knight", "fantasy", "mermaid", "fairy", "phoenix", "wizard"
+      ]
+    },
+    {
+      "name": "Architecture Patterns",
+      "keywords": [
+        "house", "castle", "architecture", "building", "lighthouse", "cottage", "church", "temple", "tower", "bridge", "cabin", "barn", "palace"
+      ]
+    }
+  ]
+}

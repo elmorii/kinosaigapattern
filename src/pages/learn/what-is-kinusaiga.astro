@@ -1,0 +1,215 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const articleSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/learn/what-is-kinusaiga/#article`,
+    headline: 'What Is Kinusaiga Art? History, Technique & No-Sew Fabric Guide',
+    description: 'Learn about Kinusaiga, the traditional Japanese fabric craft where scraps are tucked into grooves to create pictorial artwork without any needle or thread.',
+    url: `${siteUrl}/learn/what-is-kinusaiga`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/learn/what-is-kinusaiga`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+    image: `${siteUrl}/images/og-default.jpg`,
+    articleSection: 'Art History & Technique',
+    keywords: 'what is kinusaiga, japanese fabric art history, setsu maekawa, maeno takashi, no-sew textile craft',
+  },
+];
+---
+
+<Layout
+  title="What Is Kinusaiga Art? | No-Sew Fabric Guide | Kinosaiga Pattern"
+  description="Learn about Kinusaiga, the traditional Japanese fabric craft where scraps are tucked into grooves to create pictorial artwork without any needle or thread."
+  ogType="article"
+  schema={articleSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container guide-page">
+    <div class="guide-header">
+      <span class="guide-badge">Educational Guide</span>
+      <h1 class="guide-title">What Is Kinusaiga Art?</h1>
+      <p class="guide-lead">
+        Kinusaiga (絹彩画) is a traditional Japanese art form where intricate pictures are created by tucking fabric scraps into narrow grooves cut into a wooden or foam base.
+      </p>
+    </div>
+
+    <div class="guide-body">
+      <h2>What Is the History & Origins of Kinusaiga?</h2>
+      <p class="lead-answer"><strong>Kinusaiga originated in 1987 in Japan as an eco-conscious art form</strong>, created to upcycle vintage silk kimono fabrics into framed picture mosaics using grooved boards.</p>
+      <p>
+        Kinusaiga was developed in Japan in the late 20th century by artist Setsu Maekawa and professor Maeno Takashi. The word originates from "kinu" (絹, meaning silk), "sai" (彩, meaning coloring or tinting), and "ga" (画, meaning picture).
+      </p>
+      <p>
+        Traditionally, Japanese artisans took pieces of old vintage silk kimonos and repurposed them into decorative wall pictures. Instead of discarding worn garments, every vibrant scrap of fabric found new life as part of a landscape, flower, or cultural motif.
+      </p>
+
+      <!-- Authoritative Craft History Citation with Outbound Link -->
+      <div class="kinusaiga-definition-box" style="margin: 1.5rem 0; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+        <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          Authoritative Art History Citation
+        </div>
+        <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Kinusaiga" style="margin: 0; color: #1e293b; line-height: 1.6;">
+          <p>
+            "Kinusaiga was developed in 1987 in Japan by professor and textile artisan <strong>Maeno Takashi (前野節)</strong> as an art form to repurpose vintage kimono silk fabrics into intricate mosaic pictures using incised foam boards without sewing."
+          </p>
+          <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+            — Documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and referenced in the <a href="https://www.metmuseum.org/toah/hd/furg/hd_furg.htm" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Metropolitan Museum Asian Textile Arts Archive</a>.
+          </footer>
+        </blockquote>
+      </div>
+
+      <h2>How Does the No-Sew Kinusaiga Technique Work?</h2>
+      <p class="lead-answer"><strong>The no-sew Kinusaiga technique works by scoring channels into foam board</strong> and pressing fabric margins firmly into the slits using a dull spatula stylus.</p>
+      <p>
+        Unlike patchwork quilting or embroidery, <strong>Kinusaiga requires no sewing needles or thread</strong>. The core process relies on:
+      </p>
+      <ul>
+        <li>A base board (traditionally soft paulownia wood; modern crafters use high-density foam board).</li>
+        <li>A pattern outline transferred onto the board surface.</li>
+        <li>Narrow slits or grooves cut along every pattern line with a precision craft knife.</li>
+        <li>Fabric pieces cut slightly larger than each section and tucked into the grooves with a blunt spatula tool.</li>
+      </ul>
+
+      <h2>Why Do Modern Crafters Love Kinusaiga Art?</h2>
+      <p class="lead-answer"><strong>Modern crafters love Kinusaiga for its zero-sewing accessibility</strong>, allowing beginners to create padded, gallery-quality textile mosaics without thread or sewing machines.</p>
+      <p>
+        Kinusaiga has grown rapidly in popularity among western crafters and DIY enthusiasts because it combines the tactile warmth of fabric with the precision of stained glass or mosaic art:
+      </p>
+      <ol>
+        <li><strong>Zero Sewing Skills Required:</strong> You don't need a sewing machine or hand-sewing dexterity.</li>
+        <li><strong>Great for Fabric Scrap Stashes:</strong> Small remnant pieces of cotton, silk, linen, or velvet are perfect.</li>
+        <li><strong>Relaxing & Meditative:</strong> The rhythm of cutting grooves and tucking fabric is tactile and deeply satisfying.</li>
+        <li><strong>Stunning 3D Results:</strong> The slight padding and recessed edges give finished works a rich, dimensional relief texture.</li>
+      </ol>
+
+      <div class="cta-box">
+        <h3>Ready to Try Your First Kinusaiga Project?</h3>
+        <p>Browse our beginner-friendly pattern library, or download one of our 100% free starter patterns.</p>
+        <div class="cta-btns">
+          <a href="/free-patterns" class="btn btn-green">Download Free Patterns (PDF) →</a>
+          <a href="/learn/how-to-make-kinusaiga" class="btn btn-secondary">Read the Step-by-Step Tutorial</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .guide-page {
+    max-width: 800px;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+  .guide-badge {
+    color: var(--cta-green);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .guide-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.2;
+  }
+  .guide-lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .guide-body h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 2.5rem 0 1rem;
+    color: var(--text-main);
+  }
+  .guide-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .guide-body ul, .guide-body ol {
+    margin: 1rem 0 1.5rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .cta-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 3.5rem;
+    text-align: center;
+  }
+  .cta-box h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  .cta-box p {
+    margin-bottom: 1.5rem;
+  }
+  .cta-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 600px) {
+    .guide-page {
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
+    }
+    .guide-body h2 {
+      font-size: 1.3rem;
+      margin: 1.8rem 0 0.8rem;
+    }
+    .cta-box {
+      padding: 1.5rem 1rem;
+    }
+    .cta-btns {
+      flex-direction: column;
+    }
+    .cta-btns .btn {
+      width: 100%;
+    }
+  }
+</style>

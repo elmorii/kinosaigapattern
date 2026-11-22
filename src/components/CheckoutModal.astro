@@ -1,0 +1,595 @@
+---
+// In-Site Responsive Checkout Modal for Payhip Digital Downloads
+---
+
+<div
+  id="kinu-checkout-modal"
+  class="kinu-checkout-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="kinu-checkout-title"
+  hidden
+>
+  <div class="kinu-checkout-backdrop" data-close-checkout></div>
+
+  <div class="kinu-checkout-card" role="document">
+    <!-- Header -->
+    <header class="kinu-checkout-header">
+      <div class="kinu-checkout-brand">
+        <div class="kinu-ssl-badge" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <div class="kinu-header-text">
+          <h2 id="kinu-checkout-title" class="kinu-checkout-title">
+            Secure Digital Checkout
+          </h2>
+          <span class="kinu-checkout-subtitle">256-Bit SSL Encrypted · Instant Download Delivery</span>
+        </div>
+      </div>
+
+      <div class="kinu-header-actions">
+        <!-- Optional fallback link to open in full window -->
+        <a
+          id="kinu-checkout-external-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="kinu-action-btn external-link"
+          title="Open checkout in new window"
+          aria-label="Open checkout in new window"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+
+        <!-- Close button -->
+        <button
+          type="button"
+          class="kinu-action-btn close-btn"
+          data-close-checkout
+          aria-label="Close checkout"
+          title="Close checkout"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Body / Embedded Frame Container -->
+    <div class="kinu-checkout-body">
+      <!-- Loading indicator -->
+      <div id="kinu-checkout-loader" class="kinu-checkout-loader">
+        <div class="kinu-spinner"></div>
+        <p class="kinu-loader-text">Loading secure checkout...</p>
+      </div>
+
+      <!-- Live Embedded Checkout Iframe -->
+      <iframe
+        id="kinu-checkout-iframe"
+        class="kinu-checkout-iframe"
+        title="Payhip Digital Checkout"
+        allow="payment"
+        tabindex="0"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Overlay & Backdrop */
+  .kinu-checkout-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.24s;
+  }
+
+  .kinu-checkout-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .kinu-checkout-backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Modal Card */
+  .kinu-checkout-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 540px;
+    height: 85vh;
+    max-height: 760px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow:
+      0 20px 40px -15px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.96) translateY(8px);
+    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .kinu-checkout-overlay.is-active .kinu-checkout-card {
+    transform: scale(1) translateY(0);
+  }
+
+  /* Header Bar */
+  .kinu-checkout-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background-color: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    flex-shrink: 0;
+  }
+
+  .kinu-checkout-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .kinu-ssl-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background-color: #eff6ff;
+    color: #2563eb;
+    flex-shrink: 0;
+    border: 1px solid rgba(37, 99, 235, 0.22);
+  }
+
+  .kinu-header-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .kinu-checkout-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .kinu-checkout-subtitle {
+    font-size: 0.72rem;
+    color: #64748b;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .kinu-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .kinu-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    padding: 0;
+  }
+
+  .kinu-action-btn:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+  }
+
+  .kinu-action-btn.close-btn:hover {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+
+  /* Checkout Body & Iframe */
+  .kinu-checkout-body {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    background-color: #ffffff;
+    overflow: hidden;
+  }
+
+  .kinu-checkout-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .kinu-checkout-iframe.is-loaded {
+    opacity: 1;
+  }
+
+  /* Loader */
+  .kinu-checkout-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    background-color: #ffffff;
+    z-index: 2;
+    transition: opacity 0.2s ease, visibility 0.2s;
+  }
+
+  .kinu-checkout-loader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .kinu-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: kinu-spin 0.75s linear infinite;
+  }
+
+  .kinu-loader-text {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  @keyframes kinu-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* PC / Desktop Refinements:
+     - Bigger frame for unconstrained, spacious checkout
+     - Slightly smaller, more refined typography and micro-padding
+  */
+  @media (min-width: 1024px) {
+    .kinu-checkout-card {
+      /* Bigger on PC */
+      max-width: 720px;
+      height: 90vh;
+      max-height: 840px;
+      border-radius: 18px;
+      box-shadow:
+        0 25px 60px -15px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(15, 23, 42, 0.08);
+    }
+
+    .kinu-checkout-header {
+      padding: 0.65rem 1.15rem;
+    }
+
+    /* Slightly smaller, refined font on PC */
+    .kinu-checkout-title {
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+    }
+
+    .kinu-checkout-subtitle {
+      font-size: 0.68rem;
+      letter-spacing: 0.02em;
+    }
+
+    .kinu-action-btn {
+      width: 28px;
+      height: 28px;
+    }
+
+    .kinu-ssl-badge {
+      width: 24px;
+      height: 24px;
+    }
+    .kinu-ssl-badge svg {
+      width: 13px;
+      height: 13px;
+    }
+  }
+
+  /* Mobile / Small Screens:
+     - Full screen responsive layout
+  */
+  @media (max-width: 640px) {
+    .kinu-checkout-overlay {
+      padding: 0;
+    }
+
+    .kinu-checkout-card {
+      width: 100vw;
+      height: 100%;
+      max-height: 100dvh;
+      border-radius: 0;
+    }
+
+    .kinu-checkout-header {
+      padding: 0.75rem 0.85rem;
+    }
+
+    .kinu-checkout-title {
+      font-size: 0.85rem;
+    }
+
+    .kinu-checkout-subtitle {
+      font-size: 0.7rem;
+    }
+  }
+</style>
+
+<script>
+  import { removePurchasedItems } from '../lib/cart.ts';
+
+  // Global In-Site Checkout Controller
+  class KinuCheckoutController {
+    private overlay: HTMLElement | null = null;
+    private iframe: HTMLIFrameElement | null = null;
+    private loader: HTMLElement | null = null;
+    private externalLink: HTMLAnchorElement | null = null;
+    private titleEl: HTMLElement | null = null;
+    private lastFocused: HTMLElement | null = null;
+    private pendingItemIds: string[] | null = null;
+    private loadCount: number = 0;
+    private isCompleted: boolean = false;
+
+    constructor() {
+      this.init();
+    }
+
+    private init(): void {
+      this.overlay = document.getElementById('kinu-checkout-modal');
+      if (!this.overlay) return;
+
+      this.iframe = document.getElementById('kinu-checkout-iframe') as HTMLIFrameElement;
+      this.loader = document.getElementById('kinu-checkout-loader');
+      this.externalLink = document.getElementById('kinu-checkout-external-link') as HTMLAnchorElement;
+      this.titleEl = document.getElementById('kinu-checkout-title');
+
+      // Bind close actions
+      this.overlay.querySelectorAll('[data-close-checkout]').forEach((el) => {
+        el.addEventListener('click', () => this.close());
+      });
+
+      // Escape key listener
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.isOpen()) {
+          this.close();
+        }
+      });
+
+      // Iframe load listener
+      if (this.iframe) {
+        this.iframe.addEventListener('load', () => {
+          if (this.loader) {
+            this.loader.classList.add('is-hidden');
+          }
+          if (this.iframe) {
+            this.iframe.classList.add('is-loaded');
+          }
+
+          // If iframe navigates past initial checkout load (e.g. to receipt/download page)
+          if (this.iframe && this.iframe.src && this.iframe.src !== 'about:blank') {
+            this.loadCount++;
+            if (this.loadCount >= 2) {
+              this.handlePurchaseSuccess();
+            }
+          }
+        });
+      }
+
+      // Cross-origin message listener from Payhip checkout frame
+      window.addEventListener('message', (e) => {
+        if (!e.origin || !e.origin.includes('payhip.com')) return;
+        const data = e.data;
+        if (!data) return;
+
+        let success = false;
+        if (typeof data === 'string') {
+          const lower = data.toLowerCase();
+          if (lower.includes('complete') || lower.includes('success') || lower.includes('paid') || lower.includes('download')) {
+            success = true;
+          }
+        } else if (typeof data === 'object') {
+          const str = JSON.stringify(data).toLowerCase();
+          if (str.includes('complete') || str.includes('success') || str.includes('paid')) {
+            success = true;
+          }
+        }
+
+        if (success) {
+          this.handlePurchaseSuccess();
+        }
+      });
+    }
+
+    public handlePurchaseSuccess(): void {
+      if (this.isCompleted) return;
+      this.isCompleted = true;
+
+      // Remove purchased product(s) from the cart
+      if (this.pendingItemIds && this.pendingItemIds.length > 0) {
+        removePurchasedItems(this.pendingItemIds);
+      } else {
+        removePurchasedItems(); // Clears all cart items if full checkout
+      }
+
+      // Notify application of purchase completion
+      window.dispatchEvent(
+        new CustomEvent('kinusaiga:purchase-completed', {
+          detail: { productIds: this.pendingItemIds || [] },
+        })
+      );
+    }
+
+    public open(rawUrl: string, title?: string, itemIds?: string | string[]): void {
+      if (!this.overlay || !this.iframe) return;
+
+      this.lastFocused = document.activeElement as HTMLElement;
+      this.loadCount = 0;
+      this.isCompleted = false;
+      this.pendingItemIds = itemIds
+        ? Array.isArray(itemIds)
+          ? itemIds
+          : [itemIds]
+        : null;
+
+      // Store pending purchase in session storage in case of external fallback
+      if (this.pendingItemIds) {
+        try {
+          sessionStorage.setItem('kinu_pending_purchase', JSON.stringify(this.pendingItemIds));
+        } catch (e) {}
+      }
+
+      // Transform URL to Payhip's direct frame checkout endpoint if needed
+      // e.g. https://payhip.com/b/e182V -> https://payhip.com/buy?link=e182V
+      let targetUrl = rawUrl.trim();
+      const bMatch = targetUrl.match(/payhip\.com\/b\/([A-Za-z0-9]+)/i);
+      if (bMatch) {
+        targetUrl = `https://payhip.com/buy?link=${bMatch[1]}`;
+      }
+
+      if (this.titleEl && title) {
+        this.titleEl.textContent = title;
+      } else if (this.titleEl) {
+        this.titleEl.textContent = 'Secure Digital Checkout';
+      }
+
+      if (this.externalLink) {
+        this.externalLink.href = targetUrl;
+      }
+
+      // Reset loader & iframe
+      if (this.loader) {
+        this.loader.classList.remove('is-hidden');
+      }
+      this.iframe.classList.remove('is-loaded');
+
+      // Only reassign src if different to avoid reloading
+      if (this.iframe.src !== targetUrl) {
+        this.iframe.src = targetUrl;
+      } else {
+        // If same src, hide loader immediately
+        if (this.loader) this.loader.classList.add('is-hidden');
+        this.iframe.classList.add('is-loaded');
+      }
+
+      // Show modal
+      this.overlay.removeAttribute('hidden');
+      // Trigger reflow for CSS transition
+      void this.overlay.offsetHeight;
+      this.overlay.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+
+      // Focus iframe
+      this.iframe.focus();
+    }
+
+    public close(): void {
+      if (!this.overlay) return;
+
+      this.overlay.classList.remove('is-active');
+      document.body.style.overflow = '';
+
+      if (this.isCompleted) {
+        try {
+          sessionStorage.removeItem('kinu_pending_purchase');
+        } catch (e) {}
+      }
+
+      setTimeout(() => {
+        if (this.overlay) {
+          this.overlay.setAttribute('hidden', '');
+        }
+        if (this.iframe) {
+          // Clear src to stop background audio/processes
+          this.iframe.src = 'about:blank';
+        }
+      }, 250);
+
+      if (this.lastFocused) {
+        this.lastFocused.focus();
+      }
+    }
+
+    public isOpen(): boolean {
+      return this.overlay !== null && this.overlay.classList.contains('is-active');
+    }
+  }
+
+  // Register on window object
+  let controllerInstance: KinuCheckoutController | null = null;
+
+  function setupController() {
+    if (!controllerInstance) {
+      controllerInstance = new KinuCheckoutController();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupController);
+  } else {
+    setupController();
+  }
+
+  // Expose global helper
+  (window as any).openKinuCheckout = (url: string, title?: string, itemIds?: string | string[]) => {
+    if (!controllerInstance) {
+      controllerInstance = new KinuCheckoutController();
+    }
+    controllerInstance.open(url, title, itemIds);
+  };
+
+  (window as any).closeKinuCheckout = () => {
+    if (controllerInstance) {
+      controllerInstance.close();
+    }
+  };
+</script>

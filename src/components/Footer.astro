@@ -1,0 +1,319 @@
+---
+import { getShopConfig } from '../lib/catalog.ts';
+
+const config = getShopConfig();
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col brand-col">
+      <div class="footer-logo">
+        <img src="/images/logo.svg" alt="Kinosaiga Pattern Logo" class="footer-logo-img" width="36" height="36" />
+        <span class="brand-title">{config.shop.name}</span>
+      </div>
+      <p class="footer-desc">
+        Your dedicated studio for original printable Kinusaiga patterns. Craft expressive no-sew Japanese fabric art right at home.
+      </p>
+      <p class="support-notice">
+        {config.shop.contactEmail ? (
+          <>Need help? Email us at <a href={`mailto:${config.shop.contactEmail}`}>{config.shop.contactEmail}</a></>
+        ) : (
+          <>Support inquiries: Use our <a href="/contact">Contact Page</a></>
+        )}
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="col-title">Shop</h3>
+      <ul class="col-links">
+        <li><a href="/shop">All Patterns</a></li>
+        <li><a href="/free-patterns">Free Kinusaiga Patterns</a></li>
+        <li><a href="/shop?type=new">New Releases</a></li>
+        <li><a href="/shop">Browse by Category</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="col-title">Learn Kinusaiga</h3>
+      <ul class="col-links">
+        <li><a href="/learn/what-is-kinusaiga">What Is Kinusaiga?</a></li>
+        <li><a href="/learn/how-to-make-kinusaiga">How to Make Kinusaiga Art</a></li>
+        <li><a href="/discover-kinusaiga-the-relaxing-no-sew-fabric-art">Discover Kinusaiga (Tutorial)</a></li>
+        <li><a href="/easy-kinusaiga-art-with-quilt-patterns">Easy Kinusaiga with Quilt Patterns</a></li>
+        <li><a href="/learn/materials-and-tools">Materials & Tools Guide</a></li>
+        <li><a href="/learn/beginner-guide">Beginner Guide & Tips</a></li>
+        <li><a href="/learn/printing-guide">Pattern Printing & Sizes</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="col-title">Customer Support</h3>
+      <ul class="col-links">
+        <li><a href="/faq">Frequently Asked Questions</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/help/digital-downloads">Digital Download Help</a></li>
+        <li><a href="/legal/refund-policy">Refund Policy</a></li>
+        <li><a href="/legal/license-terms">License & Usage Terms</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="col-title">Company & Legal</h3>
+      <ul class="col-links">
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/legal/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/legal/terms-and-conditions">Terms & Conditions</a></li>
+        <li><a href="/legal/cookie-policy">Cookie Policy</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="footer-seo-guide" aria-label="Kinusaiga Crafting and Pattern Guide">
+    <div class="container">
+      <div class="seo-guide-card">
+        <h2 class="seo-guide-title">Guide to Kinusaiga Fabric Art, Printable Patterns & Supplies</h2>
+        <div class="seo-guide-content">
+          <p>
+            <strong>Kinusaiga</strong> is a mindful Japanese no-sew textile craft in which silk and cotton scraps are tucked into scored foam or wood boards to form vibrant mosaic artwork. Making handmade <strong>kinusaiga art</strong> lets crafters of any experience level create layered textile wall pictures with zero needles or stitching. At Kinosaiga Pattern, our studio offers original printable <strong>kinusaiga patterns</strong> pre-scaled across up to 10 frame sizes for straightforward home printing.
+          </p>
+          <p>
+            To craft crisp, lasting pieces, start with a firm sheet of high-density <strong>kinusaiga foam</strong> or foam board that grips tucked fabric edges cleanly. You can build a practical <strong>kinusaiga kit</strong> using simple <strong>kinusaiga art supplies</strong> including a precision craft blade, a tucking stylus, tracing paper, and colorful fabric scraps. New to the technique? Try our <strong>kinusaiga patterns free</strong> starter downloads to practice scoring grooves and fitting fabric before exploring the full collection.
+          </p>
+          <p>
+            Every digital listing provides ready-to-print <strong>kinusaiga patterns free printable</strong> guides alongside crisp PDF and PNG outlines suited for home or print-shop use. Enjoy creating tactile <strong>kinusaiga fabric art</strong> for handmade home decor, thoughtful gifts, and calm creative time with <strong>kinusaiga</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-seo-tags">
+    <div class="container">
+      <div class="seo-tags-header">
+        <span class="seo-tags-label">Popular Searches & Keywords:</span>
+      </div>
+      <div class="seo-tags-cloud">
+        <a href="/shop" class="seo-tag">kinusaiga</a>
+        <a href="/learn/what-is-kinusaiga" class="seo-tag">kinusaiga art</a>
+        <a href="/shop" class="seo-tag">kinusaiga patterns</a>
+        <a href="/learn/materials-and-tools" class="seo-tag">kinusaiga foam</a>
+        <a href="/learn/materials-and-tools" class="seo-tag">kinusaiga kit</a>
+        <a href="/learn/materials-and-tools" class="seo-tag">kinusaiga art supplies</a>
+        <a href="/free-patterns" class="seo-tag free-tag">kinusaiga patterns free</a>
+        <a href="/free-patterns" class="seo-tag free-tag">kinusaiga patterns free printable</a>
+        <a href="/shop" class="seo-tag">kinusaiga fabric art</a>
+        <a href="/shop" class="seo-tag">Kinusaiga template</a>
+        <a href="/shop" class="seo-tag">kinusaiga patterns download</a>
+        <a href="/shop" class="seo-tag">kinusaiga pattern pdf</a>
+        <a href="/shop" class="seo-tag">printable</a>
+        <a href="/shop" class="seo-tag">japanese art</a>
+        <a href="/shop" class="seo-tag">kinusaiga templates</a>
+        <a href="/shop" class="seo-tag">kinusiga</a>
+        <a href="/shop" class="seo-tag">kinosiga</a>
+        <a href="/shop" class="seo-tag">printable kinusaiga patterns</a>
+        <a href="/shop" class="seo-tag">japanese fabric art</a>
+        <a href="/learn/beginner-guide" class="seo-tag">kinusaiga patterns for beginners</a>
+        <a href="/shop" class="seo-tag">kinusaiga pattern template</a>
+        <a href="/shop" class="seo-tag">kinusaiga pattern printable</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container bottom-content">
+      <p>© {currentYear} {config.shop.name}. All rights reserved.</p>
+      <p class="disclaimer">
+        Printable digital patterns for DIY craft projects. No physical items shipped.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 3.5rem;
+    margin-top: 4rem;
+    color: var(--text-main);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+  .footer-logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    border-radius: 9px;
+  }
+  .footer-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  .support-notice {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .support-notice a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+  .col-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+    color: var(--text-main);
+  }
+  .col-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .col-links a {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+  .col-links a:hover {
+    color: var(--cta-green);
+  }
+  .footer-seo-guide {
+    border-top: 1px solid var(--border-subtle);
+    padding: 2.5rem 0 2rem;
+    background-color: rgba(255, 255, 255, 0.45);
+  }
+  .seo-guide-card {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .seo-guide-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.9rem;
+    letter-spacing: -0.01em;
+  }
+  .seo-guide-content p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+  }
+  .seo-guide-content p:last-child {
+    margin-bottom: 0;
+  }
+  .seo-guide-content strong {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+  .footer-seo-tags {
+    border-top: 1px solid var(--border-subtle);
+    padding: 1.8rem 0;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .seo-tags-header {
+    margin-bottom: 0.6rem;
+  }
+  .seo-tags-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+  .seo-tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .seo-tag {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.65rem;
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .seo-tag:hover {
+    color: var(--brand-blue);
+    border-color: var(--brand-blue-border);
+    background: var(--brand-blue-soft);
+  }
+  .seo-tag.free-tag {
+    background: #f0f9ff;
+    color: #0369a1;
+    border-color: #bae6fd;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border-subtle);
+    padding: 1.5rem 0;
+    font-size: 0.85rem;
+    color: var(--text-light);
+  }
+  .bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .disclaimer {
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 990px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1.5rem;
+    }
+    .brand-col {
+      grid-column: span 2;
+    }
+  }
+  @media (max-width: 550px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem 1rem;
+    }
+    .brand-col {
+      grid-column: span 2;
+      margin-bottom: 0.5rem;
+    }
+    .col-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .col-links {
+      gap: 0.5rem;
+    }
+    .col-links a {
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+    .footer-bottom {
+      text-align: center;
+    }
+    .bottom-content {
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+  }
+</style>

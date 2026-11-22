@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Local raw resources archive (2+ GB uncompressed originals)
+resources/
+
+# Production build output
+dist/
+
+# Astro cache
+.astro/
+
+# Environment files & secrets
+.env
+.env.local
+.env.*.local
+
+# Backups and temporary files
+backups/
+data/cache/
+*.log
+Thumbs.db
+.DS_Store
+
+# Reports
+reports/*.md
+!reports/README.md

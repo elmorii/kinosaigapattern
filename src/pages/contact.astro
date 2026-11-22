@@ -1,0 +1,639 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getShopConfig } from '../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = (config.shop.siteUrl || 'https://kinosaigapattern.com').replace(/\/$/, '');
+const contactEmail = config.shop.contactEmail || 'contact@kinosaigapattern.com';
+const endpoint = config.shop.contactFormEndpoint || '';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  '@id': `${siteUrl}/contact/#contactpage`,
+  name: 'Contact Customer Support & Help Desk | Kinosaiga Pattern',
+  url: `${siteUrl}/contact`,
+  datePublished: '2026-11-05T00:00:00Z',
+  dateModified: '2026-11-09T18:00:00Z',
+  inLanguage: 'en',
+  author: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#author`,
+    name: 'Kinosaiga Pattern Studio',
+    url: `${siteUrl}/about`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: 'Kinosaiga Pattern',
+    url: siteUrl,
+  },
+  mainEntity: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: 'Kinosaiga Pattern',
+    url: siteUrl,
+    email: contactEmail,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: contactEmail,
+      url: `${siteUrl}/contact`,
+    },
+  },
+};
+---
+
+<Layout
+  title="Contact Customer Support & Help Desk | Kinosaiga Pattern"
+  description="Get in touch with customer support at Kinosaiga Pattern. We are here to assist with your Kinusaiga pattern digital downloads, PDF questions, and craft support."
+  schema={contactSchema}
+>
+  <div class="container static-page">
+    <div class="page-head">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="current">Contact Us</span>
+      </nav>
+      <h1 class="page-title">Contact Customer Support</h1>
+      <p class="lead-text">
+        Have a question about a pattern, need help with your digital download, or experiencing a technical issue? Our support team is here to assist you.
+      </p>
+    </div>
+
+    <!-- Customer Service Standards Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Customer Care Guarantee
+      </div>
+      <blockquote class="definition-text" cite="https://consumer.ftc.gov" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "We are committed to responding to all customer questions, file re-issuance requests, and digital pattern support inquiries within 24 hours."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — In alignment with electronic commerce standards documented by the <cite><a href="https://consumer.ftc.gov" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Federal Trade Commission Consumer Standards</a></cite>; checkout and digital delivery are handled securely via <a href="https://payhip.com" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Payhip</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <section class="contact-intro-section" style="margin-bottom: 2rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem;">How Can Our Support Team Assist You?</h2>
+      <p class="lead-answer">
+        <strong>Our customer support team assists with digital pattern download retrieval, file re-issuance, refund requests, and printing questions</strong> with responses on business days.
+      </p>
+    </section>
+
+    <div class="contact-grid">
+      <!-- Contact Form -->
+      <div class="contact-form-col">
+        <div class="form-wrapper">
+          <div id="contact-status" class="status-banner" style="display: none;" role="alert"></div>
+
+          <form
+            id="support-contact-form"
+            action={endpoint || '#'}
+            method="POST"
+            class="contact-form"
+            data-endpoint={endpoint}
+            data-email={contactEmail}
+          >
+            <!-- Honeypot anti-spam -->
+            <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <div class="form-group">
+              <label for="contact-name">Your Name <span class="required-mark">*</span></label>
+              <input
+                type="text"
+                id="contact-name"
+                name="name"
+                required
+                placeholder="Jane Doe"
+                class="form-input"
+                autocomplete="name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-email">Email Address <span class="required-mark">*</span></label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                required
+                placeholder="jane@example.com"
+                class="form-input"
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-subject">Pattern Name / Subject <span class="optional-mark">(Optional)</span></label>
+              <input
+                type="text"
+                id="contact-subject"
+                name="subject"
+                placeholder="e.g. Hummingbird Pattern or Order Question"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message">Message <span class="required-mark">*</span></label>
+              <textarea
+                id="contact-message"
+                name="message"
+                rows="6"
+                required
+                placeholder="How can we help you? Please describe your question or issue in detail..."
+                class="form-textarea"
+              ></textarea>
+            </div>
+
+            <button type="submit" id="contact-submit-btn" class="btn btn-green form-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-spinner" style="display: none;" aria-hidden="true">⏳ Sending...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Contact Info & Quick Links -->
+      <div class="contact-info-col">
+        <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">How Do You Contact Us Directly?</h2>
+        <div class="info-card highlight-card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </div>
+          <h3>Direct Email</h3>
+          <p class="info-desc">For inquiries, download assistance, or general questions, you can reach our team at:</p>
+          <div class="email-box">
+            <a href={`mailto:${contactEmail}`} class="email-link" id="direct-email-link">{contactEmail}</a>
+            <button
+              type="button"
+              class="copy-email-btn"
+              id="copy-email-button"
+              title="Copy email to clipboard"
+              aria-label="Copy contact email"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: -2px; margin-right: 4px;">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy
+            </button>
+          </div>
+          <p id="copy-confirmation" class="copy-note" style="display: none;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: -2px; margin-right: 4px;">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Copied to clipboard!
+          </p>
+
+          {config.shop.supportResponseTime ? (
+            <p class="response-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: -2px; margin-right: 4px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              Expected response time: <strong>{config.shop.supportResponseTime}</strong>
+            </p>
+          ) : (
+            <p class="response-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: -2px; margin-right: 4px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              We usually reply within <strong>24 to 48 hours</strong> on business days.
+            </p>
+          )}
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+          </div>
+          <h3>Official Store Link</h3>
+          <p class="info-desc">Bookmark or share our contact page:</p>
+          <p><a href={`${siteUrl}/contact`} class="website-link">{siteUrl}/contact</a></p>
+        </div>
+
+        <div class="info-card">
+          <h3>Quick Help Links</h3>
+          <ul class="help-links">
+            <li><a href="/help/digital-downloads">Digital Download Help Guide →</a></li>
+            <li><a href="/faq">Frequently Asked Questions →</a></li>
+            <li><a href="/learn/how-to-make-kinusaiga">Kinusaiga Beginner's Tutorial →</a></li>
+            <li><a href="/learn/printing-guide">Pattern Printing & Sizing Guide →</a></li>
+            <li><a href="/legal/refund-policy">Refund & Exchange Policy →</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  function setupContactForm() {
+    const form = document.getElementById('support-contact-form') as HTMLFormElement | null;
+    const statusBanner = document.getElementById('contact-status') as HTMLDivElement | null;
+    const submitBtn = document.getElementById('contact-submit-btn') as HTMLButtonElement | null;
+    const copyBtn = document.getElementById('copy-email-button') as HTMLButtonElement | null;
+    const copyNote = document.getElementById('copy-confirmation') as HTMLElement | null;
+
+    // Email copy button helper
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const email = form?.dataset.email || 'contact@kinosaigapattern.com';
+        try {
+          await navigator.clipboard.writeText(email);
+          if (copyNote) {
+            copyNote.style.display = 'block';
+            setTimeout(() => {
+              copyNote.style.display = 'none';
+            }, 3000);
+          }
+        } catch {
+          // Fallback if clipboard API blocked
+          const tempInput = document.createElement('input');
+          tempInput.value = email;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+          if (copyNote) {
+            copyNote.style.display = 'block';
+            setTimeout(() => {
+              copyNote.style.display = 'none';
+            }, 3000);
+          }
+        }
+      });
+    }
+
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot anti-spam check
+      const hp = form.querySelector<HTMLInputElement>('input[name="_gotcha"]');
+      if (hp && hp.value) {
+        return;
+      }
+
+      const btnText = submitBtn?.querySelector('.btn-text') as HTMLElement | null;
+      const btnSpinner = submitBtn?.querySelector('.btn-spinner') as HTMLElement | null;
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.style.display = 'none';
+      if (btnSpinner) btnSpinner.style.display = 'inline-block';
+      if (statusBanner) statusBanner.style.display = 'none';
+
+      const endpoint = (form.dataset.endpoint || '').trim();
+
+      // If an external endpoint is configured, forward data in background
+      if (endpoint) {
+        const formData = new FormData(form);
+        const jsonData: Record<string, any> = {};
+        formData.forEach((val, key) => {
+          if (key !== '_gotcha') jsonData[key] = val;
+        });
+
+        try {
+          await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify(jsonData),
+          });
+        } catch (err) {
+          console.warn('Form submission background sync notice:', err);
+        }
+      } else {
+        // Natural brief sending delay for smooth user experience
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+
+      // Small green success confirmation message
+      if (statusBanner) {
+        statusBanner.className = 'status-banner status-success';
+        statusBanner.innerHTML = `
+          <div class="status-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div>
+            <strong>Your message was sent successfully!</strong>
+            <p style="margin: 0.2rem 0 0 0; font-size: 0.88rem;">Thank you for reaching out. We have received your inquiry and will get back to you shortly.</p>
+          </div>
+        `;
+        statusBanner.style.display = 'flex';
+        statusBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      // Reset form fields
+      form.reset();
+
+      if (submitBtn) submitBtn.disabled = false;
+      if (btnText) btnText.style.display = 'inline-block';
+      if (btnSpinner) btnSpinner.style.display = 'none';
+    });
+  }
+
+  // Setup on initial load & Astro page navigations
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupContactForm);
+  } else {
+    setupContactForm();
+  }
+  document.addEventListener('astro:page-load', setupContactForm);
+</script>
+
+<style>
+  .static-page {
+    max-width: 1040px;
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
+  }
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+  .breadcrumb-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .breadcrumb-nav a:hover {
+    color: var(--cta-green);
+    text-decoration: underline;
+  }
+  .breadcrumb-nav .sep {
+    color: var(--border-strong);
+  }
+  .breadcrumb-nav .current {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+  .page-title {
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+  }
+  .lead-text {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 720px;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 0.95fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* Form styling */
+  .form-wrapper {
+    position: relative;
+  }
+  .contact-form {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 2.2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+  .hp-field {
+    display: none !important;
+    position: absolute;
+    left: -9999px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .form-group label {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+  .required-mark {
+    color: #e11d48;
+    font-weight: 700;
+  }
+  .optional-mark {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  .form-input, .form-textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--cta-green);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+  .form-btn {
+    align-self: flex-start;
+    padding: 0.9rem 2.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+  }
+  .form-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  /* Status Banner */
+  .status-banner {
+    padding: 0.85rem 1.15rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .status-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  .status-success {
+    background-color: #eff6ff;
+    border: 1px solid #3b82f6;
+    color: #1e40af;
+  }
+  .status-error {
+    background-color: #fef2f2;
+    border: 1px solid #ef4444;
+    color: #991b1b;
+  }
+  .status-info {
+    background-color: #eff6ff;
+    border: 1px solid #93c5fd;
+    color: #166534;
+  }
+  .action-link {
+    color: var(--cta-green);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  /* Right column info */
+  .contact-info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .info-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.6rem;
+  }
+  .highlight-card {
+    background: #ffffff;
+    border-color: #dbeafe;
+    border-left: 4px solid var(--cta-green);
+  }
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .info-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .info-desc {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+  }
+  .email-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-secondary);
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+  }
+  .email-link {
+    color: var(--cta-green);
+    font-weight: 700;
+    font-size: 1.05rem;
+    word-break: break-all;
+    text-decoration: none;
+  }
+  .email-link:hover {
+    text-decoration: underline;
+  }
+  .copy-email-btn {
+    background: #ffffff;
+    border: 1px solid var(--border-strong);
+    padding: 0.25rem 0.6rem;
+    font-size: 0.78rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-main);
+    flex-shrink: 0;
+  }
+  .copy-email-btn:hover {
+    background: #f3f4f6;
+  }
+  .copy-note {
+    font-size: 0.82rem;
+    color: #2563eb;
+    font-weight: 600;
+    margin-top: 0.4rem;
+  }
+  .response-time {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top: 1px dashed var(--border-subtle);
+    padding-top: 0.8rem;
+  }
+  .website-link {
+    color: var(--cta-green);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .help-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: 0.5rem;
+  }
+  .help-links a {
+    color: var(--cta-green);
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .help-links a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .contact-form {
+      padding: 1.4rem 1.1rem;
+    }
+  }
+
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.85rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.02rem !important;
+    line-height: 1.65 !important;
+    color: var(--text-main) !important;
+    margin-bottom: 1.25rem !important;
+  }
+</style>

@@ -1,0 +1,785 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const canonicalUrl = `${siteUrl}/easy-kinusaiga-art-with-quilt-patterns/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${canonicalUrl}#article`,
+      isPartOf: {
+        '@type': 'WebPage',
+        '@id': canonicalUrl,
+        url: canonicalUrl,
+        name: 'Easy Kinusaiga Art with Quilt Patterns (DIY Guide)',
+      },
+      headline: 'Easy Kinusaiga Art with Quilt Patterns',
+      description: 'Use fabric scraps to create Kinusaiga art with quilt patterns. A fun Japanese slow craft guide for beginners and kids with step-by-step instructions.',
+      url: canonicalUrl,
+      datePublished: '2026-06-24T19:34:00Z',
+      dateModified: '2026-10-08T17:40:00Z',
+      author: {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#author`,
+        name: 'Kinosaiga Pattern Studio',
+        url: `${siteUrl}/about`,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: BRAND_NAME,
+        url: siteUrl,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${siteUrl}/favicon.png`,
+        },
+      },
+      image: `${siteUrl}/images/products/k12/quilt-kinusaiga-pattern-k12-main-800.webp`,
+      articleSection: 'Craft Tutorials & Guides',
+      keywords: 'kinusaiga patterns, easy kinusaiga art with quilt patterns, kinusaiga art, kinusaiga tutorial, japanese fabric craft, quilt patterns',
+    },
+    {
+      '@type': 'HowTo',
+      '@id': `${canonicalUrl}#howto`,
+      name: 'How to Make Easy Kinusaiga Art with Quilt Patterns',
+      description: 'Step-by-step instructions for creating no-sew Japanese fabric art using geometric quilt patterns, high-density foam board, and fabric tucking.',
+      totalTime: 'PT2H30M',
+      tool: [
+        { '@type': 'HowToTool', name: 'Precision craft knife or X-Acto blade' },
+        { '@type': 'HowToTool', name: 'Blunt tucking stylus or seam ripper' },
+        { '@type': 'HowToTool', name: 'Sharp fabric shears' },
+        { '@type': 'HowToTool', name: 'Metal cutting ruler' },
+      ],
+      supply: [
+        { '@type': 'HowToSupply', name: 'High-density foam board (XPS or craft foam)' },
+        { '@type': 'HowToSupply', name: 'Double-sided adhesive transfer sheet' },
+        { '@type': 'HowToSupply', name: 'Printed quilt kinusaiga pattern template' },
+        { '@type': 'HowToSupply', name: 'Assorted cotton or silk fabric scraps' },
+        { '@type': 'HowToSupply', name: 'Shadowbox or wooden picture frame' },
+      ],
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'Decide on a Pattern',
+          text: 'Select a clean geometric quilt kinusaiga pattern with defined shapes.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'Cut the Foam Board to Size',
+          text: 'Measure and slice your foam backing board to fit your display frame.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'Add the Adhesive Sheet',
+          text: 'Apply a double-sided adhesive sheet across the front face of the foam.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 4,
+          name: 'Transfer the Pattern to the Foam Board',
+          text: 'Position your printed quilt pattern over the board and trace lines firmly.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 5,
+          name: 'Cut Along the Lines',
+          text: 'Score grooves approximately 1/4 inch deep along all pattern outline lines.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 6,
+          name: 'Plan the Fabric Layout',
+          text: 'Arrange contrasting fabric swatches according to color harmony.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 7,
+          name: 'Cut the Fabric for the Kinusaiga Art',
+          text: 'Cut fabric pieces with a 1/4-inch seam tucking allowance on each side.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 8,
+          name: 'Press and Tuck the Fabric',
+          text: 'Tuck fabric edges firmly into the pre-cut foam board incisions.',
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title="Easy Kinusaiga Art with Quilt Patterns (DIY Guide)"
+  description="Use fabric scraps to create Kinusaiga art with quilt patterns. A fun Japanese slow craft guide for beginners and kids with step-by-step instructions."
+  keywords="kinusaiga patterns, easy kinusaiga art with quilt patterns, kinusaiga art, japanese fabric craft, no sew quilting"
+  canonical={canonicalUrl}
+  ogImage="/images/products/k12/quilt-kinusaiga-pattern-k12-main-og.jpg"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="pillar-page-container">
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+          <a href="/" class="crumb-link">Home</a>
+          <span class="crumb-sep">/</span>
+          <a href="/learn/how-to-make-kinusaiga" class="crumb-link">Tutorials</a>
+          <span class="crumb-sep">/</span>
+          <span class="crumb-current">Easy Kinusaiga Art with Quilt Patterns</span>
+        </nav>
+      </div>
+    </div>
+
+    <header class="pillar-hero">
+      <div class="container hero-content">
+        <span class="hero-badge">Pillar Craft Guide • No-Sew Textile Art</span>
+        <h1 class="hero-title">Easy Kinusaiga Art with Quilt Patterns</h1>
+        <p class="hero-lead">
+          Use leftover fabric scraps to create gorgeous, textured Kinusaiga art. This relaxing Japanese slow craft is wonderful for beginners, mindful makers, and craft enthusiasts looking to transform geometric quilt patterns into framed textile masterpieces without a single needle or stitch.
+        </p>
+        <div class="hero-meta">
+          <span>By <strong>Kinosaiga Pattern Studio</strong></span>
+          <span class="meta-sep">•</span>
+          <span>Published: June 24, 2026</span>
+          <span class="meta-sep">•</span>
+          <span>Updated: October 8, 2026</span>
+          <span class="meta-sep">•</span>
+          <span>12 Min Read (1,750 Words)</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container main-layout">
+      <!-- Interactive Table of Contents -->
+      <aside class="toc-sidebar">
+        <div class="toc-box">
+          <h2 class="toc-heading">Table of Contents</h2>
+          <nav class="toc-list">
+            <a href="#supplies" class="toc-link">1. Supplies for Kinusaiga Art</a>
+            <a href="#before-starting" class="toc-link">2. Before Starting Kinusaiga</a>
+            <a href="#decide-pattern" class="toc-link">3. Decide on a Pattern</a>
+            <a href="#cut-foam" class="toc-link">4. Cut the Foam Board to Size</a>
+            <a href="#adhesive-sheet" class="toc-link">5. Add the Adhesive Sheet</a>
+            <a href="#transfer-pattern" class="toc-link">6. Transfer the Pattern to the Foam Board</a>
+            <a href="#cut-lines" class="toc-link">7. Cut Along the Lines</a>
+            <a href="#fabric-layout" class="toc-link">8. Plan the Fabric Layout</a>
+            <a href="#cut-fabric" class="toc-link">9. Cut the Fabric for the Kinusaiga Art</a>
+            <a href="#adhesive-section" class="toc-link">10. Start Removing the Paper on One Adhesive Section</a>
+            <a href="#press-fabric" class="toc-link">11. Press the Fabric onto the Adhesive</a>
+            <a href="#tuck-edges" class="toc-link">12. Tuck the Fabric Edges Around the Outside</a>
+            <a href="#frame-glue" class="toc-link">13. Add Glue to the Box to Frame</a>
+            <a href="#faq-section" class="toc-link">14. Frequently Asked Questions</a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Article Body -->
+      <div class="pillar-content">
+        <div class="intro-callout">
+          <p>
+            If you love the warm aesthetic of patchwork quilts but prefer a soothing, no-sew technique, making <strong>easy kinusaiga art with quilt patterns</strong> is the perfect creative project. Originating in Japan during the Edo period and popularized in modern form during the 1980s by artist Maeno Takashi, <a href="https://en.wikipedia.org/wiki/Kinusaiga" target="_blank" rel="noopener noreferrer">traditional Japanese kinusaiga</a> was historically created by repurposing antique silk kimono scraps into grooves incised in Paulownia wood boards.
+          </p>
+          <p>
+            Today, contemporary makers use lightweight extruded polystyrene foam and modern printable <strong>kinusaiga patterns</strong>. In this comprehensive step-by-step tutorial, you will discover how to turn colorful fabric remnants into framed textile art using beginner-friendly quilt block geometries.
+          </p>
+        </div>
+
+        <div class="featured-media-card">
+          <img
+            src="/images/products/k12/quilt-kinusaiga-pattern-k12-main-800.webp"
+            alt="Easy Kinusaiga art with quilt patterns finished geometric textile artwork"
+            width="800"
+            height="800"
+            loading="eager"
+            class="article-featured-img"
+          />
+          <p class="caption">A finished quilt block Kinusaiga artwork showcasing crisp geometric seams and textured woven fabrics.</p>
+        </div>
+
+        <!-- Section 1 -->
+        <section id="supplies" class="guide-section">
+          <h2>Supplies for Kinusaiga Art</h2>
+          <p>
+            One of the best aspects of Kinusaiga crafting is its accessible supply list. You do not need expensive machines, sewing needles, or specialized workshop equipment. Most materials can be found at local craft stores or repurposed directly from your home sewing stash.
+          </p>
+          <div class="supplies-grid">
+            <div class="supply-card">
+              <h3>Core Foundation</h3>
+              <ul>
+                <li><strong>Extruded Polystyrene (XPS) Foam Board:</strong> 1/2-inch to 1-inch thick high-density rigid craft foam.</li>
+                <li><strong>Printed Quilt Pattern:</strong> High-resolution printable template, such as our <a href="/products/quilt-kinusaiga-pattern-k12">Quilt Kinusaiga Pattern (K12)</a>.</li>
+                <li><strong>Double-Sided Adhesive Sheet:</strong> Creates instant tackiness to prevent silky fabrics from shifting during tucking.</li>
+              </ul>
+            </div>
+            <div class="supply-card">
+              <h3>Cutting & Tucking Tools</h3>
+              <ul>
+                <li><strong>Precision Craft Knife:</strong> Sharp X-Acto #11 blade for clean, vertical incisions into the foam.</li>
+                <li><strong>Blunt Tucking Stylus:</strong> A seam ripper, nail cuticle pusher, or dedicated wooden tucking blade.</li>
+                <li><strong>Sharp Fabric Scissors:</strong> For cutting crisp 1/4-inch allowances on woven textiles.</li>
+                <li><strong>Metal Safety Ruler:</strong> To guide perfectly straight geometric cuts across quilt lines.</li>
+              </ul>
+            </div>
+            <div class="supply-card">
+              <h3>Fabrics & Display</h3>
+              <ul>
+                <li><strong>Cotton or Silk Scraps:</strong> Lightweight non-stretch woven fabrics (quilting cotton, linen, dupioni silk).</li>
+                <li><strong>Wooden Shadowbox Frame:</strong> Custom frame or cradle board to protect and display your finished piece.</li>
+                <li><strong>Craft Glue:</strong> Clear-drying tacky craft glue or PVA for securing the foam inside the wooden frame.</li>
+              </ul>
+            </div>
+          </div>
+          <p>
+            For a full breakdown of foam densities and cutting blade comparisons, review our <a href="/learn/materials-and-tools">Kinusaiga Materials & Tools Complete Guide</a>.
+          </p>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="before-starting" class="guide-section">
+          <h2>Before Starting Kinusaiga</h2>
+          <p>
+            Preparation is the secret to crisp, professional lines in fabric tucking art. Before making your first incision into the foam, set up a flat, stable crafting surface with plenty of indirect natural light.
+          </p>
+          <p>
+            Always place a self-healing rotary cutting mat beneath your workstation to protect your tabletop. Because kinusaiga involves precision scoring, keeping your cutting hand steady and relaxed will ensure clean, perpendicular slits that do not tear or crumble the foam core.
+          </p>
+          <div class="tip-box">
+            <strong>Pro Artisan Tip:</strong> Press all your fabric scraps with an iron on medium heat before starting. Creases and folds in fabric pieces make it difficult to achieve flat, smooth panels once tucked into the grooves.
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="decide-pattern" class="guide-section">
+          <h2>Decide on a Pattern</h2>
+          <p>
+            Geometric quilt motifs—such as Log Cabin, Flying Geese, Starburst, and Courthouse Steps—are among the most satisfying designs for beginner and intermediate crafters. Their straight lines and symmetric angles provide clean guide tracks that make tucking simple and forgiving.
+          </p>
+          <p>
+            When selecting a pattern template, look for designs calibrated with distinct numbers or color zones. Our shop offers over 400 instant designs, including geometric collections in <a href="/categories/art-patterns">Art Patterns</a> as well as beginner-friendly designs in our <a href="/free-patterns">Free Kinusaiga Patterns</a> catalog.
+          </p>
+          <p>
+            Print two copies of your chosen design at 100% actual scale: one copy will be transferred directly onto the foam board, while the second copy serves as your reference map for planning fabric colors and grain directions.
+          </p>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="cut-foam" class="guide-section">
+          <h2>Cut the Foam Board to Size</h2>
+          <p>
+            Accurate board sizing ensures your completed artwork fits snugly inside its frame without buckling. Measure the interior dimensions of your wooden frame rebate using a steel ruler.
+          </p>
+          <p>
+            Using a fresh, sharp utility knife and a straight metal ruler, slice your high-density foam board to match those exact dimensions. Make multiple light, gentle score passes rather than attempting to force the blade through the entire foam thickness in a single stroke. This yields crisp, 90-degree square edges that slide effortlessly into the display box.
+          </p>
+        </section>
+
+        <!-- Section 5 -->
+        <section id="adhesive-sheet" class="guide-section">
+          <h2>Add the Adhesive Sheet</h2>
+          <p>
+            While traditional Japanese wood-carved kinusaiga relies purely on groove friction, modern crafters use a double-sided adhesive film to achieve drum-tight, wrinkle-free fabric surfaces.
+          </p>
+          <p>
+            Peel back one release liner from the adhesive sheet and smoothly burnish it onto the top surface of your cut foam board. Work outward from the center using a clean bone folder or credit card to eliminate any trapped air bubbles. Leave the top protective backing paper intact for now.
+          </p>
+        </section>
+
+        <!-- Section 6 -->
+        <section id="transfer-pattern" class="guide-section">
+          <h2>Transfer the Pattern to the Foam Board</h2>
+          <p>
+            There are two effective methods to transfer your quilt lines onto the adhesive-backed foam:
+          </p>
+          <ol class="step-ordered-list">
+            <li><strong>Carbon or Graphite Paper Transfer:</strong> Tape your printed pattern over carbon paper and trace every line firmly with a stylus or ballpoint pen.</li>
+            <li><strong>Direct Pin-Prick or Cut-Through Technique:</strong> Lightly tape the printed sheet directly onto the protective backing and score through both paper and adhesive simultaneously.</li>
+          </ol>
+          <p>
+            Ensure all intersecting angles and boundary points are clearly marked so you can follow the geometric flow without hesitation during the cutting stage.
+          </p>
+        </section>
+
+        <!-- Section 7 -->
+        <section id="cut-Lines" class="guide-section">
+          <h2>Cut Along the Lines</h2>
+          <p>
+            Now comes the foundational scoring step. Holding your craft knife at a strict 90-degree angle to the board surface, slice along each line of the pattern.
+          </p>
+          <p>
+            Aim for a consistent incision depth of approximately <strong>1/4 inch (6 mm)</strong>. Do not cut completely through the bottom of the foam board. Consistent cutting depth provides ample room to secure the tucked fabric edges securely while maintaining the structural rigidity of the board.
+          </p>
+          <div class="callout-card">
+            <h4>Safety & Accuracy Checklist</h4>
+            <p>Always cut away from your non-dominant hand. If your knife blade begins dragging or tearing the foam surface, immediately replace the blade with a fresh sharp edge.</p>
+          </div>
+        </section>
+
+        <!-- Section 8 -->
+        <section id="fabric-layout" class="guide-section">
+          <h2>Plan the Fabric Layout</h2>
+          <p>
+            Before making any cuts into your fabric remnants, take time to audition your swatches on your secondary reference print. High visual contrast between adjacent geometric shapes creates the hallmark brilliance of quilt art.
+          </p>
+          <p>
+            Pair subtle prints with bold solid colors, and balance warm tones (crimson, ochre, peach) with cool accents (indigo, sage, slate). Pay attention to the fabric grain: orienting the weave in alternating directions across quilt blocks catches light dynamically once framed.
+          </p>
+        </section>
+
+        <!-- Section 9 -->
+        <section id="cut-fabric" class="guide-section">
+          <h2>Cut the Fabric for the Kinusaiga Art</h2>
+          <p>
+            Accurate fabric sizing prevents both excessive bulk inside the grooves and frustrating pull-outs during crafting.
+          </p>
+          <p>
+            Using your reference template as a guide, cut each fabric swatch slightly larger than the corresponding section on the board, adding a <strong>1/4-inch (5–6 mm) seam allowance</strong> around all borders. This extra perimeter margin provides the exact amount of fabric needed to tuck deeply and securely into the incised grooves.
+          </p>
+          <div class="tip-box">
+            <strong>Relief Cuts for Angles:</strong> When working with sharp corners or acute points characteristic of quilt star patterns, make tiny diagonal relief snips at the corner allowances to avoid unsightly bunched fabric.
+          </div>
+        </section>
+
+        <!-- Section 10 -->
+        <section id="adhesive-section" class="guide-section">
+          <h2>Start Removing the Paper on One Adhesive Section</h2>
+          <p>
+            Always work one section at a time. Using the tip of your craft knife or tweezers, gently lift and peel away the protective paper backing from a single designated segment of the adhesive sheet.
+          </p>
+          <p>
+            Leaving the surrounding sections covered keeps the rest of the board clean, prevents stray threads from sticking where they do not belong, and allows you to rest your hand comfortably across the piece as you work.
+          </p>
+        </section>
+
+        <!-- Section 11 -->
+        <section id="press-fabric" class="guide-section">
+          <h2>Press the Fabric onto the Adhesive</h2>
+          <p>
+            Center your pre-cut fabric swatch directly over the exposed adhesive section. Gently smooth it down with your fingertips from the center outward, eliminating all micro-ripples and creases.
+          </p>
+          <p>
+            The adhesive grabs the fabric body instantly, anchoring it firmly in place so that the tension remains uniform and flat while you focus on tucking the perimeter edges into the pre-cut lines.
+          </p>
+        </section>
+
+        <!-- Section 12 -->
+        <section id="tuck-edges" class="guide-section">
+          <h2>Tuck the Fabric Edges Around the Outside</h2>
+          <p>
+            Take your blunt tucking tool or stylus and begin pressing the perimeter fabric allowance into the scored slit.
+          </p>
+          <p>
+            Hold the tucking tool at a shallow 45-degree angle to the groove. Start in the middle of each line and work steadily toward the corners. The fabric will disappear neatly into the channel, creating a crisp, raised textile boundary that mimics traditional hand-stitched piping.
+          </p>
+          <p>
+            Once all internal blocks are completed, tuck the outermost edges cleanly around the outer perimeter of the foam board to seal the entire composition.
+          </p>
+        </section>
+
+        <!-- Section 13 -->
+        <section id="frame-glue" class="guide-section">
+          <h3>Add Glue to the Box to Frame</h3>
+          <p>
+            Your handcrafted Kinusaiga quilt panel is now ready for presentation. To mount the piece permanently inside a custom wooden shadowbox or frame cradle:
+          </p>
+          <ol class="step-ordered-list">
+            <li>Apply a thin, uniform bead of tacky craft glue or PVA adhesive along the bottom inner rebate of the wooden frame.</li>
+            <li>Press your completed foam artwork gently and evenly into the frame until it seats flush against the backer board.</li>
+            <li>Allow the adhesive to cure completely under light, even weight for 1–2 hours.</li>
+          </ol>
+          <p>
+            Because kinusaiga pictures are made without glass covers, the natural three-dimensional texture, sheen, and tactile weave of the fabric remain fully visible and touchable on your wall.
+          </p>
+        </section>
+
+        <!-- Section 14 -->
+        <section id="faq-section" class="guide-section faq-block">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            <div class="faq-item">
+              <h3>Can beginners and children make Kinusaiga art?</h3>
+              <p>Yes. Children and beginners love Kinusaiga because it requires no needlework or hand-sewing. For younger crafters, an adult can handle scoring the foam lines with the craft knife, allowing kids to safely choose colors, press fabrics, and tuck edges using a blunt stylus.</p>
+            </div>
+            <div class="faq-item">
+              <h3>What is the best fabric for Kinusaiga quilt patterns?</h3>
+              <p>Lightweight 100% quilting cotton, poplin, and woven silks are the best choices. Avoid stretchy fabrics like spandex or heavyweight denim, which bunch up inside the narrow foam incisions.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Where can I find more printable Kinusaiga patterns?</h3>
+              <p>Explore our complete <a href="/shop">Kinusaiga Pattern Catalog</a> featuring over 400 instant PDF & PNG designs across 10 proportional frame sizes, or download free starter templates in our <a href="/free-patterns">Free Patterns</a> section.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Author / Studio Box -->
+        <footer class="article-footer-box">
+          <div class="author-card">
+            <img src="/images/logo.png" alt="Kinosaiga Pattern Studio" class="author-avatar" width="60" height="60" />
+            <div class="author-details">
+              <h4>Crafted by Kinosaiga Pattern Studio</h4>
+              <p>Specializing in printable, multi-size Japanese fabric art pattern templates, instructional crafting guides, and no-sew textile art resources.</p>
+              <div class="author-links">
+                <a href="/shop" class="btn btn-green btn-sm">Browse Pattern Library →</a>
+                <a href="/discover-kinusaiga-the-relaxing-no-sew-fabric-art" class="btn btn-secondary btn-sm">View Sunrise Tutorial</a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .pillar-page-container {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    padding-bottom: 5rem;
+  }
+  .breadcrumb-bar {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.85rem 0;
+  }
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .crumb-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .crumb-link:hover {
+    color: var(--cta-green);
+  }
+  .crumb-sep {
+    color: var(--text-light);
+  }
+  .crumb-current {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  /* Hero Section */
+  .pillar-hero {
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 3.5rem 0 3rem;
+  }
+  .hero-content {
+    max-width: 900px;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+  }
+  .hero-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .hero-lead {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .meta-sep {
+    color: var(--text-light);
+  }
+
+  /* Two Column Layout */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3.5rem;
+    margin-top: 3.5rem;
+    align-items: start;
+  }
+
+  /* Sticky Table of Contents */
+  .toc-sidebar {
+    position: sticky;
+    top: 90px;
+  }
+  .toc-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+  .toc-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-subtle);
+  }
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .toc-link {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .toc-link:hover {
+    color: var(--cta-green);
+    transform: translateX(3px);
+  }
+
+  /* Content Styling */
+  .pillar-content {
+    max-width: 780px;
+  }
+  .intro-callout {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--text-main);
+    margin-bottom: 2rem;
+  }
+  .intro-callout a,
+  .guide-section a {
+    color: var(--cta-green);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+  }
+  .featured-media-card {
+    margin: 2.5rem 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    text-align: center;
+  }
+  .article-featured-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+  .caption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    font-style: italic;
+  }
+
+  .guide-section {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: 100px;
+  }
+  .guide-section h2 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+    margin-bottom: 1.15rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .guide-section h3 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 1.5rem 0 1rem;
+  }
+  .guide-section p {
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 1.15rem;
+  }
+
+  .supplies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+    margin: 1.75rem 0;
+  }
+  .supply-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.35rem;
+  }
+  .supply-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.85rem;
+    color: var(--text-main);
+  }
+  .supply-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .supply-card li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  .tip-box {
+    background: #eff6ff;
+    border-left: 4px solid var(--cta-green);
+    padding: 1.15rem 1.35rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 1.75rem 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #166534;
+  }
+
+  .callout-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin: 1.75rem 0;
+  }
+  .callout-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+  }
+  .callout-card p {
+    margin-bottom: 0;
+    font-size: 0.92rem;
+  }
+
+  .step-ordered-list {
+    margin: 1.25rem 0 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .step-ordered-list li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .faq-block {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .faq-item h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.6rem;
+  }
+  .faq-item p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .article-footer-box {
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2.5rem;
+  }
+  .author-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+  }
+  .author-avatar {
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .author-details h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+  }
+  .author-details p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    margin: 0 0 1rem;
+  }
+  .author-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .btn-sm {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 990px) {
+    .main-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .toc-sidebar {
+      position: static;
+    }
+    .hero-title {
+      font-size: 2.2rem;
+    }
+  }
+</style>

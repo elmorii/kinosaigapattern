@@ -1,0 +1,1637 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PurchaseBox from '../../components/PurchaseBox.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { getAllProducts, getShopConfig } from '../../lib/catalog.ts';
+import type { Product } from '../../lib/types.ts';
+
+export function getStaticPaths() {
+  const config = getShopConfig();
+  const allProducts = getAllProducts(config.catalog.showDraftsInDev);
+
+  return allProducts.map((product) => {
+    // Find related products by same category or similar tags, excluding self (only paid patterns)
+    const related = allProducts
+      .filter((p) => p.id !== product.id && p.type === 'paid' && (p.category === product.category || p.categorySlug === product.categorySlug))
+      .slice(0, 4);
+
+    return {
+      params: { slug: product.slug },
+      props: { product, related },
+    };
+  });
+}
+
+interface Props {
+  product: Product;
+  related: Product[];
+}
+
+const { product, related } = Astro.props;
+const config = getShopConfig();
+const mainImg = product.images[0];
+const gallery = product.images.slice(1);
+const isFree = product.type === 'free';
+const isBundle = Boolean(product.isBundle || (product.number >= 113 && product.number <= 119));
+const primaryKeyword = isBundle ? `${product.niche} Kinusaiga Bundle` : `Kinusaiga ${product.niche} Pattern`;
+
+// Strictly ONE clean long-tail keyword per product (no slashes, underscores, hyphens, or symbols)
+function sanitizeLongTailKeyword(raw: string): string {
+  return String(raw || '')
+    .replace(/[^a-zA-Z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+const fallbackLongTail = isBundle
+  ? `printable ${product.niche} kinusaiga pattern bundle pdf`
+  : isFree
+    ? `free printable ${product.niche} kinusaiga pattern pdf`
+    : `printable ${product.niche} kinusaiga pattern pdf template`;
+
+const longTailKeyword = sanitizeLongTailKeyword((product.keywords && product.keywords[0]) || fallbackLongTail);
+const pageKeywordsList = [longTailKeyword];
+
+// Optimal SEO Meta Title strictly within 40-60 characters
+function buildProductTitle(niche: string, isFree: boolean): string {
+  const base = isFree
+    ? `Free ${niche} Kinusaiga Pattern PDF | Kinosaiga Pattern`
+    : `${niche} Kinusaiga Pattern PDF | Kinosaiga Pattern`;
+  if (base.length <= 60) return base;
+  return isFree
+    ? `Free ${niche} Kinusaiga Pattern | Kinosaiga Pattern`
+    : `${niche} Kinusaiga Pattern | Kinosaiga Pattern`;
+}
+const pageTitle = (isBundle && product.seoTitle && product.seoTitle.length <= 70)
+  ? product.seoTitle
+  : buildProductTitle(product.niche, isFree);
+
+// Optimal SEO Meta Description strictly within 140-160 characters
+function buildProductDescription(niche: string, isFree: boolean, sizeCount: number): string {
+  if (isFree) {
+    let str = `Download free ${niche} Kinusaiga pattern (PDF) for no-sew Japanese fabric art. Print at 100% scale and start creating beautiful wall decor today.`;
+    if (str.length >= 140 && str.length <= 160) return str;
+    if (str.length < 140) {
+      str = `Download free ${niche} Kinusaiga pattern (PDF) for no-sew Japanese fabric art. Print template at 100% scale and start creating beautiful wall decor today.`;
+    }
+    if (str.length > 160) {
+      str = `Download free ${niche} Kinusaiga pattern PDF for no-sew Japanese fabric art. Print template at 100% scale and start creating wall decor today.`;
+    }
+    return str;
+  } else {
+    const countText = sizeCount > 0 ? `${sizeCount}` : 'multiple';
+    let str = `Printable ${niche} Kinusaiga pattern for no-sew Japanese fabric art. Instant PDF & PNG download with ${countText} size options. Print template and start crafting.`;
+    if (str.length >= 140 && str.length <= 160) return str;
+    if (str.length < 140) {
+      str = `Printable ${niche} Kinusaiga pattern for no-sew Japanese fabric art. Instant PDF and PNG downloads with ${countText} size options. Print template & start crafting.`;
+    }
+    if (str.length > 160) {
+      str = `Printable ${niche} Kinusaiga pattern for no-sew Japanese fabric art. Instant PDF & PNG with ${countText} sizes. Print template and start crafting art today.`;
+    }
+    return str;
+  }
+}
+const pageDescription = (isBundle && product.metaDescription && product.metaDescription.length >= 130 && product.metaDescription.length <= 165)
+  ? product.metaDescription
+  : buildProductDescription(product.niche, isFree, product.sizes.length);
+
+// Full Schema.org Knowledge Graph for GEO and AI Search Optimization
+const siteUrl = (config.shop.siteUrl || 'https://www.your-domain.com').replace(/\/$/, '');
+const fullProductUrl = `${siteUrl}/products/${product.slug}`;
+const absoluteImages = product.images.map((img) => {
+  const src = img.variants[img.variants.length - 1]?.src || img.variants[0]?.src || '/favicon.png';
+  return src.startsWith('http') ? src : `${siteUrl}${src}`;
+});
+
+const productSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    description: pageDescription,
+    sku: product.slug,
+    mpn: product.slug,
+    category: product.category,
+    image: absoluteImages,
+    datePublished: product.addedAt ? product.addedAt.slice(0, 10) : '2026-11-05',
+    dateModified: '2026-11-22',
+    brand: {
+      '@type': 'Brand',
+      name: 'Kinosaiga Pattern',
+    },
+    manufacturer: {
+      '@type': 'Organization',
+      name: 'Kinosaiga Pattern',
+      url: siteUrl,
+    },
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    creator: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    offers: {
+      '@type': 'Offer',
+      url: fullProductUrl,
+      price: product.price !== null ? product.price.toFixed(2) : '0.00',
+      priceCurrency: product.currency || 'USD',
+      validFrom: (product.addedAt ? product.addedAt.slice(0, 10) : '2026-11-05'),
+      priceValidUntil: '2027-12-31',
+      itemCondition: 'https://schema.org/NewCondition',
+      availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'Kinosaiga Pattern',
+        url: siteUrl,
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'US',
+        returnPolicyCountry: 'US',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+        merchantReturnLink: `${siteUrl}/legal/refund-policy`,
+      },
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '0.00',
+          currency: 'USD',
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'US',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' },
+          transitTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' },
+        },
+      },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#author`,
+    name: 'Kinosaiga Pattern Studio',
+    url: `${siteUrl}/about`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Shop',
+        item: `${siteUrl}/shop`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.category,
+        item: `${siteUrl}/categories/${product.categorySlug}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: `${product.niche} Pattern`,
+        item: fullProductUrl,
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: (product.faq || []).map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url: fullProductUrl,
+    name: pageTitle,
+    description: pageDescription,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: config.shop.name || 'Kinusaiga Digital Pattern Store',
+      url: siteUrl,
+    },
+    inLanguage: 'en-US',
+    datePublished: product.addedAt || '2026-11-01T00:00:00Z',
+    dateModified: product.updatedAt || '2026-11-05T00:00:00Z',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: config.shop.name || 'Kinusaiga Digital Pattern Store',
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.png`,
+    sameAs: [siteUrl],
+    knowsAbout: [
+      'Kinusaiga',
+      'Japanese Fabric Art',
+      'No-Sew Textile Craft',
+      'Printable Fabric Templates',
+      'Kinusaiga Pattern Design',
+    ],
+  },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  exactKeywords={longTailKeyword}
+  ogImage={product.ogImage || mainImg?.variants?.[0]?.src}
+  schema={productSchema}
+>
+  <div class="container product-page">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/shop">Shop</a>
+      <span class="sep">/</span>
+      <a href={`/categories/${product.categorySlug}`}>{product.category}</a>
+      <span class="sep">/</span>
+      <span class="current">{product.niche}</span>
+    </nav>
+
+    <!-- Top Product Showcase -->
+    <div class="product-top-grid">
+      <!-- Image Gallery -->
+      <div class="gallery-col">
+        <div class="gallery-inner">
+          {gallery.length > 0 && (
+            <div class="thumb-carousel" aria-label="Product thumbnails">
+              {product.images.map((img, i) => (
+                <button
+                  class:list={['thumb-btn', { active: i === 0 }]}
+                  data-src={img.variants.find((v) => v.width >= 800)?.src || img.variants[0]?.src}
+                  data-alt={img.alt}
+                  aria-label={`View image ${i + 1}`}
+                >
+                  <img
+                    src={img.variants[0]?.src}
+                    alt={`Thumbnail ${i + 1}`}
+                    width="80"
+                    height="80"
+                    class="thumb-img"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div class="main-image-wrap" id="main-image-wrap" aria-roledescription="carousel">
+            <div class="gallery-slider-track" id="gallery-slider-track">
+              {product.images.map((img, i) => {
+                const src800 = img.variants.find((v) => v.width >= 800)?.src || img.variants[0]?.src;
+                return (
+                  <div class="gallery-slide" data-slide-index={i}>
+                    <img
+                      src={src800}
+                      alt={img.alt || `${product.title} - View ${i + 1}`}
+                      width="800"
+                      height="800"
+                      class="main-img"
+                      loading={i === 0 ? "eager" : "lazy"}
+                      decoding={i === 0 ? "sync" : "async"}
+                      draggable="false"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            {gallery.length > 0 && (
+              <>
+                <button
+                  type="button"
+                  class="gallery-nav-btn prev-btn"
+                  id="gallery-prev-btn"
+                  aria-label="Previous image"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="gallery-nav-btn next-btn"
+                  id="gallery-next-btn"
+                  aria-label="Next image"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+                <div class="gallery-dots" id="gallery-dots" role="tablist" aria-label="Image indicators">
+                  {product.images.map((_, i) => (
+                    <button
+                      type="button"
+                      class:list={['gallery-dot', { active: i === 0 }]}
+                      data-dot-index={i}
+                      aria-label={`Jump to image ${i + 1}`}
+                    ></button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        <!-- Quick Specs moved directly under the image gallery -->
+        <div class="quick-specs" aria-label="Template Specifications">
+          <dl class="quick-specs-dl">
+            <div class="spec-row">
+              <dt class="spec-label">Format:</dt>
+              <dd class="spec-val">
+                {product.formats.length > 0 ? product.formats.join(', ') : 'PDF, PNG'}
+                {product.noBackgroundVersion && <span class="spec-extra"> (Plus No-Background Version)</span>}
+              </dd>
+            </div>
+            <div class="spec-row">
+              <dt class="spec-label">Pattern:</dt>
+              <dd class="spec-val">Kinusaiga {product.niche} Pattern</dd>
+            </div>
+            <div class="spec-row">
+              <dt class="spec-label">Craft Type:</dt>
+              <dd class="spec-val">Kinusaiga (No-sew Japanese fabric art)</dd>
+            </div>
+            <div class="spec-row">
+              <dt class="spec-label">Skill Level:</dt>
+              <dd class="spec-val">Beginner to Experienced Crafters</dd>
+            </div>
+            <div class="spec-row">
+              <dt class="spec-label">Delivery:</dt>
+              <dd class="spec-val">Instant digital download (PDF format)</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Product Buy / Summary -->
+      <div class="details-col">
+        <div class="product-header">
+          <div class="product-tags-row">
+            <span class="product-badge">{product.category}</span>
+            <span class="product-keyword-pill">{isBundle ? 'Kinusaiga Patterns Bundle' : `Kinusaiga ${product.niche} Pattern`}</span>
+          </div>
+
+          <h1 class="product-h1">{isBundle ? `${product.niche} Kinusaiga Bundle – Printable Kinusaiga Patterns Collection` : `${product.niche} Kinusaiga Pattern – Kinusaiga ${product.niche} Pattern Printable Template`}</h1>
+
+          <div class="product-byline-bar">
+            <span class="byline-author">Designed by <a href="/about" rel="author">Kinosaiga Pattern Studio</a></span>
+            <span class="byline-sep">•</span>
+            <span class="byline-date">Published <time datetime={product.addedAt ? product.addedAt.slice(0, 10) : '2026-11-05'}>{product.addedAt ? product.addedAt.slice(0, 10) : 'Nov 5, 2026'}</time></span>
+            <span class="byline-sep">•</span>
+            <span class="byline-updated">Updated <time datetime="2026-11-22">Nov 22, 2026</time></span>
+          </div>
+        </div>
+
+        <p class="product-summary">{product.summary}</p>
+
+        <!-- Purchase / Download Component -->
+        <PurchaseBox product={product} />
+      </div>
+    </div>
+
+    <!-- Long Details & Content Sections -->
+    <div class="product-details-content">
+      <div class="content-tabs">
+        <!-- AI & GEO Citability: Quick Overview Summary Box -->
+        <div class="ai-key-takeaways" aria-label="Key Pattern Summary">
+          <div class="takeaways-header">
+            <span class="takeaways-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </span>
+            <strong>Quick Overview · Pattern Key Facts</strong>
+          </div>
+          <ul class="takeaways-list">
+            <li><strong>Design:</strong> Printable {product.niche} Kinusaiga pattern template.</li>
+            <li><strong>Craft Technique:</strong> Japanese no-sew fabric tucking on foam or wood board.</li>
+            <li><strong>Format:</strong> Instant digital download in PDF and PNG formats.</li>
+            <li><strong>Sizes Included:</strong> {product.sizes.length > 0 ? `${product.sizes.length} proportional size options` : 'Multiple print sizes for home and shop printers'}.</li>
+            <li><strong>Experience Level:</strong> Beginner-friendly to advanced textile crafters.</li>
+            <li><strong>Refund Policy:</strong> 14-day refund eligibility for duplicate purchases, unresolvable defective files, or description errors (<a href="/legal/refund-policy">Refund Policy</a>).</li>
+          </ul>
+        </div>
+
+        <section class="desc-section">
+          <h2>{isBundle ? `What Makes This ${product.niche} Kinusaiga Bundle Unique?` : `What Makes This ${product.niche} Kinusaiga Pattern Unique?`}</h2>
+          <p class="lead-answer"><strong>This {product.niche} {isBundle ? 'Kinusaiga bundle is a comprehensive printable collection of templates for Japanese no-sew fabric art' : 'Kinusaiga pattern is a printable template for Japanese no-sew fabric art'}</strong>, formatted with clean outlines for tracing or transferring onto foam board before cutting grooves and tucking fabric.</p>
+          <p class="pattern-keyword-highlight">
+            Featured Design: <strong>{isBundle ? `${product.niche} Kinusaiga Bundle` : `Kinusaiga ${product.niche} Pattern`}</strong>
+          </p>
+          {product.description.overview.map((p) => (
+            <p>{p}</p>
+          ))}
+
+          {isBundle && (
+            <div class="bundle-seo-callout" style="margin-top: 1.25rem; padding: 1.25rem; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 8px;">
+              <h3 style="margin-top: 0; font-size: 1.1rem; color: #831843;">Complete Kinusaiga Patterns Bundle &amp; Templates Collection</h3>
+              <p style="margin-bottom: 0; line-height: 1.7; color: #374151;">
+                Looking for a comprehensive <strong>kinusaiga bundle</strong>? Our curated <strong>kinusaiga patterns bundle</strong> provides an extensive collection of authentic <strong>kinusaiga patterns</strong> and ready-to-use <strong>kinusaiga templates</strong> designed for Japanese no-sew fabric craft. With this all-in-one <strong>kinusaiga template bundle</strong>, you receive an instant <strong>kinusaiga patterns download</strong> featuring crisp <strong>printable kinusaiga patterns</strong> in convenient <strong>kinusaiga patterns pdf</strong> and high-resolution PNG formats. Whether you want <strong>kinusaiga patterns printable</strong> for personal crafting or gifting handmade wall art, each design offers clean grooving lines and numbered fabric placement guides.
+              </p>
+            </div>
+          )}
+
+          <!-- Authoritative Definition & Citation Block for AI Search & Content Citability -->
+          <div class="kinusaiga-definition-box">
+            <div class="definition-title">
+              <span class="def-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: -2px; margin-right: 4px;">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                Authoritative Craft History Citation
+              </span>
+            </div>
+            <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Kinusaiga">
+              <p>
+                "Kinusaiga was developed in 1987 by Japanese textile artisan and professor <strong>Maeno Takashi (前野節)</strong> as an art form to repurpose vintage kimono silk fabrics into intricate mosaic pictures using incised foam boards without sewing."
+              </p>
+              <footer class="citation-footer">
+                — Documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer">Japanese Traditional Craftsmanship Archive</a></cite> and referenced in the <a href="https://www.metmuseum.org/toah/hd/furg/hd_furg.htm" target="_blank" rel="noopener noreferrer">Metropolitan Museum Asian Textile Arts Archive</a>.
+              </footer>
+            </blockquote>
+            <div class="definition-citation" style="margin-top: 0.75rem;">
+              Want to master the craft? Explore our <a href="/learn/what-is-kinusaiga">Complete Guide to Kinusaiga Art</a> and <a href="/learn/how-to-make-kinusaiga">Step-by-Step Beginner Tutorial</a>.
+            </div>
+          </div>
+        </section>
+
+        {product.description.included.length > 0 && (
+          <section class="desc-section">
+            <h2>{isBundle ? `What Is Included in This ${product.niche} Kinusaiga Bundle?` : `What Is Included in This Kinusaiga ${product.niche} Pattern?`}</h2>
+            <p class="lead-answer"><strong>Each {product.niche} digital package includes {product.sizes.length > 0 ? `${product.sizes.length} pre-scaled` : 'printable'} PDF and PNG templates</strong>, a no-background version, and instant digital delivery.</p>
+            <ul class="styled-list">
+              {product.description.included.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {product.sizes.length > 0 && (
+          <section class="desc-section">
+            <h2>{isBundle ? `What Sizes Are Included in This ${product.niche} Bundle?` : `What Sizes Are Included in This ${product.niche} Pattern Package?`}</h2>
+            <p class="lead-answer"><strong>Every design comes pre-scaled across {product.sizes.length} distinct frame dimensions</strong>, ensuring you can print immediately on standard letter or A4 printers without distortion.</p>
+            <p class="sizes-intro">
+              This listing includes templates formatted for {product.sizes.length} distinct project sizes:
+            </p>
+            <ul class="styled-list sizes-list">
+              {product.sizes.map((s) => (
+                <li>
+                  <strong>{s.label}</strong> {s.cm && `(${s.cm})`} – {s.ratio} aspect ratio
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {product.description.features.length > 0 && (
+          <section class="desc-section">
+            <h2>{isBundle ? `What Are the Key Features of This ${product.niche} Kinusaiga Bundle?` : `What Are the Key Features of This ${product.niche} Pattern?`}</h2>
+            <p class="lead-answer"><strong>This digital package provides clean printable lines in PDF and PNG formats</strong>, scaled across {product.sizes.length > 0 ? `${product.sizes.length} sizes` : 'standard sizes'} for home or print-shop printing.</p>
+            <ul class="styled-list">
+              {product.description.features.map((feat) => (
+                <li>{feat}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section class="desc-section">
+          <h2>How Do You Download & Access Your {product.niche} Pattern Files?</h2>
+          <p class="lead-answer"><strong>{isFree ? 'Your free pattern PDF downloads directly in your browser' : 'Your pattern files are delivered immediately after Payhip checkout'}</strong>{isFree ? ' without payment or account registration.' : ' via download link on screen and in your confirmation email.'}</p>
+          <ol class="styled-ol">
+            {product.description.access.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+        </section>
+
+        <section class="desc-section">
+          <h2>What Materials Do You Need for This {product.niche} Project?</h2>
+          <p class="lead-answer"><strong>To craft this design, you only need high-density foam board, scrap fabrics, a craft blade, and a tucking stylus</strong>—no sewing machine, thread, or glue required.</p>
+          <ul class="styled-list">
+            {product.description.important.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- Studio & File Format Overview Card -->
+        <section class="desc-section eeat-verification-section">
+          <h2>Pattern Specifications & Digital File Overview</h2>
+          <div class="artisan-profile-card">
+            <div class="artisan-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+            </div>
+            <div class="artisan-content">
+              <div class="artisan-header-row">
+                <div>
+                  <h3 class="artisan-name">Kinosaiga Pattern Studio</h3>
+                  <span class="artisan-role">Printable Kinusaiga Digital Templates · kinosaigapattern.com</span>
+                </div>
+                <span class="verification-pill">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: -1px; margin-right: 3px;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Digital Files
+                </span>
+              </div>
+              <p class="artisan-statement">
+                This {product.niche} Kinusaiga package is delivered as printable PDF and PNG files across {product.sizes.length > 0 ? `${product.sizes.length} proportional sizes` : 'multiple print sizes'}, including a no-background version for easy tracing. Want to try our pattern format before buying? Download any of our <a href="/free-patterns" style="color: var(--cta-green); font-weight: 600;">free starter patterns</a> to inspect and test the layout at home.
+              </p>
+              <div class="quality-badges-row">
+                <div class="q-badge">
+                  <strong>100%</strong>
+                  <span>No-Sew Technique</span>
+                </div>
+                <div class="q-badge">
+                  <strong>{product.sizes.length > 0 ? `${product.sizes.length} Sizes` : 'Multi-Size'}</strong>
+                  <span>Pre-Scaled Templates</span>
+                </div>
+                <div class="q-badge">
+                  <strong>PDF + PNG</strong>
+                  <span>Printable Formats</span>
+                </div>
+                <div class="q-badge">
+                  <strong>100% Scale</strong>
+                  <span>Home Printer Ready</span>
+                </div>
+              </div>
+              <div class="artisan-meta-row">
+                <span class="meta-date">Listing updated: November 2026</span>
+                <span class="meta-sep">·</span>
+                <a href="/free-patterns" class="meta-link">Try free starter patterns →</a>
+                <span class="meta-sep">·</span>
+                <a href="/contact" class="meta-link">Customer support & questions →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Refund Policy & Support Card -->
+        <div class="satisfaction-guarantee-card">
+          <div class="guarantee-shield">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <div class="guarantee-body">
+            <h3 class="guarantee-title">14-Day Digital Refund Policy & File Support</h3>
+            <p>
+              Need help opening or printing your {product.niche} files? Contact us within <strong>14 days of purchase</strong> with your order number and checkout email. Under our Refund Policy, we provide replacement files for corrupted or defective downloads (or a full refund if unresolved within 48 hours), as well as full refunds for accidental duplicate purchases or substantial description discrepancies.
+            </p>
+            <div class="guarantee-footer-links">
+              <a href="/legal/refund-policy">Full Refund Policy</a>
+              <span>·</span>
+              <a href="/legal/terms-and-conditions">Terms of Service</a>
+              <span>·</span>
+              <a href="/help/digital-downloads">Digital Download Guide</a>
+              <span>·</span>
+              <a href="/contact">Customer Support</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="desc-section seo-keywords-section">
+          <div class="product-tag-chips">
+            {pageKeywordsList.map((tag) => (
+              <span class="product-tag-chip">{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        {product.faq.length > 0 && (
+          <section class="desc-section faq-section">
+            <h2>Frequently Asked Questions: How Do You Craft This {product.niche} Pattern?</h2>
+            <div class="faq-list">
+              {product.faq.map((item) => (
+                <div class="faq-item">
+                  <h3 class="faq-q">{item.q}</h3>
+                  <p class="faq-a">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    {related.length > 0 && (
+      <section class="related-section">
+        <h2 class="related-title">Which Similar Kinusaiga Patterns Can You Craft Next?</h2>
+        <div class="product-grid">
+          {related.map((p) => (
+            <ProductCard product={p} />
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .product-page {
+    padding-top: 1.5rem;
+    padding-bottom: 5rem;
+  }
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .breadcrumbs a {
+    color: var(--text-muted);
+  }
+  .breadcrumbs a:hover {
+    color: var(--cta-green);
+  }
+  .breadcrumbs .sep {
+    margin: 0 0.3rem;
+  }
+  .breadcrumbs .current {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  .product-top-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+    margin-bottom: 4rem;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Gallery */
+  .gallery-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .gallery-inner {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .thumb-carousel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-height: 520px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.25rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+  .thumb-carousel::-webkit-scrollbar {
+    width: 5px;
+  }
+  .thumb-carousel::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 4px;
+  }
+  .main-image-wrap {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+    cursor: -webkit-grab;
+  }
+  .main-image-wrap:active,
+  .main-image-wrap.is-dragging {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+  }
+  .gallery-slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.4, 1);
+  }
+  .gallery-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .main-img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .gallery-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: all 0.2s ease;
+    z-index: 5;
+    opacity: 0.85;
+    padding: 0;
+  }
+  .gallery-nav-btn:hover {
+    background: #ffffff;
+    color: var(--cta-green);
+    transform: translateY(-50%) scale(1.08);
+    opacity: 1;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+  }
+  .gallery-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+  .gallery-nav-btn.prev-btn {
+    left: 12px;
+  }
+  .gallery-nav-btn.next-btn {
+    right: 12px;
+  }
+  .gallery-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 5;
+    background: rgba(15, 23, 42, 0.42);
+    padding: 5px 9px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .gallery-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .gallery-dot:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  .gallery-dot.active {
+    width: 16px;
+    border-radius: 999px;
+    background: #ffffff;
+  }
+  .thumb-btn {
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 1;
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.75;
+  }
+  .thumb-btn:hover {
+    opacity: 1;
+  }
+  .thumb-btn.active {
+    border-color: var(--cta-green);
+    opacity: 1;
+  }
+  .thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Details */
+  .product-header {
+    margin-bottom: 1rem;
+  }
+  .product-tags-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+  }
+  .product-badge {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--cta-green);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .product-keyword-pill {
+    display: inline-block;
+    background-color: #eff6ff;
+    color: #166534;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid #bfdbfe;
+  }
+  .pattern-keyword-highlight {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    padding: 0.55rem 0.85rem;
+    background: var(--bg-secondary);
+    border-left: 3px solid var(--cta-green);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .pattern-keyword-highlight strong {
+    color: var(--cta-green);
+  }
+  .product-h1 {
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-top: 0.4rem;
+    color: var(--text-main);
+  }
+  .product-summary {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .quick-specs {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+  }
+  .quick-specs-dl {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+  }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .spec-label {
+    color: var(--text-muted);
+  }
+  .spec-val {
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  /* AI & GEO Citability: Quick Overview Box */
+  .ai-key-takeaways {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .takeaways-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #166534;
+    margin-bottom: 0.75rem;
+  }
+  .takeaways-icon {
+    font-size: 1.2rem;
+  }
+  .takeaways-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.92rem;
+    color: #1e3a8a;
+    line-height: 1.55;
+  }
+  .takeaways-list li::before {
+    content: "•";
+    color: #22c55e;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: 0;
+  }
+
+  /* Authentic Definition & Citation Box */
+  .kinusaiga-definition-box {
+    background: #f8fafc;
+    border-left: 4px solid var(--cta-green);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.2rem 1.4rem;
+    margin: 1.5rem 0;
+  }
+  .definition-title {
+    margin-bottom: 0.5rem;
+  }
+  .def-badge {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--cta-green);
+  }
+  .definition-text {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-main);
+  }
+  .definition-citation {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .definition-citation a {
+    color: var(--cta-green);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  /* E-E-A-T Artisan & Quality Verification */
+  .eeat-verification-section {
+    margin-top: 2rem;
+  }
+  .artisan-profile-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  }
+  .artisan-badge {
+    font-size: 2.5rem;
+    line-height: 1;
+    background: #f1f5f9;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+  }
+  .artisan-content {
+    flex: 1;
+  }
+  .artisan-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .artisan-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0 0 0.2rem 0;
+  }
+  .artisan-role {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .verification-pill {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #a7f3d0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+  }
+  .artisan-statement {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+  .quality-badges-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    background: #f8fafc;
+    padding: 0.9rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.2rem;
+  }
+  .q-badge {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .q-badge strong {
+    font-size: 1rem;
+    color: var(--text-main);
+  }
+  .q-badge span {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .artisan-meta-row {
+    font-size: 0.84rem;
+    color: var(--text-light);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .meta-link {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+  .meta-sep {
+    color: var(--text-light);
+  }
+
+  /* Satisfaction Guarantee Card */
+  .satisfaction-guarantee-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.6rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    margin: 2rem 0;
+  }
+  .guarantee-shield {
+    font-size: 2.2rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .guarantee-body {
+    flex: 1;
+  }
+  .guarantee-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0 0 0.45rem 0;
+  }
+  .guarantee-body p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0 0 0.8rem 0;
+  }
+  .guarantee-footer-links {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .guarantee-footer-links a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+
+  /* Content sections */
+  .product-details-content {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 3rem;
+    max-width: 860px;
+  }
+  .desc-section {
+    margin-bottom: 2.5rem;
+  }
+  .desc-section h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 0.65rem;
+    color: var(--text-main);
+  }
+  .lead-answer {
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .product-byline-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .product-byline-bar a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  .desc-section p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .styled-list, .styled-ol {
+    padding-left: 1.4rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .faq-q {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.3rem;
+  }
+  .faq-a {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* SEO Keywords Section */
+  .seo-keywords-section {
+    background: #f8fafc;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .product-tag-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .product-tag-chip {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  /* Related */
+  .related-section {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 3.5rem;
+    margin-top: 4rem;
+  }
+  .related-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 850px) {
+    .product-top-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+      width: 100%;
+      min-width: 0;
+    }
+    .gallery-inner {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      width: 100%;
+      min-width: 0;
+      gap: 0.75rem;
+    }
+    .main-image-wrap {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+    .thumb-carousel {
+      flex-direction: row;
+      max-height: none;
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      padding-bottom: 0.4rem;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .quick-specs {
+      font-size: 0.85rem;
+      padding: 0.85rem;
+    }
+    .artisan-profile-card {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.1rem;
+    }
+    .quality-badges-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .satisfaction-guarantee-card {
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.1rem;
+    }
+    .gallery-nav-btn {
+      width: 34px;
+      height: 34px;
+      opacity: 0.92;
+    }
+    .gallery-nav-btn.prev-btn {
+      left: 8px;
+    }
+    .gallery-nav-btn.next-btn {
+      right: 8px;
+    }
+    .gallery-dots {
+      bottom: 8px;
+      padding: 4px 7px;
+      gap: 5px;
+    }
+    .thumb-btn {
+      width: 58px;
+      height: 58px;
+    }
+    .product-h1 {
+      font-size: 1.6rem;
+    }
+    .product-details-content {
+      padding-top: 2rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const wrap = document.getElementById('main-image-wrap') as HTMLElement | null;
+  const track = document.getElementById('gallery-slider-track') as HTMLElement | null;
+  const thumbBtns = Array.from(document.querySelectorAll('.thumb-btn')) as HTMLButtonElement[];
+  const dotBtns = Array.from(document.querySelectorAll('.gallery-dot')) as HTMLButtonElement[];
+  const prevBtn = document.getElementById('gallery-prev-btn') as HTMLButtonElement | null;
+  const nextBtn = document.getElementById('gallery-next-btn') as HTMLButtonElement | null;
+  const thumbContainer = document.querySelector('.thumb-carousel') as HTMLElement | null;
+
+  if (wrap && track && thumbBtns.length > 1) {
+    let currentIndex = 0;
+    const total = thumbBtns.length;
+    let autoInterval: ReturnType<typeof setInterval> | null = null;
+    let isManualMode = false;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let currentDragDelta = 0;
+    let isHorizontalGesture: boolean | null = null;
+    let wheelCooldown = false;
+
+    function stopAutoSlide() {
+      if (autoInterval) {
+        clearInterval(autoInterval);
+        autoInterval = null;
+      }
+      isManualMode = true;
+    }
+
+    function goToIndex(newIndex: number, manual = false) {
+      if (manual) {
+        stopAutoSlide();
+      }
+
+      currentIndex = (newIndex + total) % total;
+
+      // Update track position with fast, smooth sliding animation
+      if (track) {
+        track.style.transition = 'transform 0.22s cubic-bezier(0.2, 0.9, 0.4, 1)';
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+
+      // Update thumbnails and scroll active thumb into view inside container only (without scrolling the page)
+      thumbBtns.forEach((btn, idx) => {
+        if (idx === currentIndex) {
+          btn.classList.add('active');
+          if (thumbContainer) {
+            const top = btn.offsetTop;
+            const bottom = top + btn.offsetHeight;
+            if (top < thumbContainer.scrollTop) {
+              thumbContainer.scrollTop = top;
+            } else if (bottom > thumbContainer.scrollTop + thumbContainer.clientHeight) {
+              thumbContainer.scrollTop = bottom - thumbContainer.clientHeight;
+            }
+
+            const left = btn.offsetLeft;
+            const right = left + btn.offsetWidth;
+            if (left < thumbContainer.scrollLeft) {
+              thumbContainer.scrollLeft = left;
+            } else if (right > thumbContainer.scrollLeft + thumbContainer.clientWidth) {
+              thumbContainer.scrollLeft = right - thumbContainer.clientWidth;
+            }
+          }
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Update pagination dots
+      dotBtns.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // Fast auto-slide sequence (every 1.6s) until manual user interaction
+    function startAutoSlide() {
+      if (autoInterval) clearInterval(autoInterval);
+      autoInterval = setInterval(() => {
+        if (!isManualMode) {
+          goToIndex(currentIndex + 1, false);
+        }
+      }, 1600);
+    }
+
+    startAutoSlide();
+
+    // 1. Thumbnail clicks -> manual hand switch
+    thumbBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        goToIndex(idx, true);
+      });
+    });
+
+    // 2. Dot clicks -> manual hand switch
+    dotBtns.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        goToIndex(idx, true);
+      });
+    });
+
+    // 3. Arrow buttons -> manual hand switch
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToIndex(currentIndex - 1, true);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToIndex(currentIndex + 1, true);
+      });
+    }
+
+    // Stop auto-slide if user touches or scrolls thumbnail container
+    if (thumbContainer) {
+      thumbContainer.addEventListener('touchstart', () => stopAutoSlide(), { passive: true });
+      thumbContainer.addEventListener('wheel', () => stopAutoSlide(), { passive: true });
+    }
+
+    // 4. Fast scroll between product images (mouse wheel & trackpad scrolling)
+    wrap.addEventListener(
+      'wheel',
+      (e: WheelEvent) => {
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (Math.abs(delta) > 3) {
+          e.preventDefault();
+          stopAutoSlide();
+          if (!wheelCooldown) {
+            wheelCooldown = true;
+            if (delta > 0) {
+              goToIndex(currentIndex + 1, true);
+            } else {
+              goToIndex(currentIndex - 1, true);
+            }
+            setTimeout(() => {
+              wheelCooldown = false;
+            }, 110);
+          }
+        }
+      },
+      { passive: false }
+    );
+
+    // 5. Hand Touch Swipe & Drag (mobile & tablets)
+    wrap.addEventListener(
+      'touchstart',
+      (e: TouchEvent) => {
+        if (e.touches.length === 1) {
+          stopAutoSlide();
+          isDragging = true;
+          dragStartX = e.touches[0].clientX;
+          dragStartY = e.touches[0].clientY;
+          currentDragDelta = 0;
+          isHorizontalGesture = null;
+          if (track) track.style.transition = 'none';
+        }
+      },
+      { passive: true }
+    );
+
+    wrap.addEventListener(
+      'touchmove',
+      (e: TouchEvent) => {
+        if (!isDragging || e.touches.length !== 1 || !track) return;
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        const deltaX = currentX - dragStartX;
+        const deltaY = currentY - dragStartY;
+
+        if (isHorizontalGesture === null) {
+          if (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6) {
+            isHorizontalGesture = Math.abs(deltaX) >= Math.abs(deltaY);
+          }
+        }
+
+        if (isHorizontalGesture) {
+          currentDragDelta = deltaX;
+          const currentPercent = -currentIndex * 100;
+          track.style.transform = `translateX(calc(${currentPercent}% + ${deltaX}px))`;
+        }
+      },
+      { passive: true }
+    );
+
+    const finishTouch = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      if (track) {
+        track.style.transition = 'transform 0.22s cubic-bezier(0.2, 0.9, 0.4, 1)';
+        if (isHorizontalGesture) {
+          if (currentDragDelta < -20) {
+            goToIndex(currentIndex + 1, true);
+          } else if (currentDragDelta > 20) {
+            goToIndex(currentIndex - 1, true);
+          } else {
+            goToIndex(currentIndex, true);
+          }
+        } else {
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+      }
+      currentDragDelta = 0;
+      isHorizontalGesture = null;
+    };
+
+    wrap.addEventListener('touchend', finishTouch, { passive: true });
+    wrap.addEventListener('touchcancel', finishTouch, { passive: true });
+
+    // 6. Fast Hand Mouse Drag & Slide (desktop)
+    let isMouseDown = false;
+
+    wrap.addEventListener('mousedown', (e: MouseEvent) => {
+      if ((e.target as HTMLElement).closest('.gallery-nav-btn') || (e.target as HTMLElement).closest('.gallery-dot')) {
+        return;
+      }
+      stopAutoSlide();
+      isMouseDown = true;
+      wrap.classList.add('is-dragging');
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      currentDragDelta = 0;
+      if (track) track.style.transition = 'none';
+    });
+
+    window.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!isMouseDown || !track) return;
+      const deltaX = e.clientX - dragStartX;
+      currentDragDelta = deltaX;
+      const currentPercent = -currentIndex * 100;
+      track.style.transform = `translateX(calc(${currentPercent}% + ${deltaX}px))`;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isMouseDown) return;
+      isMouseDown = false;
+      wrap.classList.remove('is-dragging');
+      if (track) {
+        track.style.transition = 'transform 0.22s cubic-bezier(0.2, 0.9, 0.4, 1)';
+        if (currentDragDelta < -20) {
+          goToIndex(currentIndex + 1, true);
+        } else if (currentDragDelta > 20) {
+          goToIndex(currentIndex - 1, true);
+        } else {
+          goToIndex(currentIndex, true);
+        }
+      }
+      currentDragDelta = 0;
+    });
+  }
+</script>

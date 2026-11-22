@@ -1,0 +1,287 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { getCategories, getAllProducts } from '../../lib/catalog.ts';
+
+export function getStaticPaths() {
+  const categories = getCategories();
+  const paidProducts = getAllProducts(true).filter((p) => p.type === 'paid');
+
+  const paths = categories.map((cat) => ({
+    params: { slug: cat.slug },
+    props: {
+      category: cat,
+      products: paidProducts
+        .filter((p) => p.categorySlug === cat.slug)
+        .sort((a, b) => b.number - a.number),
+    },
+  }));
+
+  // Provide alias for insect-patterns if insect-pattern is the primary slug
+  const insectCat = categories.find((c) => c.slug === 'insect-pattern');
+  if (insectCat) {
+    paths.push({
+      params: { slug: 'insect-patterns' },
+      props: {
+        category: insectCat,
+        products: paidProducts
+          .filter((p) => p.categorySlug === insectCat.slug)
+          .sort((a, b) => b.number - a.number),
+      },
+    });
+  }
+
+  return paths;
+}
+
+const { category, products } = Astro.props;
+const isPatternName = category.name.toLowerCase().includes('pattern');
+const displayTitle = isPatternName ? category.name : `${category.name} Kinusaiga Patterns`;
+const metaTitle = isPatternName
+  ? `${category.name} | Printable Templates | Kinosaiga Pattern`
+  : `${category.name} Kinusaiga Patterns | Kinosaiga Pattern`;
+
+const metaDescription = `Download authentic printable ${category.name.toLowerCase()} design templates for no-sew Japanese fabric art. Includes ${category.count} instant PDF and PNG files in 10 frame sizes.`;
+
+const categorySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `https://kinosaigapattern.com/categories/${category.slug}/#collection`,
+  name: metaTitle,
+  description: metaDescription,
+  url: `https://kinosaigapattern.com/categories/${category.slug}`,
+  datePublished: '2026-11-05T00:00:00Z',
+  dateModified: '2026-11-09T18:00:00Z',
+  inLanguage: 'en',
+  author: {
+    '@type': 'Organization',
+    '@id': 'https://kinosaigapattern.com/#author',
+    name: 'Kinosaiga Pattern Studio',
+    url: 'https://kinosaigapattern.com/about',
+  },
+  publisher: {
+    '@type': 'Organization',
+    '@id': 'https://kinosaigapattern.com/#organization',
+    name: 'Kinosaiga Pattern',
+    url: 'https://kinosaigapattern.com',
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: products.length,
+    itemListElement: products.slice(0, 30).map((p, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      item: {
+        '@type': 'Product',
+        name: p.title,
+        url: `https://kinosaigapattern.com/products/${p.slug}`,
+        image: `https://kinosaigapattern.com${p.images[0]?.variants[0]?.src || '/favicon.png'}`,
+        description: p.summary,
+        offers: {
+          '@type': 'Offer',
+          price: p.price !== null ? p.price.toString() : '1.99',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+        },
+      },
+    })),
+  },
+};
+
+const categoryFaqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `https://kinosaigapattern.com/categories/${category.slug}/#faq`,
+  name: `${displayTitle} Frequently Asked Questions`,
+  url: `https://kinosaigapattern.com/categories/${category.slug}`,
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `What is included in each ${category.name} download?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Every ${category.name} digital download includes PDF and PNG files pre-scaled across 8 or 10 proportional frame sizes (listed on each product page), complete with a no-background tracing outline.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: `Can beginners make ${category.name} projects?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Yes! Our patterns feature clear outlines so beginners can trace designs onto craft foam boards and tuck fabric edges using a stylus—no sewing required.`,
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={metaTitle}
+  description={metaDescription}
+  schema={[categorySchema, categoryFaqSchema]}
+>
+  <div class="cat-header bg-light">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="/">Home</a> / <a href="/shop">Categories</a> / <span>{category.name}</span>
+      </div>
+      <h1 class="page-title">{displayTitle}</h1>
+
+      <!-- Answer-First Direct Definition -->
+      <p class="lead-answer" style="max-width: 800px; margin: 0.75rem auto 1rem; font-size: 1.05rem; line-height: 1.6; color: var(--text-main);">
+        <strong>{displayTitle} are printable Japanese fabric art templates</strong> formatted for no-sew foam board scoring and fabric tucking. Download instant PDF and PNG packages in 8 or 10 proportional frame sizes (check each pattern page for exact sizes).
+      </p>
+
+      <div class="byline-bar" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem; color: #64748b; margin-bottom: 1.25rem;">
+        <span>Curated by <a href="/about" rel="author" style="color: var(--cta-green); font-weight: 600;">Kinosaiga Pattern Studio</a></span>
+        <span>•</span>
+        <span>Updated <time datetime="2026-11-09">Nov 9, 2026</time></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container cat-content">
+    <section class="cat-catalog-section" aria-label={`Printable ${category.name} Catalog`}>
+      <h2 class="sr-only">Available {category.name} Kinusaiga Patterns</h2>
+      <div class="product-grid">
+        {products.map((prod) => (
+          <ProductCard product={prod} />
+        ))}
+      </div>
+    </section>
+
+    <!-- Craft Category Citation Box -->
+    <div class="kinusaiga-definition-box" style="margin: 3.5rem 0 2rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Japanese Textile Craft Collection
+      </div>
+      <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Japanese_crafts" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "Traditional Kinusaiga art organizes motifs across classic botanical, wildlife, and nature subjects, converting intricate contours into tuckable foam channels."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Curated according to Japanese craft traditions cataloged by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and preserved in the <a href="https://americanart.si.edu/art/craft" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Smithsonian American Art Museum Craft Archive</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <!-- Educational Category Guide Section -->
+    <section class="cat-info-section" style="margin-top: 2.5rem; display: grid; gap: 1.75rem;">
+      <div class="cat-info-card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem 1.75rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem;">What Makes {category.name} Ideal for Kinusaiga Fabric Art?</h2>
+        <p class="lead-answer">
+          <strong>{category.name} are popular for Kinusaiga because their clean contours and organic silhouettes</strong> allow crafters to tuck contrasting fabric remnants into foam board grooves smoothly without fraying or tension distortion.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.65; margin: 0;">
+          Each design in this collection is formatted as clean, printable pattern outlines ready to trace onto craft foam boards for no-sew fabric tucking.
+        </p>
+      </div>
+
+      <div class="cat-info-card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem 1.75rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem;">How Do You Print and Scale These {category.name}?</h2>
+        <p class="lead-answer">
+          <strong>Every pattern in our {category.name} collection includes 8 or 10 pre-scaled PDF and PNG sizes</strong> (listed on each product page), ready for 100% actual-size printing on standard home printers.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.65; margin: 0;">
+          Print at 100% "Actual Size" in your printer settings to guarantee crisp, proportional transfer onto your foam board base without distortion.
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .cat-header {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  .bg-light {
+    background-color: var(--bg-secondary);
+  }
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+  }
+  .breadcrumbs a {
+    color: var(--text-muted);
+  }
+  .breadcrumbs a:hover {
+    color: var(--cta-green);
+  }
+  .page-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .page-desc {
+    color: var(--text-muted);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .cat-content {
+    padding-bottom: 5rem;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .cat-header {
+      padding: 2rem 0;
+      margin-bottom: 1.5rem;
+    }
+    .page-title {
+      font-size: 1.8rem;
+    }
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .kinusaiga-definition-box {
+      padding: 1.15rem 1rem !important;
+      margin: 2rem 0 1.5rem !important;
+    }
+    .cat-info-card {
+      padding: 1.25rem 1.1rem !important;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.85rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.02rem !important;
+    line-height: 1.65 !important;
+    color: var(--text-main) !important;
+    margin-bottom: 0.85rem !important;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>

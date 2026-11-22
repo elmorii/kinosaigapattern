@@ -1,0 +1,136 @@
+{
+  "$comment": "MAIN SETTINGS FILE. Fill in every empty value marked REQUIRED before publishing. Secrets (API keys, FTP passwords) never go here - put them in the .env file (see .env.example). See docs/CONFIGURATION.md for an explanation of every setting.",
+
+  "shop": {
+    "name": "Kinosaiga Pattern",
+    "shortName": "Kinosaiga Pattern",
+    "tagline": "Printable Kinusaiga patterns and no-sew Japanese fabric art templates",
+    "siteUrl": "https://kinosaigapattern.com",
+    "siteUrl_help": "REQUIRED before publishing. Your real domain with https and no trailing path, e.g. https://www.your-domain.com",
+    "locale": "en-US",
+    "contactEmail": "contact@kinosaigapattern.com",
+    "contactEmail_help": "REQUIRED. A real inbox customers can write to. Shown on Contact, Help and policy pages.",
+    "contactFormEndpoint": "",
+    "contactFormEndpoint_help": "Optional. URL of an external form service (for example Formspree). Leave empty to use an email link only.",
+    "ownerName": "",
+    "businessLocation": "",
+    "businessLocation_help": "Optional but recommended for trust and legal pages, e.g. 'United States'.",
+    "supportResponseTime": "",
+    "supportResponseTime_help": "Optional, e.g. 'within 2 business days'. Leave empty to show no promise.",
+    "social": {
+      "instagram": "",
+      "pinterest": "",
+      "facebook": "",
+      "youtube": "",
+      "tiktok": "",
+      "etsy": ""
+    }
+  },
+
+  "source": {
+    "rootPath": "",
+    "rootPath_help": "Leave empty to use 'This PC > Documents > A To Copy' automatically. Or enter a full path such as D:\\\\Products\\\\A To Copy",
+    "defaultFolderName": "A To Copy",
+    "freeIdRange": [1, 12],
+    "freeIdRange_help": "Products whose number is inside this range are FREE (K1-K12). Everything else is PAID.",
+    "imageExtensions": [".png", ".jpg", ".jpeg", ".jfif", ".webp"]
+  },
+
+  "images": {
+    "widths": [400, 800, 1400],
+    "quality": 82,
+    "ogWidth": 1200,
+    "concurrency": 3
+  },
+
+  "vision": {
+    "enabled": false,
+    "enabled_help": "Optional. When true and GEMINI_API_KEY is set in .env, the importer asks an AI vision model to write image-specific alt text. Results are saved and reused.",
+    "model": "gemini-2.5-flash"
+  },
+
+  "checkoutSheet": {
+    "csvUrl": "",
+    "csvUrl_help": "Google Sheet published/exported as CSV (File > Share > Publish to web > CSV), or set CHECKOUT_SHEET_CSV_URL in .env instead. Columns: product_id, payhip_link",
+    "spreadsheetId": "",
+    "range": "Sheet1!A:B",
+    "range_help": "Used only with the Google Sheets API (needs GOOGLE_SHEETS_API_KEY in .env).",
+    "localCsvPath": "data/checkout-mapping.csv",
+    "localCsvPath_help": "Used when no Google Sheet is configured. Same two columns."
+  },
+
+  "payhip": {
+    "buttonMode": "embed",
+    "buttonMode_help": "'embed' = official Payhip Buy Now button (opens Payhip checkout overlay). 'link' = plain link to Payhip.",
+    "embedTheme": "none",
+    "embedTheme_help": "Payhip button theme. 'none' lets this website style the button green to match the design. Other Payhip themes: 'green', 'blue', 'grey'.",
+    "linkTarget": "product-page",
+    "linkTarget_help": "For 'link' mode: 'product-page' (payhip.com/b/CODE) or 'checkout' (payhip.com/buy?link=CODE).",
+    "verifyOnline": true,
+    "verifyOnline_help": "During import, open each Payhip page and check that its title mentions the product subject. Only a helper - you still approve every link.",
+    "lifetimeAccess": false,
+    "lifetimeAccess_help": "Set to true ONLY if your Payhip settings give buyers unlimited/lifetime download access."
+  },
+
+  "offering": {
+    "paidProfile": "standard-10",
+    "freeProfile": "standard-10",
+    "help": "Which file/size package is VERIFIED for paid and free products. Set paidProfile to 'standard-10' once confirmed.",
+    "profiles": {
+      "standard-10": {
+        "label": "Standard 10-option package",
+        "formats": ["PDF", "PNG"],
+        "noBackgroundVersion": true,
+        "sizes": [
+          { "label": "5 × 5 in", "cm": "12.7 × 12.7 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "Circle design border shape", "ratio": "1:1", "shape": "circle" },
+          { "label": "7 × 5 in", "cm": "17.78 × 12.7 cm", "ratio": "7:5", "shape": "rectangle" },
+          { "label": "5 × 7 in", "cm": "12.7 × 17.78 cm", "ratio": "5:7", "shape": "rectangle" },
+          { "label": "6 × 6 in", "cm": "15.24 × 15.24 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "7 × 7 in", "cm": "17.78 × 17.78 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "8 × 8 in", "cm": "20.32 × 20.32 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "10 × 10 in", "cm": "25.4 × 25.4 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "8 × 10 in", "cm": "20.32 × 25.4 cm", "ratio": "4:5", "shape": "rectangle" },
+          { "label": "10 × 8 in", "cm": "25.4 × 20.32 cm", "ratio": "5:4", "shape": "rectangle" }
+        ]
+      },
+      "standard-8": {
+        "label": "Standard 8-option package",
+        "formats": ["PDF", "PNG"],
+        "noBackgroundVersion": true,
+        "sizes": [
+          { "label": "5 × 5 in", "cm": "12.7 × 12.7 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "Circle design border shape", "ratio": "1:1", "shape": "circle" },
+          { "label": "7 × 5 in", "cm": "17.78 × 12.7 cm", "ratio": "7:5", "shape": "rectangle" },
+          { "label": "5 × 7 in", "cm": "12.7 × 17.78 cm", "ratio": "5:7", "shape": "rectangle" },
+          { "label": "7 × 7 in", "cm": "17.78 × 17.78 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "8 × 8 in", "cm": "20.32 × 20.32 cm", "ratio": "1:1", "shape": "square" },
+          { "label": "8 × 10 in", "cm": "20.32 × 25.4 cm", "ratio": "4:5", "shape": "rectangle" },
+          { "label": "10 × 8 in", "cm": "25.4 × 20.32 cm", "ratio": "5:4", "shape": "rectangle" }
+        ]
+      }
+    }
+  },
+
+  "catalog": {
+    "productsPerPage": 48,
+    "minCategorySize": 2,
+    "featuredIds": [],
+    "featuredIds_help": "Optional list such as [\"K24\", \"K53\"]. Products can also be featured in data/overrides.",
+    "newPatternsCount": 8,
+    "showDraftsInDev": true,
+    "showDraftsInDev_help": "Local preview only (npm run dev): shows draft products with a DRAFT banner. Drafts are NEVER included in the production build."
+  },
+
+  "integrations": {
+    "googleSiteVerification": "",
+    "googleSiteVerification_help": "Google Search Console HTML-tag verification code (content value only).",
+    "ga4MeasurementId": "",
+    "ga4MeasurementId_help": "Optional, e.g. G-XXXXXXX. Loaded only after the visitor accepts analytics cookies.",
+    "adsense": {
+      "enabled": false,
+      "client": "",
+      "client_help": "Optional, e.g. ca-pub-1234567890. Disabled by default; loaded only after consent."
+    }
+  }
+}

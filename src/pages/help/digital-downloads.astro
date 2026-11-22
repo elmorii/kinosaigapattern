@@ -1,0 +1,157 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const downloadHelpSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/help/digital-downloads/#article`,
+    headline: 'Digital Download Help & Troubleshooting Guide',
+    description: 'Follow our troubleshooting guide for accessing, downloading, opening, and printing your Kinusaiga pattern digital files in PDF and PNG at 100% scale.',
+    url: `${siteUrl}/help/digital-downloads`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/help/digital-downloads`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+  },
+];
+---
+
+<Layout
+  title="Digital Download Help & Troubleshooting | Kinosaiga Pattern"
+  description="Follow our troubleshooting guide for accessing, downloading, opening, and printing your Kinusaiga pattern digital files in PDF and PNG at 100% scale."
+  schema={downloadHelpSchema}
+  ogType="article"
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container static-page">
+    <div class="page-head">
+      <h1 class="page-title">Digital Download Help</h1>
+      <p class="lead-text">
+        Follow this guide if you need assistance retrieving or opening your digital pattern files after checkout.
+      </p>
+    </div>
+
+    <!-- Digital File Standards Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Document Format Standard
+      </div>
+      <blockquote class="definition-text" cite="https://www.adobe.com/acrobat/about-adobe-pdf.html" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "The Portable Document Format (PDF) maintains exact vector line fidelity and geometric proportionality across all operating systems and commercial print devices without degradation."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Certified under ISO 32000 specifications defined by <cite><a href="https://www.adobe.com/acrobat/about-adobe-pdf.html" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Adobe Systems Document Standards</a></cite> and international archiving consortiums.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="content-body">
+      <h2>1. Where Do You Find Your Download Link?</h2>
+      <p class="lead-answer"><strong>Your download link is displayed immediately upon payment confirmation</strong> and sent to your email inbox via Payhip.</p>
+      <p>
+        After completing your checkout:
+      </p>
+      <ol>
+        <li><strong>On Screen:</strong> Your browser will display the purchase confirmation page featuring a prominent download button for your pattern files.</li>
+        <li><strong>In Your Email:</strong> You will automatically receive an order confirmation email with your direct download link. Check your spam/junk folder if it does not appear within a few minutes.</li>
+      </ol>
+
+      <h2>2. Should You Download on Mobile or Desktop?</h2>
+      <p class="lead-answer"><strong>We strongly advise downloading files on desktop or laptop computers</strong> to ensure proper 100% scale printing without mobile app auto-scaling distortion.</p>
+      <p>
+        While you can view patterns on smartphones and tablets, <strong>we strongly recommend downloading and printing your pattern files from a desktop or laptop computer</strong> connected directly to your printer. Mobile printing apps often enforce automatic page-shrinking that alters physical pattern dimensions.
+      </p>
+
+      <h2>3. How Do You Open the Downloaded PDF Files?</h2>
+      <p class="lead-answer"><strong>Open files using standard free viewers like Adobe Acrobat Reader</strong> or modern web browsers to view high-resolution vector layers cleanly.</p>
+      <p>
+        Locate the downloaded file in your computer's <code>Downloads</code> folder. Right-click the file and select <em>Open With &gt; Adobe Acrobat Reader</em> (or your preferred web browser).
+      </p>
+
+      <h2>4. What Should You Do If You Need More Help?</h2>
+      <p class="lead-answer"><strong>Our support team is ready to assist you directly</strong> with replacement files, custom format requests, or printing advice within 24 hours.</p>
+      <p>
+        If your download link has expired or you did not receive your confirmation email, please reach out to us through our <a href="/contact">Contact Page</a> with your order details and email address, and we will be happy to reissue your files.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .static-page {
+    max-width: 800px;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+  .page-title {
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+  }
+  .lead-text {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .content-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .content-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .content-body ol {
+    margin: 1rem 0 1.5rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .content-body a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .static-page {
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
+    }
+  }
+</style>

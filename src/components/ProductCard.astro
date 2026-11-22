@@ -1,0 +1,213 @@
+---
+import type { Product } from '../lib/types.ts';
+
+interface Props {
+  product: Product;
+  lazy?: boolean;
+  isBundle?: boolean;
+  bundleTitle?: string;
+  badgeText?: string;
+  viewText?: string;
+}
+
+const {
+  product,
+  lazy = true,
+  isBundle = false,
+  bundleTitle,
+  badgeText = 'BUNDLE',
+  viewText = 'View Pattern →'
+} = Astro.props;
+const mainImage = product.images[0];
+const primarySrc = mainImage?.variants?.find((v) => v.width >= 400)?.src || mainImage?.variants?.[0]?.src || '/images/placeholder.png';
+const srcset = mainImage?.variants?.map((v) => `${v.src} ${v.width}w`).join(', ');
+---
+
+<div class:list={['product-card', { 'bundle-card': isBundle }]}>
+  <a href={`/products/${product.slug}`} class="card-link" aria-label={bundleTitle || product.title}>
+    <div class="image-wrapper">
+      {isBundle ? (
+        <span class="badge-bundle card-badge">{badgeText}</span>
+      ) : product.type === 'free' ? (
+        <span class="badge-free card-badge">Free</span>
+      ) : null}
+      <img
+        src={primarySrc}
+        srcset={srcset}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 280px"
+        alt={mainImage?.alt || `${product.niche} Kinusaiga pattern preview`}
+        loading={lazy ? 'lazy' : 'eager'}
+        decoding="async"
+        width="400"
+        height="400"
+        class="card-img"
+      />
+    </div>
+
+    <div class="card-body">
+      <span class="product-id">{isBundle ? 'Value Bundle • Multi-Size Pack' : product.category}</span>
+      <h3 class="product-title">{bundleTitle || product.title}</h3>
+
+      <div class="card-footer">
+        {product.type === 'free' ? (
+          <span class="price free">FREE</span>
+        ) : (
+          <span class="price">${product.price !== null ? product.price.toFixed(2) : '—'}</span>
+        )}
+        <span class:list={['view-btn', { 'bundle-view-btn': isBundle }]}>
+          {isBundle ? (viewText === 'View Pattern →' ? 'View Bundle →' : viewText) : viewText}
+        </span>
+      </div>
+    </div>
+  </a>
+</div>
+
+<style>
+  .product-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--border-strong);
+  }
+  .card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+  }
+  .image-wrapper {
+    position: relative;
+    background-color: var(--bg-tertiary);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-badge {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 2;
+  }
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  .product-card:hover .card-img {
+    transform: scale(1.03);
+  }
+  .card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .product-id {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .product-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-main);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    flex: 1;
+  }
+  .card-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .price {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+  .price.free {
+    color: var(--free-badge-text);
+  }
+  .view-btn {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cta-green);
+  }
+
+  .badge-bundle {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.24rem 0.65rem;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.28);
+  }
+  .bundle-card {
+    border-color: #bfdbfe;
+  }
+  .bundle-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.16), 0 4px 8px -4px rgba(15, 23, 42, 0.04);
+  }
+  .bundle-view-btn {
+    color: #1d4ed8;
+  }
+  .bundle-card:hover .bundle-view-btn {
+    color: #1e40af;
+  }
+
+  @media (max-width: 640px) {
+    .card-body {
+      padding: 0.65rem;
+    }
+    .product-title {
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+    }
+    .price {
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+    .view-btn {
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .card-body {
+      padding: 0.5rem;
+    }
+    .product-title {
+      font-size: 0.8rem;
+    }
+    .price {
+      font-size: 0.95rem;
+    }
+    .view-btn {
+      font-size: 0.7rem;
+    }
+  }
+</style>

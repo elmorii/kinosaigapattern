@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const licenseSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/legal/license-terms/#article`,
+    headline: 'Kinusaiga Pattern License & Usage Terms | Kinosaiga Pattern',
+    description: 'Understand personal and commercial usage rights for printable Kinusaiga patterns. Clear licensing rules for crafters and small handmade artisan businesses.',
+    url: `${siteUrl}/legal/license-terms`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/legal/license-terms`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+  },
+];
+---
+
+<Layout
+  title="License & Usage Terms | Crafting Rights | Kinosaiga Pattern"
+  description="Understand personal and commercial usage rights for printable Kinusaiga patterns. Clear licensing rules for crafters and small handmade artisan businesses."
+  ogType="article"
+  schema={licenseSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container static-page">
+    <div class="page-head">
+      <h1 class="page-title">License & Usage Terms</h1>
+      <p class="lead-text">Last Updated: November 2026</p>
+    </div>
+
+    <!-- Craft Copyright Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Intellectual Property Standard
+      </div>
+      <blockquote class="definition-text" cite="https://www.copyright.gov" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "Digital design templates grant a non-exclusive license for personal execution and small-scale artisanal craft production while strictly reserving underlying digital reproduction rights."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Formatted according to copyright guidelines established by the <cite><a href="https://www.copyright.gov" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">United States Copyright Office</a></cite> and international creative license frameworks.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="content-body">
+      <h2>What Are Your Personal Crafting Rights?</h2>
+      <p class="lead-answer"><strong>Every pattern includes unlimited personal crafting rights</strong>, permitting you to print, transfer, and handcraft projects for home display and personal gifts.</p>
+      <p>
+        All patterns purchased or downloaded from <strong>{config.shop.name}</strong> include full personal crafting rights. You may print and use the template to create handmade Kinusaiga fabric art projects for yourself, your home, or as gifts for friends and family.
+      </p>
+
+      <h2>Can You Sell Finished Handmade Items Commercially?</h2>
+      <p class="lead-answer"><strong>Yes, individual artisans may sell physically finished Kinusaiga artwork</strong> at local craft fairs, seasonal markets, and independent boutique shops.</p>
+      <p>
+        Individual crafters and small hobby businesses are permitted to sell <em>physically finished handmade Kinusaiga pictures</em> created using our patterns at local craft fairs, markets, or boutique shops on a small-scale artisanal basis.
+      </p>
+
+      <h2>What Uses Are Strictly Prohibited?</h2>
+      <p class="lead-answer"><strong>Digital reselling, public file sharing, and industrial mass manufacturing are strictly prohibited</strong> to safeguard original design rights.</p>
+      <p>
+        Under all circumstances, the following actions are strictly prohibited:
+      </p>
+      <ul>
+        <li>Reselling, sharing, redistributing, or sub-licensing the digital PDF or image pattern files in whole or in part.</li>
+        <li>Uploading our pattern files to public file-sharing networks, cloud drives, torrents, or social media groups.</li>
+        <li>Using our pattern graphics for mass-manufactured, factory-printed, or print-on-demand merchandise without a written commercial licensing agreement.</li>
+      </ul>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .static-page {
+    max-width: 800px;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .lead-text {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+  .content-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .content-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.2rem !important;
+  }
+  .content-body ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .content-body a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+</style>

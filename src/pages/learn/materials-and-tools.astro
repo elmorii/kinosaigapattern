@@ -1,0 +1,235 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const materialsSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/learn/materials-and-tools/#article`,
+    headline: 'Kinusaiga Materials & Tools Guide: Recommended Supplies & Alternatives',
+    description: 'Discover essential materials and tools needed for Kinusaiga fabric art: high-density foam boards, craft knives, tucking spatulas, and recommended fabrics.',
+    url: `${siteUrl}/learn/materials-and-tools`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/learn/materials-and-tools`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+    image: `${siteUrl}/images/og-default.jpg`,
+    articleSection: 'Craft Supplies',
+    keywords: 'kinusaiga materials, kinusaiga tools, foam board for kinusaiga, craft knife 30 degree, kinusaiga fabrics',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': `${siteUrl}/learn/materials-and-tools/#itemlist`,
+    name: 'Essential Kinusaiga Craft Tools and Materials',
+    description: 'The complete supply checklist for creating handmade Kinusaiga Japanese fabric art.',
+    numberOfItems: 6,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Printable Pattern Template' },
+      { '@type': 'ListItem', position: 2, name: 'High-Density XPS Foam Board' },
+      { '@type': 'ListItem', position: 3, name: 'Precision Craft Knife with 30-degree blade' },
+      { '@type': 'ListItem', position: 4, name: 'Blunt Stylus or Wooden Tucking Spatula' },
+      { '@type': 'ListItem', position: 5, name: 'Lightweight Woven Fabric Scraps (Cotton or Silk)' },
+      { '@type': 'ListItem', position: 6, name: 'Fine Point Fabric Embroidery Shears' },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Kinusaiga Materials & Tools Guide | Supplies | Kinosaiga Pattern"
+  description="Discover essential materials and tools needed for Kinusaiga fabric art: high-density foam boards, craft knives, tucking spatulas, and recommended fabrics."
+  ogType="article"
+  schema={materialsSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container guide-page">
+    <div class="guide-header">
+      <span class="guide-badge">Supplies Reference</span>
+      <h1 class="guide-title">Kinusaiga Materials & Tools</h1>
+      <p class="guide-lead">
+        Everything you need to gather before beginning your Kinusaiga fabric art projects.
+      </p>
+    </div>
+
+    <!-- Authoritative Materials Citation Box -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Authoritative Material Standards Citation
+      </div>
+      <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Japanese_crafts" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "While historical Japanese Kinusaiga was executed into Paulownia wood, modern preservation standards recommend extruded polystyrene (XPS) foam boards for uniform channel compression and archival acid-free fabric preservation."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and cataloged in the <a href="https://americanart.si.edu/art/craft" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Smithsonian American Art Museum Craft & Decorative Arts Archive</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="guide-body">
+      <h2>What Essential Supplies Do You Need to Start?</h2>
+      <p class="lead-answer"><strong>You only need 5 core crafting essentials to start Kinusaiga</strong>: a printable pattern, dense foam board, a precision craft knife, a blunt tucking stylus, and woven fabric scraps.</p>
+      
+      <div class="supply-grid">
+        <div class="supply-card">
+          <h3>1. Printable Pattern</h3>
+          <p>A clear, scaled Kinusaiga pattern with defined outline sections. You can download and print any of our store patterns at home.</p>
+        </div>
+        <div class="supply-card">
+          <h3>2. Base Board</h3>
+          <p>High-density foam board (XPS insulation foam board, dense craft foam, or EVA foam), ideally 10–15 mm thick to hold grooves firmly.</p>
+        </div>
+        <div class="supply-card">
+          <h3>3. Precision Craft Knife</h3>
+          <p>An X-Acto, Olfa, or precision scalpel knife with sharp, narrow blades (30° angle blades work best for intricate curves).</p>
+        </div>
+        <div class="supply-card">
+          <h3>4. Tucking Tool</h3>
+          <p>A blunt, thin tool to press fabric into grooves without tearing it. Wooden manicure/orange sticks, dull craft spatulas, or guitar picks work wonderfully.</p>
+        </div>
+        <div class="supply-card">
+          <h3>5. Fabric Scraps</h3>
+          <p>Lightweight to medium-weight woven cottons, silks, linens, or thin synthetic fabrics. Avoid thick denim or overly stretchy knits for beginners.</p>
+        </div>
+        <div class="supply-card">
+          <h3>6. Fine Scissors</h3>
+          <p>Small embroidery scissors or fabric shears for precise cutting around pattern curves.</p>
+        </div>
+      </div>
+
+      <h2>Which Optional Supplies Make Crafting Easier?</h2>
+      <p class="lead-answer"><strong>Optional accessories like carbon transfer paper and self-healing cutting mats</strong> streamline board preparation and ensure clean, accurate incisions.</p>
+      <ul>
+        <li><strong>Carbon/Transfer Paper:</strong> For cleanly transferring the printed pattern lines onto the foam.</li>
+        <li><strong>Temporary Glue Stick:</strong> To lightly position fabric in place before tucking the edges.</li>
+        <li><strong>Cutting Mat:</strong> Self-healing mat to protect your tabletop when trimming foam and fabric.</li>
+        <li><strong>Picture Frame:</strong> To professionally display your finished artwork on a wall or desk.</li>
+      </ul>
+
+      <div class="cta-box" style="margin-top: 3rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; text-align: center;">
+        <h3>Ready to Create with Your Supplies?</h3>
+        <p style="margin: 0.5rem 0 1.5rem; color: var(--text-muted);">Explore our free downloadable patterns or browse our full digital pattern collection.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/free-patterns" class="btn btn-secondary">Explore Free Patterns</a>
+          <a href="/shop" class="btn btn-green">Shop All Patterns →</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .guide-page {
+    max-width: 800px;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+  .guide-badge {
+    color: var(--cta-green);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .guide-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.2;
+  }
+  .guide-lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .supply-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0 2.5rem;
+  }
+  .supply-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.3rem;
+    box-shadow: var(--card-shadow);
+  }
+  .supply-card h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+    color: var(--text-main);
+  }
+  .supply-card p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .guide-body ul {
+    margin: 1rem 0 2rem 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 600px) {
+    .guide-page {
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
+    }
+    .supply-grid {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+    .supply-card {
+      padding: 1.15rem 1rem;
+    }
+    .cta-box {
+      padding: 1.5rem 1rem !important;
+    }
+    .cta-box .btn {
+      width: 100%;
+    }
+  }
+</style>

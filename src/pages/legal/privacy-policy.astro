@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const privacySchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/legal/privacy-policy/#article`,
+    headline: 'Privacy Policy & Data Protection Standards | Kinosaiga Pattern',
+    description: 'Read the official Privacy Policy for Kinosaiga Pattern. Learn how customer data is protected during encrypted checkout and how cookie privacy standards are maintained.',
+    url: `${siteUrl}/legal/privacy-policy`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/legal/privacy-policy`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+  },
+];
+---
+
+<Layout
+  title="Privacy Policy & Data Security Standards | Kinosaiga Pattern"
+  description="Read the official Privacy Policy for Kinosaiga Pattern. Learn how customer data is protected during encrypted checkout and how cookie privacy standards are maintained."
+  ogType="article"
+  schema={privacySchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container static-page">
+    <div class="page-head">
+      <h1 class="page-title">Privacy Policy</h1>
+      <p class="lead-text">Last Updated: November 2026</p>
+    </div>
+
+    <!-- Data Privacy & Security Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Data Security Standard
+      </div>
+      <blockquote class="definition-text" cite="https://ico.org.uk" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "Modern electronic storefronts protect customer privacy by delegating sensitive payment credentials to PCI-DSS certified tokenized gateways and maintaining minimal necessary personal records."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Aligned with global privacy principles defined by the <cite><a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Information Commissioner's Office</a></cite> and encrypted checkout infrastructure powered by <a href="https://payhip.com/privacy" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Payhip PCI Level 1 Compliance</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="content-body">
+      <h2>How Does Kinosaiga Pattern Protect Visitor Privacy?</h2>
+      <p class="lead-answer"><strong>We practice strict data minimization and transparent processing</strong>, never selling, renting, or trading customer personal data to third parties.</p>
+      <p>
+        At <strong>{config.shop.name}</strong>, we respect your privacy and are committed to being completely transparent about how visitor information is handled.
+      </p>
+
+      <h2>How Are Payments Processed Securely?</h2>
+      <p class="lead-answer"><strong>All financial transactions are handled off-site through Payhip and Stripe</strong> using 256-bit bank-grade encryption without storing card numbers on our servers.</p>
+      <p>
+        Our website does not collect, process, or store credit card numbers, banking information, or payment credentials. When you make a purchase, transactions are securely handled by our checkout partner, <strong>Payhip</strong>, along with their authorized payment processors (such as Stripe and PayPal). Please consult <a href="https://payhip.com/privacy" target="_blank" rel="noopener noreferrer">Payhip's Privacy Policy</a> for full details on transaction data handling.
+      </p>
+
+      <h2>What Cookies & Analytics Tools Are Active?</h2>
+      <p class="lead-answer"><strong>We employ lightweight functional cookies solely to maintain cart state</strong>, navigation performance, and anonymized site usability metrics.</p>
+      <p>
+        Our website may use standard cookies or lightweight analytics tools to understand website traffic, monitor broken links, and improve visitor usability. We do not sell, rent, or trade your personal information to third parties.
+      </p>
+
+      <h2>How Are Customer Support Inquiries Handled?</h2>
+      <p class="lead-answer"><strong>Email inquiries and contact messages are utilized strictly to deliver support</strong> and provide answers regarding digital download retrieval.</p>
+      <p>
+        When you contact us via email or our contact form, we use your name and email address solely to respond to your inquiry and provide customer assistance.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .static-page {
+    max-width: 800px;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .lead-text {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+  .content-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .content-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.2rem !important;
+  }
+  .content-body a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+</style>

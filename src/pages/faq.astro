@@ -1,0 +1,231 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getShopConfig } from '../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${siteUrl}/faq/#faqpage`,
+  name: 'Frequently Asked Questions (FAQ) | Kinosaiga Pattern',
+  url: `${siteUrl}/faq`,
+  datePublished: '2026-11-05T00:00:00Z',
+  dateModified: '2026-11-09T18:00:00Z',
+  inLanguage: 'en',
+  author: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#author`,
+    name: 'Kinosaiga Pattern Studio',
+    url: `${siteUrl}/about`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: 'Kinosaiga Pattern',
+    url: siteUrl,
+  },
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Are these physical kits or digital downloads?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'All products in our store are instant digital downloads. No physical item, fabric, or foam board will be shipped. You receive digital PDF and PNG files to print at home.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I receive my pattern after purchase?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Checkout is handled by Payhip. Immediately after payment, Payhip shows your download button on screen and emails your download link to the email address you entered at checkout.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do the free patterns work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Our free patterns require no payment or account. Visit the product page and click "Download Free Pattern" for an instant PDF download.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What software do I need to open the files?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Any standard PDF viewer, including free software such as Adobe Acrobat Reader, Google Chrome, Microsoft Edge, or Apple Preview.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I make sure the pattern prints at the right size?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'In your printer settings dialog, ensure that the page scaling option is set to 100% or "Actual Size". Do not use "Fit to Page" or "Shrink to Fit".',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I sell physical items made from these patterns?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Please refer to our License & Usage Terms for specific permissions regarding commercial craft sales and personal use rights.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title="Frequently Asked Questions (FAQ) | Kinosaiga Pattern"
+  description="Find answers to common questions about Kinusaiga pattern digital downloads, PDF formats, actual size printing, accepted payments, and craft techniques."
+  schema={faqSchema}
+>
+  <article class="container static-page">
+    <div class="page-head">
+      <h1 class="page-title">Frequently Asked Questions</h1>
+      <p class="lead-text">
+        Find quick answers to common questions about our printable Kinusaiga digital patterns, downloads, and craft technique.
+      </p>
+    </div>
+
+    <!-- Craft Guidance Standards Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Japanese Textile Craft Guidance
+      </div>
+      <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Japanese_crafts" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "Authentic Kinusaiga allows crafters to produce museum-quality pictorial fabric art without stitching, utilizing printable scaled geometry and high-density foam grooves."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and preserved in the <a href="https://americanart.si.edu/art/craft" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Smithsonian American Art Museum Craft Archive</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <h2 class="faq-group-title" style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin: 2rem 0 0.75rem;">What Are the Most Common Kinusaiga Questions?</h2>
+    <p class="lead-answer">
+      <strong>Find instant verified answers to common questions about Kinusaiga pattern digital downloads</strong>, including immediate PDF/PNG delivery, printing at 100% actual scale, and recommended beginner tools.
+    </p>
+
+    <div class="faq-accordion">
+      <div class="faq-item">
+        <h3>Are these physical kits or digital downloads?</h3>
+        <p>
+          All products in our store are <strong>instant digital downloads</strong>. No physical item, fabric, or foam board will be shipped to your address. You receive digital files (PDF/PNG) to print at home or at your local copy shop.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I receive my pattern after purchase?</h3>
+        <p>
+          Purchases are processed securely through our 256-bit encrypted checkout partner, Payhip. Immediately after payment is completed, you will see a download button on your screen. You will also receive an automated purchase receipt and download link directly in your email inbox.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do the free patterns work?</h3>
+        <p>
+          Our free patterns require no payment, cart, or account registration. Simply visit the product page and click <strong>"Download Free Pattern"</strong> to instantly download the PDF.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What software do I need to open the files?</h3>
+        <p>
+          You can open our PDF patterns using any standard PDF viewer, including free software such as Adobe Acrobat Reader, Google Chrome, Microsoft Edge, or Apple Preview.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I make sure the pattern prints at the right size?</h3>
+        <p>
+          In your printer settings dialog, ensure that the page scaling option is set to <strong>"100%"</strong> or <strong>"Actual Size"</strong>. Do not use "Fit to Page" or "Shrink to Fit". For complete details, see our <a href="/learn/printing-guide">Printing Guide</a>.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I sell physical items made from these patterns?</h3>
+        <p>
+          Please refer to our <a href="/legal/license-terms">License & Usage Terms</a> for specific permissions regarding commercial craft sales and personal use rights.
+        </p>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .static-page {
+    max-width: 800px;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+  .page-title {
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+  }
+  .lead-text {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+  }
+  .faq-item h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+  }
+  .faq-item p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .faq-item a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.85rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.02rem !important;
+    line-height: 1.65 !important;
+    color: var(--text-main) !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  @media (max-width: 600px) {
+    .static-page {
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
+    }
+    .faq-item {
+      padding: 1.15rem 1rem;
+    }
+  }
+</style>

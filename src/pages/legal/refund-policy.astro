@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const policySchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/legal/refund-policy/#article`,
+    headline: 'Digital Product Refund Policy & Buyer Guarantee | Kinosaiga Pattern',
+    description: 'Read our transparent refund policy for digital Kinusaiga pattern downloads. Learn about instant replacements, duplicate order refunds, and buyer protections.',
+    url: `${siteUrl}/legal/refund-policy`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/legal/refund-policy`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+  },
+];
+---
+
+<Layout
+  title="Digital Product Refund Policy & Guarantee | Kinosaiga Pattern"
+  description="Read our transparent refund policy for digital Kinusaiga pattern downloads. Learn about instant replacements, duplicate order refunds, and buyer protections."
+  ogType="article"
+  schema={policySchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container static-page">
+    <div class="page-head">
+      <h1 class="page-title">Digital Product Refund Policy</h1>
+      <p class="lead-text">Last Updated: November 2026</p>
+    </div>
+
+    <!-- Consumer Protection Standards Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Buyer Protection Standard
+      </div>
+      <blockquote class="definition-text" cite="https://consumer.ftc.gov" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "In digital product ecommerce, consumers are entitled to prompt corrective action, instant replacement of defective digital assets, and fair reimbursement for accidental duplicate transactions."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — In alignment with fair electronic commerce standards documented by the <cite><a href="https://consumer.ftc.gov" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Federal Trade Commission Consumer Advice Archive</a></cite>; checkout and digital delivery are handled via <a href="https://payhip.com" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Payhip</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="content-body">
+      <h2>What Is the Nature of Our Digital Downloads?</h2>
+      <p class="lead-answer"><strong>Our products are intangible electronic files delivered instantly upon purchase</strong>, meaning they cannot be physically returned or shipped back like tangible merchandise.</p>
+      <p>
+        Because our products are intangible digital PDF and PNG files delivered immediately upon purchase confirmation, they cannot be physically returned in the manner of tangible goods.
+      </p>
+
+      <h2>When Are Refunds or Exchanges Granted?</h2>
+      <p class="lead-answer"><strong>We provide full refunds or replacements for duplicate purchases, damaged files, or description errors</strong> to ensure complete customer peace of mind.</p>
+      <p>
+        We stand behind the quality of our patterns and want you to be completely satisfied with your purchase. We are pleased to offer refunds or exchanges under the following circumstances:
+      </p>
+      <ul>
+        <li><strong>Accidental Duplicate Purchases:</strong> If you accidentally purchased the exact same pattern twice in separate transactions.</li>
+        <li><strong>Corrupted or Defective Files:</strong> If a downloaded file is corrupted or technically defective and we are unable to provide a functional replacement file within 48 hours.</li>
+        <li><strong>Substantial Description Discrepancy:</strong> If the delivered file differs fundamentally from what was described on the product page.</li>
+      </ul>
+
+      <h2>How Do You Request Assistance or a Refund?</h2>
+      <p class="lead-answer"><strong>Simply contact our customer support team within 14 days of purchase</strong>, providing your order number and checkout email for prompt resolution within 24 hours.</p>
+      <p>
+        If you experience any issue with your purchase, please reach out via our <a href="/contact">Contact Page</a> within 14 days of purchase. Please include your order number, the email address used at checkout, and a description of the issue so we can assist you promptly.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .static-page {
+    max-width: 800px;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .lead-text {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+  .content-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .content-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.2rem !important;
+  }
+  .content-body ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .content-body a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+</style>

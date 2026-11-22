@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Kinosaiga Pattern Logo">
+  <defs>
+    <linearGradient id="k-blue-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#k-blue-bg)" />
+  <path
+    d="M156 124h58v116l108-116h74L276 248l128 140h-76L236 286l-22 23v79h-58V124z"
+    fill="#ffffff"
+  />
+</svg>

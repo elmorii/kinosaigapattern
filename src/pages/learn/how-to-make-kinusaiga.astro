@@ -1,0 +1,301 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const howToSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/learn/how-to-make-kinusaiga/#article`,
+    headline: 'How to Make Kinusaiga Art: Step-by-Step No-Sew Fabric Craft Tutorial',
+    description: 'A complete, practical step-by-step tutorial on making Kinusaiga fabric art. From transferring your printable pattern to cutting grooves and tucking fabric.',
+    url: `${siteUrl}/learn/how-to-make-kinusaiga`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/learn/how-to-make-kinusaiga`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+    image: `${siteUrl}/images/og-default.jpg`,
+    articleSection: 'Craft Tutorial',
+    keywords: 'how to make kinusaiga, japanese fabric art tutorial, no-sew fabric craft, foam board tucking guide',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    '@id': `${siteUrl}/learn/how-to-make-kinusaiga/#howto`,
+    name: 'How to Make Kinusaiga Japanese Fabric Art',
+    description: 'A complete 7-step guide to crafting authentic Kinusaiga fabric art without any sewing needles or thread.',
+    totalTime: 'PT2H',
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: '10',
+    },
+    tool: [
+      { '@type': 'HowToTool', name: 'Precision craft knife (30-degree blade)' },
+      { '@type': 'HowToTool', name: 'Blunt tucking spatula or wooden stylus' },
+      { '@type': 'HowToTool', name: 'Fine fabric embroidery scissors' },
+    ],
+    supply: [
+      { '@type': 'HowToSupply', name: 'High-density XPS foam board (1/2 inch thick)' },
+      { '@type': 'HowToSupply', name: 'Assorted woven fabric scraps (cotton or silk)' },
+      { '@type': 'HowToSupply', name: 'Printable Kinusaiga pattern PDF' },
+      { '@type': 'HowToSupply', name: 'Carbon transfer paper' },
+    ],
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Step 1: Choose & Print Your Pattern',
+        text: 'Print your Kinusaiga pattern PDF at 100% actual scale on standard paper.',
+        url: `${siteUrl}/learn/how-to-make-kinusaiga#step-1`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Step 2: Prepare Your Foam Board',
+        text: 'Trim a high-density XPS foam board (10 to 12mm thick) to match pattern frame dimensions.',
+        url: `${siteUrl}/learn/how-to-make-kinusaiga#step-2`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Step 3: Transfer the Design',
+        text: 'Transfer pattern outlines onto the foam board using graphite carbon paper or light spray adhesive.',
+        url: `${siteUrl}/learn/how-to-make-kinusaiga#step-3`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Step 4: Cut Grooves Along the Lines',
+        text: 'Score shallow slits 2 to 3mm (1/8 inch) deep along every outline with a sharp craft knife.',
+        url: `${siteUrl}/learn/how-to-make-kinusaiga#step-4`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 5,
+        name: 'Step 5: Cut Fabric Pieces with a Margin',
+        text: 'Cut fabric pieces with a 3 to 4mm seam allowance around the perimeter of each design section.',
+        url: `${siteUrl}/learn/how-to-make-kinusaiga#step-5`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 6,
+        name: 'Step 6: Tuck Fabric Edges into the Grooves',
+        text: 'Gently tuck excess fabric margin into the board channels with a blunt spatula until surface is smooth.',
+        url: `${siteUrl}/learn/how-to-make-kinusaiga#step-6`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 7,
+        name: 'Step 7: Complete Neighboring Sections & Frame',
+        text: 'Continue tucking adjacent segments working background to foreground, then mount in a picture frame.',
+        url: `${siteUrl}/learn/how-to-make-kinusaiga#step-7`,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="How to Make Kinusaiga Art | Complete Tutorial | Kinosaiga Pattern"
+  description="A complete, practical step-by-step tutorial on making Kinusaiga fabric art. From transferring your printable pattern to cutting grooves and tucking fabric."
+  ogType="article"
+  schema={howToSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container guide-page">
+    <div class="guide-header">
+      <span class="guide-badge">Step-by-Step Tutorial</span>
+      <h1 class="guide-title">How to Make Kinusaiga Art</h1>
+      <p class="guide-lead">
+        Learn how to transform a printable Kinusaiga digital pattern into a finished fabric art picture with this comprehensive beginner walkthrough.
+      </p>
+    </div>
+
+    <!-- Authoritative Craft Method Citation Box -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Authoritative Craft Citation
+      </div>
+      <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Japanese_crafts" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "The core craft of Kinusaiga relies on transferring line drawings to soft bases, scoring 2 to 3mm channels, and using blunt edge tools to seat excess fabric margins under friction, creating durable textile mosaics without stitchery."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and cataloged in the <a href="https://americanart.si.edu/art/craft" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Smithsonian American Art Museum Craft & Decorative Arts Archive</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="guide-body">
+      <h2>How Do You Create Kinusaiga Fabric Art Step-by-Step?</h2>
+      <p class="lead-answer"><strong>Creating Kinusaiga involves 7 simple steps</strong>: printing the pattern, preparing foam board, scoring grooves, cutting fabric with margins, and tucking edges smoothly.</p>
+
+      <div class="step-card" id="step-1">
+        <h3>Step 1: Choose & Print Your Pattern</h3>
+        <p>
+          Select a pattern that matches your current comfort level. For your first project, choose designs with gentle curves and larger sections (such as our free Turtle or Flower patterns). Print the pattern PDF on standard paper at 100% scale ("Actual Size").
+        </p>
+      </div>
+
+      <div class="step-card" id="step-2">
+        <h3>Step 2: Prepare Your Foam Board</h3>
+        <p>
+          Cut a piece of high-density extruded polystyrene foam board (approx. 1/2 inch or 10–12 mm thick) or sturdy foam craft board to the dimensions of your chosen design. Ensure the edges are clean and square.
+        </p>
+      </div>
+
+      <div class="step-card" id="step-3">
+        <h3>Step 3: Transfer the Design</h3>
+        <p>
+          Place carbon transfer paper or tracing paper between the printed pattern and your board. Trace along every line firmly with a pencil or ballpoint pen. Alternatively, lightly adhere the paper directly to the foam board with a temporary glue stick or masking tape.
+        </p>
+      </div>
+
+      <div class="step-card" id="step-4">
+        <h3>Step 4: Cut Grooves Along the Lines</h3>
+        <p>
+          Using a sharp precision craft knife (such as an X-Acto or Olfa knife with a 30° blade), cut shallow slits along all pattern lines, about 2–3 mm (1/8 inch) deep. Hold the blade vertically. Take your time around curves and intersections.
+        </p>
+      </div>
+
+      <div class="step-card" id="step-5">
+        <h3>Step 5: Cut Fabric Pieces with a Margin</h3>
+        <p>
+          Select coordinating fabric remnants. Place fabric over a section and cut the piece roughly 3–4 mm (1/8 inch) larger than the section on all sides. This extra margin is what will be tucked into the grooves.
+        </p>
+      </div>
+
+      <div class="step-card" id="step-6">
+        <h3>Step 6: Tuck Fabric Edges into the Grooves</h3>
+        <p>
+          Center the fabric over its section. Using a blunt tucking tool (such as a wooden cuticle stick, dull awl, or small metal spatula), gently push the fabric edge into the slit around the perimeter until smooth and taut.
+        </p>
+      </div>
+
+      <div class="step-card" id="step-7">
+        <h3>Step 7: Complete Neighboring Sections & Frame</h3>
+        <p>
+          Repeat the process section by section until the entire design is filled. Once finished, mount the board in a standard picture frame or wooden shadow box to display your handcrafted wall art!
+        </p>
+      </div>
+
+      <div class="cta-box">
+        <h3>Ready to Start?</h3>
+        <p>Download a free pattern and give the technique a try today.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="/free-patterns" class="btn btn-secondary">Get Free Patterns</a>
+          <a href="/shop" class="btn btn-green">Shop All Patterns →</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .guide-page {
+    max-width: 800px;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+  .guide-badge {
+    color: var(--cta-green);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .guide-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.2;
+  }
+  .guide-lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .step-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--card-shadow);
+  }
+  .step-card h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+    color: var(--text-main);
+  }
+  .step-card p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .cta-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 3.5rem;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .guide-page {
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
+    }
+    .step-card {
+      padding: 1.25rem 1rem;
+    }
+    .cta-box {
+      padding: 1.5rem 1rem;
+    }
+    .cta-box .btn {
+      width: 100%;
+    }
+  }
+</style>

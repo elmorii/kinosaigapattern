@@ -1,0 +1,283 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/CartDrawer.astro';
+import CheckoutModal from '../components/CheckoutModal.astro';
+import { getShopConfig } from '../lib/catalog.ts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  exactKeywords?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  schema?: Record<string, any> | Array<Record<string, any>>;
+  datePublished?: string;
+  dateModified?: string;
+}
+
+const config = getShopConfig();
+const BRAND_NAME = 'Kinosaiga Pattern';
+const STUDIO_NAME = 'Kinosaiga Pattern Studio';
+
+const {
+  title = `Kinusaiga Patterns – Printable Fabric Art Templates | ${BRAND_NAME}`,
+  description = 'Browse 110+ original printable Kinusaiga pattern templates for Japanese no-sew fabric art. Instant PDF and PNG downloads in multiple frame sizes plus free starters.',
+  keywords,
+  exactKeywords,
+  canonical,
+  ogImage = '/images/og-default.jpg',
+  ogType = 'website',
+  schema,
+  datePublished = '2026-11-05T00:00:00Z',
+  dateModified = '2026-11-22T00:00:00Z',
+} = Astro.props;
+
+let rawCanonical = canonical || (config.shop.siteUrl ? `${config.shop.siteUrl}${Astro.url.pathname}` : Astro.url.href);
+if (!rawCanonical.endsWith('/') && !rawCanonical.includes('.', rawCanonical.lastIndexOf('/'))) {
+  rawCanonical += '/';
+}
+const canonicalUrl = rawCanonical;
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const currentPath = Astro.url.pathname;
+
+const TARGET_SEO_KEYWORDS = 'kinusaiga, kinusaiga art, kinusaiga patterns, kinusaiga foam, kinusaiga kit, kinusaiga art supplies, kinusaiga patterns free, kinusaiga patterns free printable, kinusaiga fabric art';
+const pageKeywords = exactKeywords
+  ? exactKeywords
+  : keywords
+    ? `${keywords}, ${TARGET_SEO_KEYWORDS}`
+    : TARGET_SEO_KEYWORDS;
+
+// Base Studio / Author Organization Schema
+const baseAuthorSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteUrl}/#author`,
+  name: STUDIO_NAME,
+  url: `${siteUrl}/about`,
+  sameAs: [`${siteUrl}/about`],
+};
+
+// Base Organization Schema
+const baseOrgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteUrl}/#organization`,
+  name: BRAND_NAME,
+  url: siteUrl,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${siteUrl}/favicon.png`,
+  },
+  sameAs: [siteUrl],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    url: `${siteUrl}/contact`,
+  },
+};
+
+// Base WebSite Schema
+const baseWebSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  name: BRAND_NAME,
+  url: siteUrl,
+  publisher: {
+    '@id': `${siteUrl}/#organization`,
+  },
+};
+
+// Normalize passed schema
+const passedSchemas: Array<Record<string, any>> = Array.isArray(schema)
+  ? schema
+  : schema
+    ? [schema]
+    : [];
+
+passedSchemas.forEach((s) => {
+  if (['CollectionPage', 'Article', 'TechArticle', 'HowTo', 'FAQPage', 'WebPage'].includes(s['@type'])) {
+    if (!s.author) {
+      s.author = {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#author`,
+        name: STUDIO_NAME,
+        url: `${siteUrl}/about`,
+      };
+    }
+    if (!s.datePublished) s.datePublished = datePublished;
+    if (!s.dateModified) s.dateModified = dateModified;
+    if (!s.inLanguage) s.inLanguage = 'en';
+    if (!s.publisher) {
+      s.publisher = {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
+        name: BRAND_NAME,
+        url: siteUrl,
+      };
+    }
+  }
+});
+
+const hasOrg = passedSchemas.some((s) => s['@type'] === 'Organization' || s['@type'] === 'Store');
+const hasWebSite = passedSchemas.some((s) => s['@type'] === 'WebSite');
+const hasPerson = passedSchemas.some((s) => s['@type'] === 'Person' || s['@id'] === `${siteUrl}/#author`);
+const hasContentSchema = passedSchemas.some((s) =>
+  ['Article', 'TechArticle', 'HowTo', 'Product', 'FAQPage', 'CollectionPage', 'AboutPage', 'ContactPage'].includes(s['@type'])
+);
+
+const injectedSchemas: Array<Record<string, any>> = [];
+
+if (!hasOrg) injectedSchemas.push(baseOrgSchema);
+if (!hasWebSite) injectedSchemas.push(baseWebSiteSchema);
+if (!hasPerson) injectedSchemas.push(baseAuthorSchema);
+
+if (!hasContentSchema) {
+  if (currentPath.startsWith('/learn') || ogType === 'article') {
+    injectedSchemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title.replace(/ \| Kinosaiga Pattern$/, ''),
+      description: description,
+      url: canonicalUrl,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonicalUrl,
+      },
+      datePublished: datePublished,
+      dateModified: dateModified,
+      author: {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#author`,
+        name: STUDIO_NAME,
+        url: `${siteUrl}/about`,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: BRAND_NAME,
+        url: siteUrl,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${siteUrl}/favicon.png`,
+        },
+      },
+      image: ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`,
+    });
+  } else if (currentPath === '/faq') {
+    injectedSchemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      name: title,
+      url: canonicalUrl,
+    });
+  } else if (currentPath === '/contact') {
+    injectedSchemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      name: title,
+      url: canonicalUrl,
+      mainEntity: {
+        '@id': `${siteUrl}/#organization`,
+      },
+    });
+  } else if (currentPath === '/shop' || currentPath.startsWith('/categories/')) {
+    injectedSchemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: title,
+      description: description,
+      url: canonicalUrl,
+    });
+  }
+}
+
+const allSchemas = [...passedSchemas, ...injectedSchemas];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={pageKeywords} />
+    <meta name="author" content={STUDIO_NAME} />
+    <meta name="creator" content={STUDIO_NAME} />
+    <meta name="publisher" content={BRAND_NAME} />
+    <meta name="application-name" content={BRAND_NAME} />
+    <meta name="apple-mobile-web-app-title" content={BRAND_NAME} />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Freshness & Recency Signals -->
+    <meta property="article:published_time" content={datePublished} />
+    <meta property="article:modified_time" content={dateModified} />
+    <meta property="og:updated_time" content={dateModified} />
+
+    <!-- Security Meta Tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    {config.integrations.googleSiteVerification && (
+      <meta name="google-site-verification" content={config.integrations.googleSiteVerification} />
+    )}
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={BRAND_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    {ogImage && <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `${config.shop.siteUrl}${ogImage}`} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `${config.shop.siteUrl}${ogImage}`} />}
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    {allSchemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <CartDrawer />
+    <CheckoutModal />
+
+    <script>
+      document.addEventListener('copy', (e) => {
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed) return;
+
+        const anchorNode = selection.anchorNode;
+        const parentEl = anchorNode ? (anchorNode instanceof Element ? anchorNode : anchorNode.parentElement) : null;
+        const buttonTarget = parentEl?.closest('.btn, button, .nav-item, .nav-bundles-btn, .badge-free, .nav-categories-btn, [role="button"], a.btn');
+
+        if (buttonTarget && e.clipboardData) {
+          const plainText = selection.toString().trim();
+          if (plainText) {
+            e.clipboardData.clearData();
+            e.clipboardData.setData('text/plain', plainText);
+            e.preventDefault();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

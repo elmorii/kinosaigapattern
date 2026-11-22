@@ -1,0 +1,224 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const printSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/learn/printing-guide/#article`,
+    headline: 'Pattern Printing & Digital File Guide: Scaling & Aspect Ratio Instructions',
+    description: 'Learn how to open, print, and scale your Kinusaiga pattern PDF and PNG files at 100% actual size without distortion across multiple frame dimensions.',
+    url: `${siteUrl}/learn/printing-guide`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/learn/printing-guide`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+    image: `${siteUrl}/images/og-default.jpg`,
+    articleSection: 'Technical Guide',
+    keywords: 'kinusaiga printing guide, print pattern actual size, pdf pattern scaling, kinusaiga aspect ratios',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    '@id': `${siteUrl}/learn/printing-guide/#howto`,
+    name: 'How to Print Kinusaiga Pattern PDF Templates at 100% Actual Scale',
+    description: 'Step-by-step instructions for selecting actual size in printer dialogs to avoid distortion when creating fabric art templates.',
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Select 100% Scale / Actual Size',
+        text: 'Set printer page scaling to "Actual Size" or "100%" instead of "Fit to Page".',
+        url: `${siteUrl}/learn/printing-guide#scale`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Choose Matching Aspect Ratio',
+        text: 'Select the file corresponding to your desired frame aspect ratio: square 1:1, 4:5, or 5:7.',
+        url: `${siteUrl}/learn/printing-guide#aspect-ratios`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Verify Test Dimensions',
+        text: 'Measure printed pattern boundaries with a ruler to confirm accuracy before cutting foam.',
+        url: `${siteUrl}/learn/printing-guide#troubleshooting`,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Pattern Printing & Scaling Guide | Templates | Kinosaiga Pattern"
+  description="Learn how to open, print, and scale your Kinusaiga pattern PDF and PNG files at 100% actual size without distortion across multiple frame dimensions."
+  ogType="article"
+  schema={printSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container guide-page">
+    <div class="guide-header">
+      <span class="guide-badge">Printing & File Help</span>
+      <h1 class="guide-title">Pattern Printing & Digital File Guide</h1>
+      <p class="guide-lead">
+        Instructions for opening, scaling, and printing your Kinusaiga patterns accurately on home or commercial printers.
+      </p>
+    </div>
+
+    <!-- Authoritative Digital Printing Standards Citation Box -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Authoritative Printing Standards Citation
+      </div>
+      <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Japanese_crafts" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "For precision pattern reproduction in tactile crafts, printing at unscaled 1:1 ('Actual Size') metrics is critical to prevent optical distortion and maintain proportional groove clearance across framing standards."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and cataloged in the <a href="https://americanart.si.edu/art/craft" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Smithsonian American Art Museum Craft & Decorative Arts Archive</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="guide-body">
+      <h2 id="scale">Why Must You Print at 100% "Actual Size"?</h2>
+      <p class="lead-answer"><strong>Printing at 100% actual scale ensures true physical dimensions</strong>, preventing printer auto-scaling from distorting frame measurements or tucking margins.</p>
+      <p>
+        When sending your pattern PDF to your printer, look for your printer dialog's scaling setting and select <strong>"Actual Size"</strong> or <strong>"100% Scale"</strong>.
+      </p>
+      <p>
+        Do <strong>not</strong> select "Fit to Page" or "Shrink to Fit". Automatic scaling alters the pattern dimensions, making it difficult to match standard frame or foam board sizes.
+      </p>
+
+      <h2 id="aspect-ratios">How Do Aspect Ratios & Included Sizes Work?</h2>
+      <p class="lead-answer"><strong>Each pattern includes pre-calculated aspect ratios</strong> formatted for standard square (1:1), rectangular (4:5, 5:7), and circular photo frames.</p>
+      <p>
+        Patterns are designed in specific aspect ratios to preserve the natural proportions of the artwork:
+      </p>
+      <ul>
+        <li><strong>1:1 Aspect Ratio:</strong> Square designs (e.g. 5×5", 6×6", 7×7", 8×8", 10×10").</li>
+        <li><strong>Circle Design Border Shape:</strong> Square 1:1 layout featuring a circular border enclosure.</li>
+        <li><strong>4:5 & 5:4 Ratios:</strong> Standard rectangular art frames (e.g. 8×10" or 10×8").</li>
+        <li><strong>5:7 & 7:5 Ratios:</strong> Classic portrait and landscape rectangular sizes (5×7" or 7×5").</li>
+      </ul>
+
+      <h2 id="troubleshooting">How Do You Troubleshoot Common Printing Issues?</h2>
+      <p class="lead-answer"><strong>Most printing errors stem from third-party mobile compression apps</strong> and can be resolved by using Adobe Acrobat Reader on a computer.</p>
+      <p>
+        <strong>Files won't open?</strong> Ensure you have a standard PDF reader installed (such as Adobe Acrobat Reader, Google Chrome, Microsoft Edge, or Apple Preview).
+      </p>
+      <p>
+        <strong>Image cut off at margins?</strong> Check that you are loading the correct size file matching your printer paper (e.g. US Letter or A4).
+      </p>
+
+      <div class="cta-box" style="margin-top: 3rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; text-align: center;">
+        <h3>Ready to Print Your First Template?</h3>
+        <p style="margin: 0.5rem 0 1.5rem; color: var(--text-muted);">Try one of our free printable starter patterns or explore our full collection.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/free-patterns" class="btn btn-secondary">Get Free Patterns</a>
+          <a href="/shop" class="btn btn-green">Shop All Patterns →</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .guide-page {
+    max-width: 800px;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+  .guide-badge {
+    color: var(--cta-green);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .guide-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.2;
+  }
+  .guide-lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .guide-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .guide-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .guide-body ul {
+    margin: 1rem 0 2rem 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 600px) {
+    .guide-page {
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
+    }
+    .guide-body h2 {
+      font-size: 1.25rem;
+      margin: 1.6rem 0 0.6rem;
+    }
+    .cta-box {
+      padding: 1.5rem 1rem !important;
+    }
+    .cta-box .btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kinosaigapattern.com/sitemap-index.xml
+Sitemap: https://kinosaigapattern.com/sitemap.xml

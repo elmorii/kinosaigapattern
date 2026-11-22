@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const cookieSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/legal/cookie-policy/#article`,
+    headline: 'Cookie Policy & Web Storage Usage | Kinosaiga Pattern',
+    description: 'Read our Cookie Policy to understand how Kinosaiga Pattern uses cookies for secure shopping navigation, shopping cart sessions, and reliable digital pattern delivery.',
+    url: `${siteUrl}/legal/cookie-policy`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/legal/cookie-policy`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+  },
+];
+---
+
+<Layout
+  title="Cookie Policy & Web Storage Usage | Kinosaiga Pattern"
+  description="Read our Cookie Policy to understand how Kinosaiga Pattern uses cookies for secure shopping navigation, shopping cart sessions, and reliable digital pattern delivery."
+  ogType="article"
+  schema={cookieSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container static-page">
+    <div class="page-head">
+      <h1 class="page-title">Cookie Policy</h1>
+      <p class="lead-text">Last Updated: November 2026</p>
+    </div>
+
+    <!-- Web Storage Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Web Standard Reference
+      </div>
+      <blockquote class="definition-text" cite="https://www.w3.org" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "HTTP cookies and web storage tokens serve functional state preservation for shopping carts and authentication while respecting privacy-by-design standards."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — In accordance with specifications maintained by the <cite><a href="https://www.w3.org/standards/webdesign/" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">World Wide Web Consortium (W3C)</a></cite> and global privacy frameworks.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="content-body">
+      <h2>What Are Cookies & Local Storage?</h2>
+      <p class="lead-answer"><strong>Cookies are lightweight data files stored on your browser</strong> to preserve shopping cart contents and ensure smooth, responsive website navigation.</p>
+      <p>
+        Cookies are small text files stored on your computer or device by your web browser when visiting websites. They help provide a smooth browsing experience and remember basic user preferences.
+      </p>
+
+      <h2>How Does Kinosaiga Pattern Utilize Cookies?</h2>
+      <p class="lead-answer"><strong>We only use essential functional cookies for checkout integration and cart sessions</strong>, without utilizing invasive third-party cross-site ad trackers.</p>
+      <p>
+        Our website keeps cookie usage minimal. Essential cookies are used to maintain core site navigation and integrate with the secure checkout interface. If analytics or advertising features are enabled in the future, explicit consent mechanisms will be provided.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .static-page {
+    max-width: 800px;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .lead-text {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+  .content-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .content-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.2rem !important;
+  }
+</style>

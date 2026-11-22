@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page Not Found – Kinusaiga Patterns | Kinosaiga Pattern"
+  description="Sorry, the Kinusaiga pattern page you requested cannot be found. Browse our complete catalog of 110+ printable templates or explore free starter designs."
+>
+  <div class="not-found-container">
+    <div class="not-found-card">
+      <span class="not-found-badge">404</span>
+      <h1>Pattern Not Found</h1>
+      <p>
+        The page you are looking for may have been moved, renamed, or is temporarily unavailable.
+      </p>
+      <div class="not-found-actions">
+        <a href="/shop" class="btn btn-primary">Browse All Patterns →</a>
+        <a href="/free-patterns" class="btn btn-secondary">Explore Free Patterns</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .not-found-container {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  .not-found-card {
+    max-width: 520px;
+  }
+  .not-found-badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--cta-green, #2563eb);
+    background: #eff6ff;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--text-heading, #0f172a);
+    margin: 0 0 1rem;
+  }
+  p {
+    font-size: 1.05rem;
+    color: var(--text-muted, #64748b);
+    line-height: 1.6;
+    margin: 0 0 2rem;
+  }
+  .not-found-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

@@ -1,0 +1,22 @@
+{
+  "$comment": "EXAMPLE manual override file. Copy to data/overrides/K24.json (file name = product ID) and keep only the fields you want to change. Overrides are never overwritten by the importer. Delete a field to return to the automatic value.",
+  "niche": "Hummingbird",
+  "title": "Hummingbird Kinusaiga Pattern – Printable Fabric Art Template",
+  "seoTitle": "Hummingbird Kinusaiga Pattern – Printable Fabric Art Template",
+  "metaDescription": "Printable hummingbird Kinusaiga pattern for no-sew Japanese fabric art.",
+  "summary": "Short text shown next to the price.",
+  "category": "Birds",
+  "tags": ["kinusaiga pattern", "hummingbird"],
+  "featured": true,
+  "status": "draft",
+  "status_help": "Only 'draft' is accepted here (to hide a product temporarily). A product is published automatically when all checks pass.",
+  "hidden": false,
+  "slug": "hummingbird-kinusaiga-pattern-k24",
+  "offeringProfile": "standard-10",
+  "imageAlts": { "1": "Framed hummingbird Kinusaiga artwork made from pastel floral fabrics", "2": "Three framed hummingbird Kinusaiga designs in different sizes" },
+  "imageCaptions": { "2": "Example of the available size layouts" },
+  "description": {
+    "overview": ["Replaces the overview paragraphs."],
+    "closing": "Replaces the closing sentence."
+  }
+}

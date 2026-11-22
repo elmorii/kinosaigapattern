@@ -1,0 +1,1318 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const canonicalUrl = `${siteUrl}/discover-kinusaiga-the-relaxing-no-sew-fabric-art/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${canonicalUrl}#article`,
+      isPartOf: {
+        '@type': 'WebPage',
+        '@id': canonicalUrl,
+        url: canonicalUrl,
+        name: 'Discover Kinusaiga: The Relaxing, No-Sew Fabric Art',
+      },
+      headline: 'Discover Kinusaiga: The Relaxing, No-Sew Fabric Art',
+      description: 'Welcome to the world of Kinusaiga art! It’s the ultimate relaxing, no-sew craft that lets you turn beautiful fabric and scored foam into framed wall decor.',
+      url: canonicalUrl,
+      datePublished: '2024-07-31T15:48:44-06:00',
+      dateModified: '2026-11-09T00:00:00Z',
+      author: {
+        '@type': 'Person',
+        name: 'Byrdie Larsen',
+        url: `${siteUrl}/about`,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: BRAND_NAME,
+        url: siteUrl,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${siteUrl}/favicon.png`,
+        },
+      },
+      image: `${siteUrl}/images/tutorials/discover-kinusaiga/hero-sunrise-kit.jpg`,
+      articleSection: 'Fun & Easy Crafts',
+      keywords: 'kinusaiga, no-sew fabric art, kinusaiga tutorial, japanese fabric craft, fabric tucking craft, foam board craft',
+    },
+    {
+      '@type': 'HowTo',
+      '@id': `${canonicalUrl}#howto`,
+      name: 'Kinusaiga Tutorial: How to Make No-Sew Fabric Wall Art',
+      description: 'Step-by-step tutorial on scoring foam board, cutting fabric swatches, tucking edges into slits, and mounting your finished textile artwork in a frame.',
+      totalTime: 'PT2H',
+      tool: [
+        { '@type': 'HowToTool', name: 'X-Acto or precision craft knife' },
+        { '@type': 'HowToTool', name: 'Seam ripper or blunt tucking stylus' },
+        { '@type': 'HowToTool', name: 'Fabric scissors' },
+        { '@type': 'HowToTool', name: 'All-purpose craft glue or hot glue' },
+      ],
+      supply: [
+        { '@type': 'HowToSupply', name: '1-inch rigid insulation foam board (XPS)' },
+        { '@type': 'HowToSupply', name: 'Double-sided adhesive sheet' },
+        { '@type': 'HowToSupply', name: 'Printed design or sticker template' },
+        { '@type': 'HowToSupply', name: 'Assorted woven fabric scraps (cotton or silk)' },
+        { '@type': 'HowToSupply', name: 'Custom wooden display frame & backer board' },
+      ],
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'Score the Foam',
+          text: 'Use an X-Acto knife to cut along the lines on your sticker template at a depth of 1/4 inch to create fabric slits. If you hit a hard spot, use a gentle sawing motion.',
+          image: `${siteUrl}/images/tutorials/discover-kinusaiga/kinusaiga-score-design.jpg`,
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'Cut and Tuck Fabric',
+          text: 'Peel paper backing from a section. Cut fabric roughly 1/4 inch larger than the shape. Center fabric and use the flat back of a seam ripper to gently pull and tuck edges into slits. Trim excess flush with scissors.',
+          image: `${siteUrl}/images/tutorials/discover-kinusaiga/kinusaiga-first-tuck.jpg`,
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'Frame It',
+          text: 'Apply glue to the sides of the foam board and wrap edge fabric around. Press the wooden frame down over the artwork for a snug fit. Flip over and glue the backer board with sawtooth hanger.',
+          image: `${siteUrl}/images/tutorials/discover-kinusaiga/kinusaiga-fit-frame.jpg`,
+        },
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: siteUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Learn',
+          item: `${siteUrl}/learn/how-to-make-kinusaiga`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Discover Kinusaiga',
+          item: canonicalUrl,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title="Discover Kinusaiga: The Relaxing, No-Sew Fabric Art"
+  description="Welcome to the world of Kinusaiga art! It’s the ultimate relaxing, no sew craft that lets you turn beautiful fabric and scored foam into framed wall decor."
+  canonical={canonicalUrl}
+  ogImage={`${siteUrl}/images/tutorials/discover-kinusaiga/hero-sunrise-kit.jpg`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <div class="tutorial-page-wrapper">
+    <!-- Breadcrumb Bar -->
+    <div class="breadcrumb-container">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="/" class="crumb-link">Home</a>
+        <span class="crumb-sep">/</span>
+        <a href="/learn/how-to-make-kinusaiga" class="crumb-link">Learn</a>
+        <span class="crumb-sep">/</span>
+        <span class="crumb-current">Discover Kinusaiga: The Relaxing, No-Sew Fabric Art</span>
+      </nav>
+    </div>
+
+    <!-- Article Hero Header -->
+    <header class="article-hero">
+      <div class="container hero-inner">
+        <div class="hero-badge-wrap">
+          <span class="hero-category-badge">Fun & Easy Crafts</span>
+          <span class="hero-badge-dot">•</span>
+          <span class="hero-format-badge">Kinusaiga Tutorial</span>
+        </div>
+
+        <h1 class="article-title">Discover Kinusaiga: The Relaxing, No-Sew Fabric Art</h1>
+
+        <div class="article-byline">
+          <div class="author-info">
+            <span class="byline-label">By</span>
+            <span class="author-name">Byrdie Larsen</span>
+          </div>
+          <span class="byline-sep">•</span>
+          <time datetime="2024-07-31" class="publish-date">Published July 31, 2024</time>
+          <span class="byline-sep">•</span>
+          <span class="update-date">Updated Nov 9, 2026</span>
+          <span class="byline-sep">•</span>
+          <span class="read-time">8 min read</span>
+        </div>
+
+        <div class="hero-lead-box">
+          <p class="hero-lead-text">
+            <strong>Welcome to the world of Kinusaiga art!</strong> It’s the ultimate relaxing, no-sew craft that lets you turn beautiful fabric and scored foam into framed wall decor.
+          </p>
+          <p class="hero-sublead-text">
+            If you've been looking for a cozy project to help you unwind after a long day, get lost in a good creative rhythm, and make something gorgeous for your home, Kinusaiga is about to become your new favorite passion.
+          </p>
+        </div>
+
+        <div class="hero-image-figure">
+          <img
+            src="/images/tutorials/discover-kinusaiga/hero-sunrise-kit.jpg"
+            alt="Sunrise Kinusaiga Pattern and Framed Textile Artwork Kit"
+            class="hero-featured-img"
+            loading="eager"
+            width="1024"
+            height="1024"
+          />
+          <figcaption class="hero-caption">
+            Sunrise Kinusaiga Pattern: Handcrafted Japanese-style textile art created with tucked fabric scraps and scored foam.
+          </figcaption>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Tutorial Content -->
+    <main class="container article-container">
+      <article class="article-content">
+        <!-- Section 1: What is Kinusaiga? -->
+        <section class="content-section" id="what-is-kinusaiga">
+          <h2 class="section-heading">What Exactly is Kinusaiga?</h2>
+          <p>
+            <strong>Kinusaiga</strong> (pronounced <em>kee-noo-sigh-gah</em>) is a traditional Japanese art form created in the 1980s by Japanese artist Maeno Takashi. Originally, Japanese crafters used small pieces of vintage silk saved from antique kimonos to compose detailed, mosaic-like picture panels.
+          </p>
+          <p>
+            Instead of sewing pieces together with needles or thread, the edges of each fabric swatch are gently tucked into pre-cut grooves on a cushioned base. The result is a raised, 3D piece of artwork that looks just like a handmade quilt panel inside a frame!
+          </p>
+
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                </svg>
+              </div>
+              <h3 class="benefit-title">Zero Sewing Required</h3>
+              <p class="benefit-desc">No machines, no bobbin winding, no needles, and no pricked fingers. Perfect for crafters of all skill levels.</p>
+            </div>
+
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                </svg>
+              </div>
+              <h3 class="benefit-title">Deeply Calming & Therapeutic</h3>
+              <p class="benefit-desc">Tucking smooth fabric into soft grooves is a deeply satisfying, peaceful process. An easy way to step away from screens and enjoy true "me-time."</p>
+            </div>
+
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+              </div>
+              <h3 class="benefit-title">No Mistakes You Can't Fix</h3>
+              <p class="benefit-desc">If a fabric placement isn't quite where you want it, simply lift the edge, adjust, and tuck it back in. It is completely stress-free.</p>
+            </div>
+
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <h3 class="benefit-title">Instant Gratification</h3>
+              <p class="benefit-desc">You don't have to wait months to finish a traditional quilt. A 6×6 Kinusaiga panel comes together in just a couple of relaxing hours!</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Kinusaiga Supplies & Tools -->
+        <section class="content-section" id="supplies">
+          <h2 class="section-heading">Kinusaiga Supplies & Tools</h2>
+          <p>
+            You only need a few straightforward household crafting supplies to make your own Kinusaiga artwork at home.
+          </p>
+
+          <div class="supplies-showcase-grid">
+            <div class="showcase-card">
+              <img
+                src="/images/tutorials/discover-kinusaiga/kinusaiga-supplies.jpg"
+                alt="Kinusaiga craft supplies including foam board, fabric scraps, template, and wooden frame"
+                class="showcase-img"
+                loading="lazy"
+                width="640"
+                height="640"
+              />
+              <div class="showcase-content">
+                <h3 class="showcase-title">Essential Supplies</h3>
+                <ul class="styled-checklist">
+                  <li><strong>Foam Base:</strong> 1-inch or 1/2-inch rigid XPS insulation foam board</li>
+                  <li><strong>Adhesive:</strong> Double-sided adhesive sheet or spray adhesive</li>
+                  <li><strong>Pattern:</strong> Printable design template (scale 100% PDF)</li>
+                  <li><strong>Fabric:</strong> Assorted woven cotton scraps or silk remnants</li>
+                  <li><strong>Frame:</strong> Custom wooden display frame & backer board</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="showcase-card">
+              <img
+                src="/images/tutorials/discover-kinusaiga/kinusaiga-tools.jpg"
+                alt="Kinusaiga tools: craft knife, seam ripper stylus, scissors, and craft glue"
+                class="showcase-img"
+                loading="lazy"
+                width="640"
+                height="640"
+              />
+              <div class="showcase-content">
+                <h3 class="showcase-title">Basic Tools</h3>
+                <ul class="styled-checklist">
+                  <li><strong>X-Acto Knife:</strong> Precision craft blade for scoring grooves</li>
+                  <li><strong>Seam Ripper / Stylus:</strong> Flat back tool for tucking fabric</li>
+                  <li><strong>Craft Scissors:</strong> Fine fabric scissors for flush trimming</li>
+                  <li><strong>All-Purpose Glue:</strong> For sealing edges and attaching backing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Step-by-Step Tutorial -->
+        <section class="content-section" id="tutorial">
+          <div class="tutorial-header-block">
+            <span class="tutorial-pretitle">Hands-On Guide</span>
+            <h2 class="section-heading">Kinusaiga Tutorial: Step-by-Step</h2>
+            <p>Follow along with our complete photo tutorial to create your own Sunrise Kinusaiga piece.</p>
+          </div>
+
+          <!-- Step 1: Score -->
+          <div class="tutorial-step-card" id="step-score">
+            <div class="step-num-badge">Step 1</div>
+            <div class="step-card-body">
+              <h3 class="step-card-title">Score the Design into Foam</h3>
+              <p>
+                Use an X-Acto knife to slowly cut along the lines on your sticker or transferred template. Aim for a depth of <strong>1/4″</strong> to create your fabric slits.
+              </p>
+              <p>
+                If you hit a hard spot in the foam, use a gentle sawing motion to clear it, then continue with a slow, smooth cut. Go slow and take your time around each contour.
+              </p>
+              <div class="step-img-box">
+                <img
+                  src="/images/tutorials/discover-kinusaiga/kinusaiga-score-design.jpg"
+                  alt="Scoring lines into foam board using a precision craft knife"
+                  class="step-photo"
+                  loading="lazy"
+                  width="640"
+                  height="640"
+                />
+                <span class="step-img-caption">Cut smoothly along every pattern line to a depth of approximately 1/4 inch.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Cut and Tuck -->
+          <div class="tutorial-step-card" id="step-cut-and-tuck">
+            <div class="step-num-badge">Step 2</div>
+            <div class="step-card-body">
+              <h3 class="step-card-title">Cut and Tuck the Fabric</h3>
+              <div class="substep-list">
+                <div class="substep-item">
+                  <span class="substep-bullet">1</span>
+                  <p>Start with any individual section and carefully peel away the paper backing from the adhesive foam board.</p>
+                </div>
+                <div class="substep-item">
+                  <span class="substep-bullet">2</span>
+                  <p>
+                    Cut a piece of fabric roughly <strong>1/4″ larger</strong> than the shape of that section. If filling an outer edge piece, leave the outer edge at least <strong>1/2″ long</strong> so it can wrap around the side.
+                  </p>
+                </div>
+                <div class="step-img-box">
+                  <img
+                    src="/images/tutorials/discover-kinusaiga/kinusaiga-fabric-placement.jpg"
+                    alt="Placing cut fabric over the peeled section of foam board"
+                    class="step-photo"
+                    loading="lazy"
+                    width="640"
+                    height="640"
+                  />
+                  <span class="step-img-caption">Center the fabric piece over the section, leaving a 1/4-inch margin on all sides.</span>
+                </div>
+
+                <div class="substep-item">
+                  <span class="substep-bullet">3</span>
+                  <p>
+                    Center your cut fabric and rub it down gently onto the adhesive. Using the flat backside of the seam ripper or blunt stylus, gently press the fabric into the scored slits. <strong>Always pull the seam ripper as you tuck—NEVER push the fabric forcefully.</strong>
+                  </p>
+                </div>
+                <div class="step-img-box">
+                  <img
+                    src="/images/tutorials/discover-kinusaiga/kinusaiga-first-tuck.jpg"
+                    alt="Gently tucking fabric edges into scored slits using a seam ripper"
+                    class="step-photo"
+                    loading="lazy"
+                    width="640"
+                    height="640"
+                  />
+                  <span class="step-img-caption">Pull the tool gently along the slit to anchor the fabric into the foam.</span>
+                </div>
+
+                <div class="substep-item">
+                  <span class="substep-bullet">4</span>
+                  <p>
+                    Once the fabric is anchored in, lay your scissors completely flat against the foam board and cut as close to the board as possible to trim away the bulk of the excess fabric.
+                  </p>
+                </div>
+                <div class="step-img-box">
+                  <img
+                    src="/images/tutorials/discover-kinusaiga/kinusaiga-trim-excess-fabric.jpg"
+                    alt="Trimming excess fabric flat against the foam board with scissors"
+                    class="step-photo"
+                    loading="lazy"
+                    width="640"
+                    height="640"
+                  />
+                  <span class="step-img-caption">Trim excess fabric flush against the foam board surface.</span>
+                </div>
+
+                <div class="substep-item">
+                  <span class="substep-bullet">5</span>
+                  <p>
+                    Finish tucking the remaining raw edges cleanly into the slit. Pull in different directions to get a crisp, clean seam. Repeat for each neighboring section.
+                  </p>
+                </div>
+
+                <!-- Gallery of tucking progression -->
+                <div class="tucking-progression-grid">
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-relief-cuts.jpg"
+                      alt="Relief cuts on sharp curves"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>Making relief snips on curves to help fabric lie smooth.</figcaption>
+                  </figure>
+
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-tucking-sun.jpg"
+                      alt="Tucking the sunrise circle"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>Tucking the vibrant central sun section.</figcaption>
+                  </figure>
+
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-final-tuck-all.jpg"
+                      alt="All sections tucked cleanly into foam board"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>All background rays and landscape shapes fully tucked.</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Frame It -->
+          <div class="tutorial-step-card" id="step-frame">
+            <div class="step-num-badge">Step 3</div>
+            <div class="step-card-body">
+              <h3 class="step-card-title">Frame Your Artwork</h3>
+              <div class="substep-list">
+                <div class="substep-item">
+                  <span class="substep-bullet">1</span>
+                  <p>
+                    Apply glue to the outer sides of the foam board. Smooth your fabric overhang down around the sides and trim any bulk excess. It does not need to be perfectly neat as the edges will be concealed inside the frame.
+                  </p>
+                </div>
+
+                <div class="framing-prep-grid">
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-trim-outer-edges.jpg"
+                      alt="Trimming outer edge fabric"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>Trimming outer fabric overhang.</figcaption>
+                  </figure>
+
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-finish-tucking-edges.jpg"
+                      alt="Finishing outer tucking"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>Final edge tucking around border.</figcaption>
+                  </figure>
+
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-glued-edges.jpg"
+                      alt="Gluing fabric to the sides of foam"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>Gluing fabric smoothly along the side perimeter.</figcaption>
+                  </figure>
+                </div>
+
+                <div class="substep-item">
+                  <span class="substep-bullet">2</span>
+                  <p>
+                    Place your finished artwork face-up on a clean table and gently press the wooden frame down over it for a snug, seamless fit.
+                  </p>
+                </div>
+                <div class="step-img-box">
+                  <img
+                    src="/images/tutorials/discover-kinusaiga/kinusaiga-fit-frame.jpg"
+                    alt="Pressing wooden frame down over finished Kinusaiga artwork"
+                    class="step-photo"
+                    loading="lazy"
+                    width="640"
+                    height="640"
+                  />
+                  <span class="step-img-caption">Press the frame evenly down around the foam core.</span>
+                </div>
+
+                <div class="substep-item">
+                  <span class="substep-bullet">3</span>
+                  <p>
+                    Flip the frame and foam board over. Apply all-purpose glue or hot glue around the back perimeter. Double-check that your sawtooth hanger is oriented at the top of your design, then center the backing board onto the frame and allow the glue to cure thoroughly.
+                  </p>
+                </div>
+
+                <div class="framing-finish-grid">
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-frame-glue-up.jpg"
+                      alt="Applying glue to back of frame and foam"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>Applying adhesive along the back.</figcaption>
+                  </figure>
+
+                  <figure class="progression-item">
+                    <img
+                      src="/images/tutorials/discover-kinusaiga/kinusaiga-backer-board.jpg"
+                      alt="Centering backer board with sawtooth hanger"
+                      class="step-photo"
+                      loading="lazy"
+                      width="640"
+                      height="640"
+                    />
+                    <figcaption>Securing backer board with hanger.</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Tips and Tricks -->
+        <section class="content-section" id="tips">
+          <h2 class="section-heading">Pro Tips & Tricks for Kinusaiga Success</h2>
+
+          <div class="tips-grid">
+            <div class="tip-card">
+              <h3 class="tip-title">Curves & Corners</h3>
+              <p>Make small "relief snips" on sharp curves to help the fabric lay flat, and cut a small "V" notch in tight corners to remove fabric bulk before tucking.</p>
+            </div>
+
+            <div class="tip-card">
+              <h3 class="tip-title">Fix a Peeking Board</h3>
+              <p>If your fabric shifts and the white foam board peeks out, use your seam ripper or stylus to gently lift the edge, give it a strategic tug, and re-tuck it smoothly.</p>
+            </div>
+
+            <div class="tip-card">
+              <h3 class="tip-title">Fabric Cut Too Short?</h3>
+              <p>If a piece is cut too short, simply peel it off and cut a fresh piece. If the adhesive lifts with the fabric, a light dab of craft glue will securely reattach it.</p>
+            </div>
+
+            <div class="tip-card">
+              <h3 class="tip-title">Crisp, Clean Seams</h3>
+              <p>Rotate your board as you work so you can pull and tuck from varying comfortable angles to achieve perfectly uniform tension across every seam.</p>
+            </div>
+
+            <div class="tip-card">
+              <h3 class="tip-title">Adhesive Backing Tip</h3>
+              <p>If the adhesive starts lifting with the paper backing, lay the backing paper back down, burnish it firmly to re-bond, and peel again slowly at a low angle.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Finished Gallery -->
+        <section class="content-section" id="gallery">
+          <h2 class="section-heading">A Few Finished Pieces</h2>
+          <p>Here is what the finished Kinusaiga artwork looks like once completed and mounted in a wooden frame:</p>
+
+          <div class="finished-gallery-grid">
+            <figure class="gallery-figure">
+              <img
+                src="/images/tutorials/discover-kinusaiga/kinusaiga-sunset-finished-full.jpg"
+                alt="Finished Sunrise Kinusaiga textile wall decor in wooden frame"
+                class="gallery-photo"
+                loading="lazy"
+                width="640"
+                height="640"
+              />
+              <figcaption>Completed Sunrise Kinusaiga textile wall decor.</figcaption>
+            </figure>
+
+            <figure class="gallery-figure">
+              <img
+                src="/images/tutorials/discover-kinusaiga/kinusaiga-sunset-finished-angle.jpg"
+                alt="Angled view of finished Sunrise Kinusaiga showing 3D quilted texture"
+                class="gallery-photo"
+                loading="lazy"
+                width="640"
+                height="640"
+              />
+              <figcaption>Angled perspective highlighting the tactile 3D relief texture.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- Section 6: Ready to Try It? CTA -->
+        <section class="cta-banner-section" id="get-started">
+          <div class="cta-banner-card">
+            <span class="cta-eyebrow">Start Your Kinusaiga Journey</span>
+            <h2 class="cta-headline">Want to Try It? Grab Our Printable Kinusaiga Patterns!</h2>
+            <p class="cta-description">
+              Whether you want to trace it onto your own foam base or practice your tucking skills using fabric scraps from your stash, our beginner-friendly Kinusaiga patterns are the perfect place to start your creative journey.
+            </p>
+            <p class="cta-note">
+              Every pattern download includes printable PDF and PNG files pre-scaled across 8 or 10 standard frame sizes (listed on each product page), plus a no-background outline.
+            </p>
+            <div class="cta-actions">
+              <a href="/free-patterns" class="cta-btn primary-btn">Explore Free Patterns →</a>
+              <a href="/shop" class="cta-btn secondary-btn">Shop All Patterns</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 7: Author Sign-off & You Might Also Enjoy -->
+        <section class="content-section" id="author-signoff">
+          <div class="author-signoff-card">
+            <p>
+              I hope you enjoyed this craft as much as I did and decide to make one for yourself! Please save this guide for later by pinning it, and share it with your fellow makers.
+            </p>
+            <p class="author-signature">
+              Thanks for stopping by your crafty friend ~ <strong>Byrdie Larsen</strong>
+            </p>
+          </div>
+
+          <div class="related-guides-block">
+            <h3 class="related-title">You Might Also Enjoy:</h3>
+            <div class="related-links-grid">
+              <a href="/learn/how-to-make-kinusaiga" class="related-card">
+                <span class="related-tag">Tutorial</span>
+                <h4 class="related-card-title">How to Make Kinusaiga Art</h4>
+                <p class="related-card-desc">Comprehensive step-by-step masterclass covering transfer methods, blade angles, and edge sealing.</p>
+              </a>
+
+              <a href="/learn/materials-and-tools" class="related-card">
+                <span class="related-tag">Guide</span>
+                <h4 class="related-card-title">Materials & Tools Guide</h4>
+                <p class="related-card-desc">Detailed review of high-density foam boards, Japanese tucking styluses, and ideal cotton fabrics.</p>
+              </a>
+
+              <a href="/learn/beginner-guide" class="related-card">
+                <span class="related-tag">Tips</span>
+                <h4 class="related-card-title">Beginner Guide & Troubleshooting</h4>
+                <p class="related-card-desc">Avoid the top 5 beginner mistakes and master curved tucking lines effortlessly.</p>
+              </a>
+
+              <a href="/learn/printing-guide" class="related-card">
+                <span class="related-tag">Print Guide</span>
+                <h4 class="related-card-title">Printing & 10 Frame Sizes</h4>
+                <p class="related-card-desc">Print actual size templates on standard letter printers for 5×5, 8×10, 10×10, and 14×14 frames.</p>
+              </a>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .tutorial-page-wrapper {
+    background-color: #fafbfc;
+    padding-bottom: 5rem;
+  }
+
+  /* Breadcrumbs */
+  .breadcrumb-container {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.85rem 1rem;
+  }
+  .breadcrumb-nav {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 0.88rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .crumb-link {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .crumb-link:hover {
+    text-decoration: underline;
+  }
+  .crumb-sep {
+    color: #cbd5e1;
+  }
+  .crumb-current {
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  /* Article Hero */
+  .article-hero {
+    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 3rem 1rem 3.5rem;
+    text-align: center;
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-badge-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(37, 99, 235, 0.28);
+    color: #1d4ed8;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.95rem;
+    border-radius: 9999px;
+    margin-bottom: 1.25rem;
+  }
+  .hero-badge-dot {
+    color: #3b82f6;
+  }
+  .article-title {
+    font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.025em;
+  }
+  .article-byline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: #64748b;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .author-name {
+    font-weight: 600;
+    color: #1e293b;
+  }
+  .byline-sep {
+    color: #cbd5e1;
+  }
+  .hero-lead-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #3b82f6;
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    text-align: left;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  }
+  .hero-lead-text {
+    font-size: 1.18rem;
+    color: #1e293b;
+    line-height: 1.65;
+    margin: 0 0 0.85rem;
+  }
+  .hero-lead-text strong {
+    color: #1d4ed8;
+  }
+  .hero-sublead-text {
+    font-size: 1.05rem;
+    color: #475569;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .hero-image-figure {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .hero-featured-img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.12);
+    border: 1px solid #e2e8f0;
+  }
+  .hero-caption {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-top: 0.85rem;
+    font-style: italic;
+  }
+
+  /* Main Article Body */
+  .article-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+  .article-content {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  }
+
+  .content-section {
+    margin-bottom: 3.5rem;
+  }
+  .section-heading {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #f1f5f9;
+  }
+  .content-section p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #334155;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Benefits Grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .benefit-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.4rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .benefit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.06);
+  }
+  .benefit-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(37, 99, 235, 0.12);
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .benefit-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+  }
+  .benefit-desc {
+    font-size: 0.94rem !important;
+    line-height: 1.55 !important;
+    color: #64748b !important;
+    margin: 0 !important;
+  }
+
+  /* Supplies & Tools Showcase */
+  .supplies-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+    margin-top: 1.5rem;
+  }
+  .showcase-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  }
+  .showcase-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .showcase-content {
+    padding: 1.4rem;
+  }
+  .showcase-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.85rem;
+  }
+  .styled-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .styled-checklist li {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #334155;
+    margin-bottom: 0.65rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .styled-checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #2563eb;
+    font-weight: 700;
+  }
+
+  /* Tutorial Step Cards */
+  .tutorial-header-block {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .tutorial-pretitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #2563eb;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .tutorial-step-card {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2.25rem;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+    position: relative;
+  }
+  .step-num-badge {
+    position: absolute;
+    top: -14px;
+    left: 2rem;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+  }
+  .step-card-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.5rem 0 1rem;
+  }
+  .step-img-box {
+    margin: 1.5rem 0 1.75rem;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+  .step-photo {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    display: block;
+    background: #f1f5f9;
+  }
+  .step-img-caption {
+    display: block;
+    font-size: 0.88rem;
+    color: #64748b;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Substeps */
+  .substep-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .substep-item {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  .substep-bullet {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.88rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+  }
+  .substep-item p {
+    margin: 0.15rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #334155;
+  }
+
+  /* Progression Grids */
+  .tucking-progression-grid,
+  .framing-prep-grid,
+  .framing-finish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .progression-item {
+    margin: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  .progression-item figcaption {
+    font-size: 0.84rem;
+    color: #64748b;
+    padding: 0.65rem 0.85rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+  }
+
+  /* Tips Grid */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .tip-card {
+    background: #f8fafc;
+    border-left: 4px solid #3b82f6;
+    border-top: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    border-radius: 0 12px 12px 0;
+    padding: 1.25rem 1.4rem;
+  }
+  .tip-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e40af;
+    margin: 0 0 0.5rem;
+  }
+  .tip-card p {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    color: #334155 !important;
+    margin: 0 !important;
+  }
+
+  /* Finished Gallery */
+  .finished-gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .gallery-figure {
+    margin: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.05);
+  }
+  .gallery-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .gallery-figure figcaption {
+    font-size: 0.88rem;
+    color: #64748b;
+    padding: 0.85rem 1rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* CTA Banner */
+  .cta-banner-section {
+    margin-top: 4rem;
+    margin-bottom: 3.5rem;
+  }
+  .cta-banner-card {
+    background: linear-gradient(135deg, #064e3b 0%, #1d4ed8 100%);
+    color: #ffffff;
+    border-radius: 18px;
+    padding: 2.75rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 12px 28px -4px rgba(4, 120, 87, 0.25);
+  }
+  .cta-eyebrow {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.95rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+  .cta-headline {
+    font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 1rem;
+    color: #ffffff;
+  }
+  .cta-description {
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: #dbeafe;
+    max-width: 680px;
+    margin: 0 auto 0.85rem;
+  }
+  .cta-note {
+    font-size: 0.94rem;
+    color: #a7f3d0;
+    max-width: 640px;
+    margin: 0 auto 2rem;
+  }
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .primary-btn {
+    background: #ffffff;
+    color: #1e40af;
+  }
+  .primary-btn:hover {
+    background: #eff6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+  .secondary-btn {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+  }
+  .secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-2px);
+  }
+
+  /* Pin Box */
+  .pin-showcase-box {
+    margin-top: 2.5rem;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+  }
+  .pin-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.4rem;
+  }
+  .pin-subtitle {
+    font-size: 0.96rem;
+    color: #64748b;
+    margin: 0 0 1.5rem;
+  }
+  .pin-image {
+    max-width: 480px;
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px -2px rgba(15, 23, 42, 0.1);
+  }
+
+  /* Author Signoff */
+  .author-signoff-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .author-signoff-card p {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: #334155;
+    margin: 0 0 0.85rem;
+  }
+  .author-signature {
+    margin: 0 !important;
+    font-style: italic;
+    color: #2563eb !important;
+  }
+
+  /* Related Guides */
+  .related-guides-block {
+    margin-top: 2.5rem;
+  }
+  .related-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 1.25rem;
+  }
+  .related-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .related-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.4rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .related-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -2px rgba(15, 23, 42, 0.06);
+  }
+  .related-tag {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #2563eb;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .related-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+    line-height: 1.35;
+  }
+  .related-card-desc {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #64748b;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .article-content {
+      padding: 1.75rem 1.25rem;
+    }
+    .supplies-showcase-grid,
+    .finished-gallery-grid {
+      grid-template-columns: 1fr;
+    }
+    .tutorial-step-card {
+      padding: 1.75rem 1.15rem;
+    }
+    .cta-banner-card {
+      padding: 2rem 1.25rem;
+    }
+  }
+</style>

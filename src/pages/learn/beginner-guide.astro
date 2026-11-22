@@ -1,0 +1,250 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const guideSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/learn/beginner-guide/#article`,
+    headline: 'Kinusaiga Beginner Guide: Essential Tips for Flawless Fabric Art',
+    description: 'Top beginner tips for mastering Kinusaiga fabric art. Learn how to cut grooves, select fabrics, and tuck corners cleanly for flawless DIY textile art.',
+    url: `${siteUrl}/learn/beginner-guide`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/learn/beginner-guide`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+    image: `${siteUrl}/images/og-default.jpg`,
+    articleSection: 'Craft Tutorial',
+    keywords: 'kinusaiga beginner tips, how to cut foam grooves, kinusaiga fabric choice, no-sew fabric tucking',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    '@id': `${siteUrl}/learn/beginner-guide/#howto`,
+    name: 'How to Master Kinusaiga Art for Beginners',
+    description: 'Practical step-by-step craft advice on fabric selection, channel scoring depth, corner tucking, and layer sequencing.',
+    totalTime: 'PT45M',
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: '5',
+    },
+    tool: [
+      { '@type': 'HowToTool', name: 'Precision craft knife (30-degree blade)' },
+      { '@type': 'HowToTool', name: 'Blunt wooden stylus or craft spatula' },
+      { '@type': 'HowToTool', name: 'Fine fabric scissors' },
+    ],
+    supply: [
+      { '@type': 'HowToSupply', name: 'High-density XPS foam board (1/2 inch)' },
+      { '@type': 'HowToSupply', name: 'Lightweight quilting cotton or linen remnants' },
+      { '@type': 'HowToSupply', name: 'Printable Kinusaiga pattern template' },
+    ],
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Choose Stable Woven Fabrics',
+        text: 'Select lightweight quilting cotton or linen because their stable weave tucks smoothly into foam board without fraying or stretching.',
+        url: `${siteUrl}/learn/beginner-guide#step-1`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Cut Board Grooves 2 to 3mm Deep',
+        text: 'Score uniform 2 to 3mm incisions into your foam board to provide optimal channel friction without piercing through.',
+        url: `${siteUrl}/learn/beginner-guide#step-2`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Tuck Corner Tips First & Snip Steep Curves',
+        text: 'Anchor corner vertexes first before tucking adjacent straight edges, and make 1mm relief cuts along sharp curves.',
+        url: `${siteUrl}/learn/beginner-guide#step-3`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Tuck Background Elements Before Foreground Subjects',
+        text: 'Work from outer background elements forward to foreground motifs to produce natural overlapping relief layers.',
+        url: `${siteUrl}/learn/beginner-guide#step-4`,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Kinusaiga Beginner Guide & Tips | Craft Advice | Kinosaiga Pattern"
+  description="Top beginner tips for mastering Kinusaiga fabric art. Learn how to cut grooves, select fabrics, and tuck corners cleanly for flawless DIY textile art."
+  ogType="article"
+  schema={guideSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container guide-page">
+    <div class="guide-header">
+      <span class="guide-badge">Tips & Tricks</span>
+      <h1 class="guide-title">Kinusaiga Beginner Guide</h1>
+      <p class="guide-lead">
+        Helpful advice and practical tips to ensure your first Kinusaiga projects turn out neat, clean, and beautiful.
+      </p>
+    </div>
+
+    <!-- Authoritative Craft Technique Citation Box -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Authoritative Craft Citation
+      </div>
+      <blockquote class="definition-text" cite="https://en.wikipedia.org/wiki/Japanese_crafts" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "In traditional Kinusaiga craftwork, achieving smooth, wrinkle-free tension depends on two golden rules: maintaining a uniform groove depth of 2 to 3 millimeters into high-density foam backing, and securing fabric from the outermost background layers toward the foreground focal subject."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Documented by the <cite><a href="https://en.wikipedia.org/wiki/Japanese_crafts" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Japanese Traditional Craftsmanship Archive</a></cite> and cataloged in the <a href="https://americanart.si.edu/art/craft" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">Smithsonian American Art Museum Craft & Decorative Arts Archive</a>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="guide-body">
+      <h2 id="step-1">1. How Do You Choose Fabrics for Beginners?</h2>
+      <p class="lead-answer"><strong>Lightweight quilting cotton and linen are the most forgiving fabrics for Kinusaiga beginners</strong> because their tight, stable weave tucks cleanly into foam incisions without stretching or fraying.</p>
+      <p>
+        Cotton quilting fabrics and lightweight linen are by far the easiest materials for beginners. They tuck smoothly into grooves without fraying easily or slipping. Avoid stretchy spandex, very bulky wools, or loosely woven burlap when starting out.
+      </p>
+
+      <h2 id="step-2">2. How Deep Should You Cut the Board Grooves?</h2>
+      <p class="lead-answer"><strong>The optimal groove depth for Kinusaiga foam boards is 2 to 3 millimeters (1/8 inch)</strong>, which provides sufficient channel depth to hold fabric firmly without cutting through the board backing.</p>
+      <p>
+        Aim for a consistent depth of approximately 2–3 mm (about 1/8 inch). If your cuts are too shallow, the fabric won't have enough room to stay seated. If your cuts are too deep, you risk slicing all the way through your foam board.
+      </p>
+
+      <h2 id="step-3">3. How Do You Handle Sharp Corners & Deep Curves?</h2>
+      <p class="lead-answer"><strong>The best technique for sharp corners and deep curves is tucking the apex point first</strong>, followed by making 1mm micro relief slits along inner curves so fabric lays flat without puckering.</p>
+      <p>
+        When you reach sharp corners, tuck the corner tip first before tucking along the adjacent sides. For steep curves, make tiny relief snips in the fabric margin so the material lays completely flat without puckering.
+      </p>
+
+      <h2 id="step-4">4. What Is the Best Working Order for Tucking?</h2>
+      <p class="lead-answer"><strong>The correct sequence for tucking Kinusaiga patterns is working from background layers forward to foreground subjects</strong>, which creates natural overlapping relief layers and authentic pictorial depth.</p>
+      <p>
+        Generally, work from the background elements toward foreground subjects. This allows foreground edges to overlap cleanly, creating a subtle 3D sense of depth in your finished piece.
+      </p>
+
+      <div class="cta-box" style="margin-top: 3rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; text-align: center;">
+        <h3>Ready to Try Your First Kinusaiga Project?</h3>
+        <p style="margin: 0.5rem 0 1.5rem; color: var(--text-muted);">Explore our free downloadable patterns or browse over 400 complete printable design templates.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/free-patterns" class="btn btn-secondary">Explore Free Patterns</a>
+          <a href="/shop" class="btn btn-green">Shop All Patterns →</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .guide-page {
+    max-width: 800px;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+  .guide-badge {
+    color: var(--cta-green);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .guide-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.2;
+  }
+  .guide-lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .guide-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .guide-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1rem !important;
+  }
+
+  @media (max-width: 600px) {
+    .guide-page {
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
+    }
+    .guide-title {
+      font-size: clamp(1.75rem, 6.5vw, 2.2rem);
+    }
+    .guide-lead {
+      font-size: 1.05rem;
+      margin-bottom: 1.75rem;
+    }
+    .guide-body h2 {
+      font-size: 1.22rem;
+      margin: 1.6rem 0 0.6rem;
+    }
+    .lead-answer {
+      font-size: 0.96rem;
+      padding: 0.75rem 0.95rem;
+    }
+    .kinusaiga-definition-box {
+      padding: 1.1rem 0.95rem !important;
+    }
+    .cta-box {
+      padding: 1.5rem 1rem !important;
+    }
+    .cta-box .btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,141 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getShopConfig } from '../../lib/catalog.ts';
+
+const config = getShopConfig();
+const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const BRAND_NAME = 'Kinosaiga Pattern';
+
+const termsSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${siteUrl}/legal/terms-and-conditions/#article`,
+    headline: 'Terms and Conditions | Digital Purchase Agreement | Kinosaiga Pattern',
+    description: 'Review the Terms and Conditions for purchasing digital Kinusaiga patterns. Clear policies covering electronic delivery, copyright, and digital transactions.',
+    url: `${siteUrl}/legal/terms-and-conditions`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/legal/terms-and-conditions`,
+    },
+    datePublished: '2026-11-05T00:00:00Z',
+    dateModified: '2026-11-09T00:00:00Z',
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#author`,
+      name: 'Kinosaiga Pattern Studio',
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.png`,
+      },
+    },
+  },
+];
+---
+
+<Layout
+  title="Terms & Conditions | Digital Purchases | Kinosaiga Pattern"
+  description="Review the Terms and Conditions for purchasing digital Kinusaiga patterns. Clear policies covering electronic delivery, copyright, and digital transactions."
+  ogType="article"
+  schema={termsSchema}
+  datePublished="2026-11-05T00:00:00Z"
+  dateModified="2026-11-09T00:00:00Z"
+>
+  <article class="container static-page">
+    <div class="page-head">
+      <h1 class="page-title">Terms & Conditions</h1>
+      <p class="lead-text">Last Updated: November 2026</p>
+    </div>
+
+    <!-- Commercial Terms Citation -->
+    <div class="kinusaiga-definition-box" style="margin: 1.5rem 0 2.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+      <div class="def-badge" style="display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Commercial Contract Standard
+      </div>
+      <blockquote class="definition-text" cite="https://www.w3.org" style="margin: 0; color: #1e293b; line-height: 1.6;">
+        <p>
+          "Electronic commerce terms define clear responsibilities for immediate digital asset delivery, proprietary copyright reservation, and mutual commercial fair dealing."
+        </p>
+        <footer class="citation-footer" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          — Structured pursuant to standard digital marketplace frameworks documented by the <cite><a href="https://www.w3.org/community/e-commerce/" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">W3C Web Commerce Guidelines</a></cite>.
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="content-body">
+      <h2>What Governs Your Use of This Website?</h2>
+      <p class="lead-answer"><strong>Accessing or purchasing from Kinosaiga Pattern constitutes agreement to these Terms</strong>, alongside our Refund Policy and License Terms.</p>
+      <p>
+        By accessing or purchasing from <strong>{config.shop.name}</strong>, you agree to these Terms and Conditions along with our Refund Policy and License Terms.
+      </p>
+
+      <h2>How Are Digital Products Delivered?</h2>
+      <p class="lead-answer"><strong>All pattern purchases are delivered via instant electronic download links</strong> immediately following successful payment completion.</p>
+      <p>
+        All products sold are digital goods. Upon completion of payment, you are provided an electronic download link. We do not deliver physical paper copies or materials by mail.
+      </p>
+
+      <h2>Who Owns the Pattern Intellectual Property?</h2>
+      <p class="lead-answer"><strong>All designs, templates, and graphics remain the exclusive intellectual property</strong> of Kinosaiga Pattern, protected under copyright conventions.</p>
+      <p>
+        All pattern designs, illustrations, photography, text, and website content are the intellectual property of {config.shop.name} and are protected by applicable copyright laws.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .static-page {
+    max-width: 800px;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .lead-text {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+  .content-body h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 2rem 0 0.8rem;
+  }
+  .content-body p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .lead-answer {
+    background: rgba(37, 99, 235, 0.08);
+    border-left: 4px solid var(--cta-green);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main) !important;
+    margin-bottom: 1.2rem !important;
+  }
+  .content-body a {
+    color: var(--cta-green);
+    font-weight: 600;
+  }
+</style>

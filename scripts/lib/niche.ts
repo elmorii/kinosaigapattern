@@ -4,7 +4,7 @@
  * The folder itself is never opened.
  */
 
-// Matches "kinusaiga" plus obvious spelling variants: "kino saiga", "kinu-saiga", "kinosaiga", "kinusaga"...
+// Matches "kinusaiga" plus obvious spelling variants: "kino saiga", "kinu-saiga", "kinusaiga", "kinusaga"...
 const KINU = String.raw`k[iy]n[ou]\s?-?\s?sa[iy]?\s?ga`;
 export const KINU_RE = new RegExp(String.raw`(^|[^a-z])${KINU}([^a-z]|$)`, 'i');
 

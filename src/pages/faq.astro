@@ -3,13 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import { getShopConfig } from '../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
 
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   '@id': `${siteUrl}/faq/#faqpage`,
-  name: 'Frequently Asked Questions (FAQ) | Kinosaiga Pattern',
+  name: 'Frequently Asked Questions (FAQ) | Kinusaiga Pattern',
   url: `${siteUrl}/faq`,
   datePublished: '2026-11-05T00:00:00Z',
   dateModified: '2026-11-09T18:00:00Z',
@@ -17,13 +17,13 @@ const faqSchema = {
   author: {
     '@type': 'Organization',
     '@id': `${siteUrl}/#author`,
-    name: 'Kinosaiga Pattern Studio',
+    name: 'Kinusaiga Pattern Studio',
     url: `${siteUrl}/about`,
   },
   publisher: {
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
-    name: 'Kinosaiga Pattern',
+    name: 'Kinusaiga Pattern',
     url: siteUrl,
   },
   mainEntity: [
@@ -80,7 +80,7 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Frequently Asked Questions (FAQ) | Kinosaiga Pattern"
+  title="Frequently Asked Questions (FAQ) | Kinusaiga Pattern"
   description="Find answers to common questions about Kinusaiga pattern digital downloads, PDF formats, actual size printing, accepted payments, and craft techniques."
   schema={faqSchema}
 >

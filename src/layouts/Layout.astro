@@ -20,8 +20,8 @@ interface Props {
 }
 
 const config = getShopConfig();
-const BRAND_NAME = 'Kinosaiga Pattern';
-const STUDIO_NAME = 'Kinosaiga Pattern Studio';
+const BRAND_NAME = 'Kinusaiga Pattern';
+const STUDIO_NAME = 'Kinusaiga Pattern Studio';
 
 const {
   title = `Kinusaiga Patterns – Printable Fabric Art Templates | ${BRAND_NAME}`,
@@ -41,7 +41,7 @@ if (!rawCanonical.endsWith('/') && !rawCanonical.includes('.', rawCanonical.last
   rawCanonical += '/';
 }
 const canonicalUrl = rawCanonical;
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
 const currentPath = Astro.url.pathname;
 
 const TARGET_SEO_KEYWORDS = 'kinusaiga, kinusaiga art, kinusaiga patterns, kinusaiga foam, kinusaiga kit, kinusaiga art supplies, kinusaiga patterns free, kinusaiga patterns free printable, kinusaiga fabric art';
@@ -141,7 +141,7 @@ if (!hasContentSchema) {
     injectedSchemas.push({
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: title.replace(/ \| Kinosaiga Pattern$/, ''),
+      headline: title.replace(/ \| Kinusaiga Pattern$/, ''),
       description: description,
       url: canonicalUrl,
       mainEntityOfPage: {

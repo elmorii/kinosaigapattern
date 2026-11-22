@@ -38,32 +38,32 @@ const { category, products } = Astro.props;
 const isPatternName = category.name.toLowerCase().includes('pattern');
 const displayTitle = isPatternName ? category.name : `${category.name} Kinusaiga Patterns`;
 const metaTitle = isPatternName
-  ? `${category.name} | Printable Templates | Kinosaiga Pattern`
-  : `${category.name} Kinusaiga Patterns | Kinosaiga Pattern`;
+  ? `${category.name} | Printable Templates | Kinusaiga Pattern`
+  : `${category.name} Kinusaiga Patterns | Kinusaiga Pattern`;
 
 const metaDescription = `Download authentic printable ${category.name.toLowerCase()} design templates for no-sew Japanese fabric art. Includes ${category.count} instant PDF and PNG files in 10 frame sizes.`;
 
 const categorySchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  '@id': `https://kinosaigapattern.com/categories/${category.slug}/#collection`,
+  '@id': `https://kinusaigapattern.com/categories/${category.slug}/#collection`,
   name: metaTitle,
   description: metaDescription,
-  url: `https://kinosaigapattern.com/categories/${category.slug}`,
+  url: `https://kinusaigapattern.com/categories/${category.slug}`,
   datePublished: '2026-11-05T00:00:00Z',
   dateModified: '2026-11-09T18:00:00Z',
   inLanguage: 'en',
   author: {
     '@type': 'Organization',
-    '@id': 'https://kinosaigapattern.com/#author',
-    name: 'Kinosaiga Pattern Studio',
-    url: 'https://kinosaigapattern.com/about',
+    '@id': 'https://kinusaigapattern.com/#author',
+    name: 'Kinusaiga Pattern Studio',
+    url: 'https://kinusaigapattern.com/about',
   },
   publisher: {
     '@type': 'Organization',
-    '@id': 'https://kinosaigapattern.com/#organization',
-    name: 'Kinosaiga Pattern',
-    url: 'https://kinosaigapattern.com',
+    '@id': 'https://kinusaigapattern.com/#organization',
+    name: 'Kinusaiga Pattern',
+    url: 'https://kinusaigapattern.com',
   },
   mainEntity: {
     '@type': 'ItemList',
@@ -74,8 +74,8 @@ const categorySchema = {
       item: {
         '@type': 'Product',
         name: p.title,
-        url: `https://kinosaigapattern.com/products/${p.slug}`,
-        image: `https://kinosaigapattern.com${p.images[0]?.variants[0]?.src || '/favicon.png'}`,
+        url: `https://kinusaigapattern.com/products/${p.slug}`,
+        image: `https://kinusaigapattern.com${p.images[0]?.variants[0]?.src || '/favicon.png'}`,
         description: p.summary,
         offers: {
           '@type': 'Offer',
@@ -91,9 +91,9 @@ const categorySchema = {
 const categoryFaqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  '@id': `https://kinosaigapattern.com/categories/${category.slug}/#faq`,
+  '@id': `https://kinusaigapattern.com/categories/${category.slug}/#faq`,
   name: `${displayTitle} Frequently Asked Questions`,
-  url: `https://kinosaigapattern.com/categories/${category.slug}`,
+  url: `https://kinusaigapattern.com/categories/${category.slug}`,
   mainEntity: [
     {
       '@type': 'Question',
@@ -133,7 +133,7 @@ const categoryFaqSchema = {
       </p>
 
       <div class="byline-bar" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem; color: #64748b; margin-bottom: 1.25rem;">
-        <span>Curated by <a href="/about" rel="author" style="color: var(--cta-green); font-weight: 600;">Kinosaiga Pattern Studio</a></span>
+        <span>Curated by <a href="/about" rel="author" style="color: var(--cta-green); font-weight: 600;">Kinusaiga Pattern Studio</a></span>
         <span>•</span>
         <span>Updated <time datetime="2026-11-09">Nov 9, 2026</time></span>
       </div>

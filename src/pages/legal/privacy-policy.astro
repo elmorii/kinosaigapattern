@@ -3,16 +3,16 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const privacySchema = [
   {
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${siteUrl}/legal/privacy-policy/#article`,
-    headline: 'Privacy Policy & Data Protection Standards | Kinosaiga Pattern',
-    description: 'Read the official Privacy Policy for Kinosaiga Pattern. Learn how customer data is protected during encrypted checkout and how cookie privacy standards are maintained.',
+    headline: 'Privacy Policy & Data Protection Standards | Kinusaiga Pattern',
+    description: 'Read the official Privacy Policy for Kinusaiga Pattern. Learn how customer data is protected during encrypted checkout and how cookie privacy standards are maintained.',
     url: `${siteUrl}/legal/privacy-policy`,
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -23,7 +23,7 @@ const privacySchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -41,8 +41,8 @@ const privacySchema = [
 ---
 
 <Layout
-  title="Privacy Policy & Data Security Standards | Kinosaiga Pattern"
-  description="Read the official Privacy Policy for Kinosaiga Pattern. Learn how customer data is protected during encrypted checkout and how cookie privacy standards are maintained."
+  title="Privacy Policy & Data Security Standards | Kinusaiga Pattern"
+  description="Read the official Privacy Policy for Kinusaiga Pattern. Learn how customer data is protected during encrypted checkout and how cookie privacy standards are maintained."
   ogType="article"
   schema={privacySchema}
   datePublished="2026-11-05T00:00:00Z"
@@ -76,7 +76,7 @@ const privacySchema = [
     </div>
 
     <div class="content-body">
-      <h2>How Does Kinosaiga Pattern Protect Visitor Privacy?</h2>
+      <h2>How Does Kinusaiga Pattern Protect Visitor Privacy?</h2>
       <p class="lead-answer"><strong>We practice strict data minimization and transparent processing</strong>, never selling, renting, or trading customer personal data to third parties.</p>
       <p>
         At <strong>{config.shop.name}</strong>, we respect your privacy and are committed to being completely transparent about how visitor information is handled.

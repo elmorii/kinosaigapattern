@@ -3,16 +3,16 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const cookieSchema = [
   {
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${siteUrl}/legal/cookie-policy/#article`,
-    headline: 'Cookie Policy & Web Storage Usage | Kinosaiga Pattern',
-    description: 'Read our Cookie Policy to understand how Kinosaiga Pattern uses cookies for secure shopping navigation, shopping cart sessions, and reliable digital pattern delivery.',
+    headline: 'Cookie Policy & Web Storage Usage | Kinusaiga Pattern',
+    description: 'Read our Cookie Policy to understand how Kinusaiga Pattern uses cookies for secure shopping navigation, shopping cart sessions, and reliable digital pattern delivery.',
     url: `${siteUrl}/legal/cookie-policy`,
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -23,7 +23,7 @@ const cookieSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -41,8 +41,8 @@ const cookieSchema = [
 ---
 
 <Layout
-  title="Cookie Policy & Web Storage Usage | Kinosaiga Pattern"
-  description="Read our Cookie Policy to understand how Kinosaiga Pattern uses cookies for secure shopping navigation, shopping cart sessions, and reliable digital pattern delivery."
+  title="Cookie Policy & Web Storage Usage | Kinusaiga Pattern"
+  description="Read our Cookie Policy to understand how Kinusaiga Pattern uses cookies for secure shopping navigation, shopping cart sessions, and reliable digital pattern delivery."
   ogType="article"
   schema={cookieSchema}
   datePublished="2026-11-05T00:00:00Z"
@@ -82,7 +82,7 @@ const cookieSchema = [
         Cookies are small text files stored on your computer or device by your web browser when visiting websites. They help provide a smooth browsing experience and remember basic user preferences.
       </p>
 
-      <h2>How Does Kinosaiga Pattern Utilize Cookies?</h2>
+      <h2>How Does Kinusaiga Pattern Utilize Cookies?</h2>
       <p class="lead-answer"><strong>We only use essential functional cookies for checkout integration and cart sessions</strong>, without utilizing invasive third-party cross-site ad trackers.</p>
       <p>
         Our website keeps cookie usage minimal. Essential cookies are used to maintain core site navigation and integrate with the secure checkout interface. If analytics or advertising features are enabled in the future, explicit consent mechanisms will be provided.

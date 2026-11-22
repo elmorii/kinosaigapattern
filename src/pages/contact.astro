@@ -3,15 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import { getShopConfig } from '../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = (config.shop.siteUrl || 'https://kinosaigapattern.com').replace(/\/$/, '');
-const contactEmail = config.shop.contactEmail || 'contact@kinosaigapattern.com';
+const siteUrl = (config.shop.siteUrl || 'https://kinusaigapattern.com').replace(/\/$/, '');
+const contactEmail = config.shop.contactEmail || 'contact@kinusaigapattern.com';
 const endpoint = config.shop.contactFormEndpoint || '';
 
 const contactSchema = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
   '@id': `${siteUrl}/contact/#contactpage`,
-  name: 'Contact Customer Support & Help Desk | Kinosaiga Pattern',
+  name: 'Contact Customer Support & Help Desk | Kinusaiga Pattern',
   url: `${siteUrl}/contact`,
   datePublished: '2026-11-05T00:00:00Z',
   dateModified: '2026-11-09T18:00:00Z',
@@ -19,19 +19,19 @@ const contactSchema = {
   author: {
     '@type': 'Organization',
     '@id': `${siteUrl}/#author`,
-    name: 'Kinosaiga Pattern Studio',
+    name: 'Kinusaiga Pattern Studio',
     url: `${siteUrl}/about`,
   },
   publisher: {
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
-    name: 'Kinosaiga Pattern',
+    name: 'Kinusaiga Pattern',
     url: siteUrl,
   },
   mainEntity: {
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
-    name: 'Kinosaiga Pattern',
+    name: 'Kinusaiga Pattern',
     url: siteUrl,
     email: contactEmail,
     contactPoint: {
@@ -45,8 +45,8 @@ const contactSchema = {
 ---
 
 <Layout
-  title="Contact Customer Support & Help Desk | Kinosaiga Pattern"
-  description="Get in touch with customer support at Kinosaiga Pattern. We are here to assist with your Kinusaiga pattern digital downloads, PDF questions, and craft support."
+  title="Contact Customer Support & Help Desk | Kinusaiga Pattern"
+  description="Get in touch with customer support at Kinusaiga Pattern. We are here to assist with your Kinusaiga pattern digital downloads, PDF questions, and craft support."
   schema={contactSchema}
 >
   <div class="container static-page">
@@ -256,7 +256,7 @@ const contactSchema = {
     // Email copy button helper
     if (copyBtn) {
       copyBtn.addEventListener('click', async () => {
-        const email = form?.dataset.email || 'contact@kinosaigapattern.com';
+        const email = form?.dataset.email || 'contact@kinusaigapattern.com';
         try {
           await navigator.clipboard.writeText(email);
           if (copyNote) {

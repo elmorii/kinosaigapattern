@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const howToSchema = [
   {
@@ -23,7 +23,7 @@ const howToSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -119,7 +119,7 @@ const howToSchema = [
 ---
 
 <Layout
-  title="How to Make Kinusaiga Art | Complete Tutorial | Kinosaiga Pattern"
+  title="How to Make Kinusaiga Art | Complete Tutorial | Kinusaiga Pattern"
   description="A complete, practical step-by-step tutorial on making Kinusaiga fabric art. From transferring your printable pattern to cutting grooves and tucking fabric."
   ogType="article"
   schema={howToSchema}

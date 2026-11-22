@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const printSchema = [
   {
@@ -23,7 +23,7 @@ const printSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -74,7 +74,7 @@ const printSchema = [
 ---
 
 <Layout
-  title="Pattern Printing & Scaling Guide | Templates | Kinosaiga Pattern"
+  title="Pattern Printing & Scaling Guide | Templates | Kinusaiga Pattern"
   description="Learn how to open, print, and scale your Kinusaiga pattern PDF and PNG files at 100% actual size without distortion across multiple frame dimensions."
   ogType="article"
   schema={printSchema}

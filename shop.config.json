@@ -2,13 +2,13 @@
   "$comment": "MAIN SETTINGS FILE. Fill in every empty value marked REQUIRED before publishing. Secrets (API keys, FTP passwords) never go here - put them in the .env file (see .env.example). See docs/CONFIGURATION.md for an explanation of every setting.",
 
   "shop": {
-    "name": "Kinosaiga Pattern",
-    "shortName": "Kinosaiga Pattern",
+    "name": "Kinusaiga Pattern",
+    "shortName": "Kinusaiga Pattern",
     "tagline": "Printable Kinusaiga patterns and no-sew Japanese fabric art templates",
-    "siteUrl": "https://kinosaigapattern.com",
+    "siteUrl": "https://kinusaigapattern.com",
     "siteUrl_help": "REQUIRED before publishing. Your real domain with https and no trailing path, e.g. https://www.your-domain.com",
     "locale": "en-US",
-    "contactEmail": "contact@kinosaigapattern.com",
+    "contactEmail": "contact@kinusaigapattern.com",
     "contactEmail_help": "REQUIRED. A real inbox customers can write to. Shown on Contact, Help and policy pages.",
     "contactFormEndpoint": "",
     "contactFormEndpoint_help": "Optional. URL of an external form service (for example Formspree). Leave empty to use an email link only.",

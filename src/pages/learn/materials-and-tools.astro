@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const materialsSchema = [
   {
@@ -23,7 +23,7 @@ const materialsSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -60,7 +60,7 @@ const materialsSchema = [
 ---
 
 <Layout
-  title="Kinusaiga Materials & Tools Guide | Supplies | Kinosaiga Pattern"
+  title="Kinusaiga Materials & Tools Guide | Supplies | Kinusaiga Pattern"
   description="Discover essential materials and tools needed for Kinusaiga fabric art: high-density foam boards, craft knives, tucking spatulas, and recommended fabrics."
   ogType="article"
   schema={materialsSchema}

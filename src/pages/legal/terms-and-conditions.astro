@@ -3,15 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const termsSchema = [
   {
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${siteUrl}/legal/terms-and-conditions/#article`,
-    headline: 'Terms and Conditions | Digital Purchase Agreement | Kinosaiga Pattern',
+    headline: 'Terms and Conditions | Digital Purchase Agreement | Kinusaiga Pattern',
     description: 'Review the Terms and Conditions for purchasing digital Kinusaiga patterns. Clear policies covering electronic delivery, copyright, and digital transactions.',
     url: `${siteUrl}/legal/terms-and-conditions`,
     mainEntityOfPage: {
@@ -23,7 +23,7 @@ const termsSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -41,7 +41,7 @@ const termsSchema = [
 ---
 
 <Layout
-  title="Terms & Conditions | Digital Purchases | Kinosaiga Pattern"
+  title="Terms & Conditions | Digital Purchases | Kinusaiga Pattern"
   description="Review the Terms and Conditions for purchasing digital Kinusaiga patterns. Clear policies covering electronic delivery, copyright, and digital transactions."
   ogType="article"
   schema={termsSchema}
@@ -77,7 +77,7 @@ const termsSchema = [
 
     <div class="content-body">
       <h2>What Governs Your Use of This Website?</h2>
-      <p class="lead-answer"><strong>Accessing or purchasing from Kinosaiga Pattern constitutes agreement to these Terms</strong>, alongside our Refund Policy and License Terms.</p>
+      <p class="lead-answer"><strong>Accessing or purchasing from Kinusaiga Pattern constitutes agreement to these Terms</strong>, alongside our Refund Policy and License Terms.</p>
       <p>
         By accessing or purchasing from <strong>{config.shop.name}</strong>, you agree to these Terms and Conditions along with our Refund Policy and License Terms.
       </p>
@@ -89,7 +89,7 @@ const termsSchema = [
       </p>
 
       <h2>Who Owns the Pattern Intellectual Property?</h2>
-      <p class="lead-answer"><strong>All designs, templates, and graphics remain the exclusive intellectual property</strong> of Kinosaiga Pattern, protected under copyright conventions.</p>
+      <p class="lead-answer"><strong>All designs, templates, and graphics remain the exclusive intellectual property</strong> of Kinusaiga Pattern, protected under copyright conventions.</p>
       <p>
         All pattern designs, illustrations, photography, text, and website content are the intellectual property of {config.shop.name} and are protected by applicable copyright laws.
       </p>

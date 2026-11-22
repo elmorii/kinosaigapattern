@@ -8,13 +8,13 @@ const paidProducts = getAllProducts(config.catalog.showDraftsInDev)
   .filter((p) => p.type === 'paid')
   .sort((a, b) => b.number - a.number);
 const categories = getCategories();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
 
 const shopSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   '@id': `${siteUrl}/shop/#collection`,
-  name: 'Shop All Printable Kinusaiga Patterns | Kinosaiga Pattern',
+  name: 'Shop All Printable Kinusaiga Patterns | Kinusaiga Pattern',
   description: 'Browse our complete collection of 110+ printable Kinusaiga fabric art patterns. Instant digital PDF and PNG downloads for no-sew Japanese textile art.',
   url: `${siteUrl}/shop`,
   datePublished: '2026-11-05T00:00:00Z',
@@ -23,13 +23,13 @@ const shopSchema = {
   author: {
     '@type': 'Organization',
     '@id': `${siteUrl}/#author`,
-    name: 'Kinosaiga Pattern Studio',
+    name: 'Kinusaiga Pattern Studio',
     url: `${siteUrl}/about`,
   },
   publisher: {
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
-    name: 'Kinosaiga Pattern',
+    name: 'Kinusaiga Pattern',
     url: siteUrl,
   },
   mainEntity: {
@@ -99,7 +99,7 @@ const shopFaqSchema = {
 ---
 
 <Layout
-  title="Shop All Printable Kinusaiga Patterns | Kinosaiga Pattern"
+  title="Shop All Printable Kinusaiga Patterns | Kinusaiga Pattern"
   description="Browse our complete collection of 110+ printable Kinusaiga fabric art patterns. Instant digital PDF and PNG downloads for no-sew Japanese textile art."
   schema={[shopSchema, shopFaqSchema]}
 >
@@ -310,7 +310,7 @@ const shopFaqSchema = {
 
       <!-- Visible Machine-Readable Byline for E-E-A-T and Citability -->
       <div class="shop-byline-bar" aria-label="Catalog Provenance">
-        <span class="byline-author">Curated by <a href="/about" rel="author">Kinosaiga Pattern Studio</a></span>
+        <span class="byline-author">Curated by <a href="/about" rel="author">Kinusaiga Pattern Studio</a></span>
         <span class="byline-sep">•</span>
         <span class="byline-date">Published <time datetime="2026-11-05">Nov 5, 2026</time></span>
         <span class="byline-sep">•</span>

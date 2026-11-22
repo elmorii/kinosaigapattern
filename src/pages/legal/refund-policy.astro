@@ -3,15 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const policySchema = [
   {
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${siteUrl}/legal/refund-policy/#article`,
-    headline: 'Digital Product Refund Policy & Buyer Guarantee | Kinosaiga Pattern',
+    headline: 'Digital Product Refund Policy & Buyer Guarantee | Kinusaiga Pattern',
     description: 'Read our transparent refund policy for digital Kinusaiga pattern downloads. Learn about instant replacements, duplicate order refunds, and buyer protections.',
     url: `${siteUrl}/legal/refund-policy`,
     mainEntityOfPage: {
@@ -23,7 +23,7 @@ const policySchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -41,7 +41,7 @@ const policySchema = [
 ---
 
 <Layout
-  title="Digital Product Refund Policy & Guarantee | Kinosaiga Pattern"
+  title="Digital Product Refund Policy & Guarantee | Kinusaiga Pattern"
   description="Read our transparent refund policy for digital Kinusaiga pattern downloads. Learn about instant replacements, duplicate order refunds, and buyer protections."
   ogType="article"
   schema={policySchema}

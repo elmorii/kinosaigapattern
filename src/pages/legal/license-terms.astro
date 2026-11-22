@@ -3,15 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const licenseSchema = [
   {
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${siteUrl}/legal/license-terms/#article`,
-    headline: 'Kinusaiga Pattern License & Usage Terms | Kinosaiga Pattern',
+    headline: 'Kinusaiga Pattern License & Usage Terms | Kinusaiga Pattern',
     description: 'Understand personal and commercial usage rights for printable Kinusaiga patterns. Clear licensing rules for crafters and small handmade artisan businesses.',
     url: `${siteUrl}/legal/license-terms`,
     mainEntityOfPage: {
@@ -23,7 +23,7 @@ const licenseSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -41,7 +41,7 @@ const licenseSchema = [
 ---
 
 <Layout
-  title="License & Usage Terms | Crafting Rights | Kinosaiga Pattern"
+  title="License & Usage Terms | Crafting Rights | Kinusaiga Pattern"
   description="Understand personal and commercial usage rights for printable Kinusaiga patterns. Clear licensing rules for crafters and small handmade artisan businesses."
   ogType="article"
   schema={licenseSchema}

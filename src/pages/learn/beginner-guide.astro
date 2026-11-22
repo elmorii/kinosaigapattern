@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const guideSchema = [
   {
@@ -23,7 +23,7 @@ const guideSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -97,7 +97,7 @@ const guideSchema = [
 ---
 
 <Layout
-  title="Kinusaiga Beginner Guide & Tips | Craft Advice | Kinosaiga Pattern"
+  title="Kinusaiga Beginner Guide & Tips | Craft Advice | Kinusaiga Pattern"
   description="Top beginner tips for mastering Kinusaiga fabric art. Learn how to cut grooves, select fabrics, and tuck corners cleanly for flawless DIY textile art."
   ogType="article"
   schema={guideSchema}

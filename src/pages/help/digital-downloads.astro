@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { getShopConfig } from '../../lib/catalog.ts';
 
 const config = getShopConfig();
-const siteUrl = config.shop.siteUrl || 'https://kinosaigapattern.com';
-const BRAND_NAME = 'Kinosaiga Pattern';
+const siteUrl = config.shop.siteUrl || 'https://kinusaigapattern.com';
+const BRAND_NAME = 'Kinusaiga Pattern';
 
 const downloadHelpSchema = [
   {
@@ -23,7 +23,7 @@ const downloadHelpSchema = [
     author: {
       '@type': 'Organization',
       '@id': `${siteUrl}/#author`,
-      name: 'Kinosaiga Pattern Studio',
+      name: 'Kinusaiga Pattern Studio',
       url: `${siteUrl}/about`,
     },
     publisher: {
@@ -41,7 +41,7 @@ const downloadHelpSchema = [
 ---
 
 <Layout
-  title="Digital Download Help & Troubleshooting | Kinosaiga Pattern"
+  title="Digital Download Help & Troubleshooting | Kinusaiga Pattern"
   description="Follow our troubleshooting guide for accessing, downloading, opening, and printing your Kinusaiga pattern digital files in PDF and PNG at 100% scale."
   schema={downloadHelpSchema}
   ogType="article"

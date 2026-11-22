@@ -201,6 +201,14 @@ const allSchemas = [...passedSchemas, ...injectedSchemas];
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google Tag (GTM-P6ZCFF77) -->
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-P6ZCFF77"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
